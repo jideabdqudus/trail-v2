@@ -1,3 +1,15 @@
-body{
-  color: red;
+@import '_config';
+
+.auth{
+  &__row{
+    height: 100vh;
+  }
+  &__bg{
+    background-color: $auth-background;
+    background-image: url(/assets/trail_background_image.png);
+    background-size:  400px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
+

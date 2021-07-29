@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 
 //Imports
-import "./styles/index.scss"
 import 'antd/dist/antd.css'
+import "./styles/index.scss"
 import store from './store'
 import {Login} from "./pages"
 
