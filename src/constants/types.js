@@ -1,10 +1,10 @@
-export const REGISTER_ACCOUNT = "REGISTER_ACCOUNT";
+export const REGISTER_SUCCESS = "REGISTER_ACCOUNT";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 
-export const LOGIN_ACCOUNT = "LOGIN_ACCOUNT";
+export const LOGIN_SUCCESS = "LOGIN_ACCOUNT";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
-export const LOGOUT_ACCOUNT = "LOGOUT_ACCOUNT";
+export const LOGOUT_SUCCESS = "LOGOUT_ACCOUNT";
 export const LOGOUT_FAIL = "LOGOUT_FAIL";
 
 export const SET_ALERT = "SET_ALERT";
