@@ -7,7 +7,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import 'antd/dist/antd.css'
 import "./styles/index.scss"
 import store from './store'
-import {Login, SignUp, PrivacyPolicy, ForgotPassword} from "./pages"
+import {Login, SignUp, PrivacyPolicy, ForgotPassword, Overview} from "./pages"
+import PrivateRoute from "./routes/PrivateRoute"
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/sign-up" render={(props) => <SignUp/>}/>
           <Route exact path="/privacy-policy" render={(props) => <PrivacyPolicy />}/>
           <Route exact path="/forgot-password" render={(props) => <ForgotPassword />}/>
+          <PrivateRoute exact path="/app/dashboard" component={Overview}/>
         </Switch>
       </Router>
     </Provider>

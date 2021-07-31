@@ -2,9 +2,16 @@ import React from 'react'
 import { Form, Input, Button, Row, Col } from "antd";
 import { Link } from "react-router-dom";
 
+//Imports
+import {ILogin} from "../../type.d"
 
+interface Props {
+  formData: ILogin ;
+  onChangeForm: (e: any) => void;
+  onSubmitForm: ()=> void
+}
 
-export const LoginForm: React.FC = () => {
+export const LoginForm: React.FC<Props> = ({formData, onChangeForm, onSubmitForm}) => {
   return (
     <div className="login">
       <h3>Welcome Back.</h3>
@@ -12,12 +19,12 @@ export const LoginForm: React.FC = () => {
         Login with your details below.
       </h5>
       <div>
-        <Form  name="normal_login">
+        <Form  name="normal_login" onFinish={onSubmitForm}>
           <span>Email</span>
           <Form.Item name="email" rules={[
               { required: true, message: "Confirm your Input" },
             ]}>
-            <Input className="login__input" placeholder="Enter email" type="email" name="email" />
+            <Input className="login__input" placeholder="Enter email" type="email" name="email" value={formData.email} onChange={onChangeForm} />
           </Form.Item>
           <span>Password</span>
           <Form.Item name="password" rules={[
@@ -25,7 +32,7 @@ export const LoginForm: React.FC = () => {
             ]}
           >
             <Input.Password 
-              className="login__input" type="password" name="password" placeholder="Enter password" />
+              className="login__input" type="password" name="password" placeholder="Enter password" value={formData.password} onChange={onChangeForm} />
           </Form.Item>
           <Row>
             <Col xs={{ span: 12 }} lg={{ span: 24 }}>

@@ -2,8 +2,16 @@ import React from 'react'
 
 import { Form, Input, Button, Row, Col } from "antd";
 
+//Imports
+import {IForgotPassword} from "../../type.d"
 
-export const PasswordForm = () => {
+interface Props {
+  formData: IForgotPassword ;
+  onChangeForm: (e: any) => void;
+  onSubmitForm: ()=> void
+}
+
+export const PasswordForm:React.FC <Props> = ({formData, onChangeForm, onSubmitForm}) => {
   return (
     <div className="login">
       <h3>Forgot Password.</h3>
@@ -11,12 +19,12 @@ export const PasswordForm = () => {
       Enter your email to recover your password.
       </h5>
       <div>
-        <Form  name="normal_login">
-          <span>Email</span>
+        <Form  name="normal_login" onFinish={onSubmitForm}>
+          <span>Email</span> 
           <Form.Item name="email" rules={[
               { required: true, message: "Confirm your Input" },
             ]}>
-            <Input className="login__input" placeholder="Enter email" type="email" name="email" />
+            <Input className="login__input" placeholder="Enter email" type="email" name="email" value={formData.email} onChange={onChangeForm} />
           </Form.Item>
           <Row>
             <Col xs={{ span: 12 }} lg={{ span: 24 }}>
