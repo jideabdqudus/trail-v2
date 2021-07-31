@@ -114,7 +114,7 @@ export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onP
             <Col xs={{ span: 12 }} lg={{ span: 24 }}>
               <Form.Item>
                 <Button type="primary" htmlType="submit" className="login__btn" >
-                  Login
+                  Sign Up
                 </Button>
               </Form.Item>
             </Col>

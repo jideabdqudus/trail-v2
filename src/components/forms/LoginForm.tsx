@@ -40,6 +40,9 @@ export const LoginForm: React.FC = () => {
         <p>
           Don't have an account? <Link to="/sign-up"> Sign Up</Link>
         </p>
+        <p>
+          Forgot your <Link to="/forgot-password"> Password?</Link>
+        </p>
       </div>
     </div>
   )

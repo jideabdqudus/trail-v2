@@ -1,7 +1,7 @@
 import React  from 'react'
 import {Row, Col} from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 
 //Imports
@@ -17,7 +17,9 @@ export const PrivacyPolicy: React.FC= () => {
     <div className="terms-condition">
       <Row className="terms-condition__row">
         <Col xs={{ span: 0 }} lg={{ span: 10 }} className="terms-condition__bg">
+        <Link to="/">
           <img src={assets.logo} alt="Logo" width="100" />
+        </Link>
         </Col>
                 <Col xs={{ span: 20 }} lg={{ span: 14 }}>
                     <div>

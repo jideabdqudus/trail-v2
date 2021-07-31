@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import 'antd/dist/antd.css'
 import "./styles/index.scss"
 import store from './store'
-import {Login, SignUp, PrivacyPolicy} from "./pages"
+import {Login, SignUp, PrivacyPolicy, ForgotPassword} from "./pages"
 
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
           <Route exact path="/" render={(props) => <Login />}/>
           <Route exact path="/sign-up" render={(props) => <SignUp/>}/>
           <Route exact path="/privacy-policy" render={(props) => <PrivacyPolicy />}/>
+          <Route exact path="/forgot-password" render={(props) => <ForgotPassword />}/>
         </Switch>
       </Router>
     </Provider>

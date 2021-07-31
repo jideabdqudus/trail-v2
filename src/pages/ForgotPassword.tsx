@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 
 //Imports
 import {assets} from "../assets/assets"
-import {LoginForm} from "../components"
+import {PasswordForm} from "../components"
 
-export const Login: React.FC= () => {
+export const ForgotPassword: React.FC= () => {
   return (
     <div className="auth">
       <Row className="auth__row">
@@ -16,7 +16,7 @@ export const Login: React.FC= () => {
         </Link>
         </Col>
         <Col xs={{ span: 20 }} lg={{ span: 14 }}>
-          <LoginForm/>
+          <PasswordForm/>
         </Col>
       </Row>
     </div>
