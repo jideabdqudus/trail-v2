@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Button, Select, Row, Col } from "antd";
+import { Form, Input, Button, Select, Row, Col, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 
 
@@ -7,7 +7,7 @@ interface Props{
   stepOne: boolean,
   stepTwo: boolean,
   onChangeStep: () => void,
-  onPrevStep: ()=> void;
+  onPrevStep: ()=> void,
   stepNumber: number
 }
 
@@ -100,6 +100,9 @@ export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onP
             <Option value="charity">Charity</Option>
           </Select>
           </Form.Item>
+          <Checkbox name="terms">
+                      By clicking , you accept our <Link to="/privacy-policy">Terms & Conditions</Link> and our <Link to="/privacy-policy">Data 
+                    Policy</Link></Checkbox>
           <Row>
           <Col xs={{ span: 12 }} lg={{ span: 24 }}>
                 <h4 onClick={onPrevStep} >

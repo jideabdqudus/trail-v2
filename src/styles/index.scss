@@ -139,5 +139,67 @@
   &__btn{
     @extend %btn;
   }
+}
 
+.terms-condition{
+  &__row{
+    height: 100vh;
+  }
+  &__bg{
+    background-color: $auth-background;
+    background-image: url(/assets/trail_background_image.png);
+    background-size:  400px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .terms-condition__channel{
+    height: 80vh;
+    overflow: auto;
+    margin: 50px;
+    .icon{
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px;
+      border: 1px #D7DCE0 solid;
+      color: #3A434B;
+      margin-right: 10px;
+    }
+    .section{
+      margin-bottom: 20px;
+      text-align: justify ;
+      text-justify: inter-word ;
+      margin-right: 20px;
+
+    }
+    h1{
+      color: #0E347E;
+      position: sticky;
+      top: 0;
+      margin-bottom: 20px;
+      background-color: white;
+    }
+    h3{
+      color: #0D0F11;
+    }
+    span{
+      color: #3A434B;
+    }
+  }
+
+  .terms-condition__channel::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .terms-condition__channel::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+  .terms-condition__channel::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  .terms-condition__channel::-webkit-scrollbar-thumb:hover {
+      background: #555;
+  }
 }
