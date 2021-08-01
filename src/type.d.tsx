@@ -18,3 +18,14 @@ export interface ILogin {
 export interface IForgotPassword {
   email: string
 }
+
+export interface IAuth {
+  user: object;
+  loading: boolean;
+  isAuthenticated: boolean;
+  token?: any;
+}
+
+export interface IAuthenticate {
+  auth: IAuth;
+}

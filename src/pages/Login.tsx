@@ -1,13 +1,17 @@
 import React, {useState} from 'react'
 import {Row, Col} from 'antd'
 import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
 //Imports
 import {assets} from "../assets/assets"
 import {LoginForm} from "../components"
-import { ILogin } from '../type.d'
+import { ILogin, IAuthenticate } from '../type.d'
+import {loginUser} from "../actions/authActions.js"
 
 export const Login: React.FC= () => {
+  const dispatch = useDispatch();
+  const {loading} = useSelector((state: IAuthenticate) => state.auth);
   const [formData, setFormData] = useState<ILogin>({
     email: "",
     password:""
@@ -16,6 +20,7 @@ export const Login: React.FC= () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const onSubmitForm = ()=>{
+    dispatch(loginUser(formData))
     console.log(formData)
   }
   return (
@@ -27,7 +32,7 @@ export const Login: React.FC= () => {
         </Link>
         </Col>
         <Col xs={{ span: 20 }} lg={{ span: 14 }}>
-          <LoginForm formData={formData} onChangeForm={onChangeForm} onSubmitForm={onSubmitForm} />
+          <LoginForm formData={formData} loading={loading} onChangeForm={onChangeForm} onSubmitForm={onSubmitForm} />
         </Col>
       </Row>
     </div>

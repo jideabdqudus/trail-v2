@@ -28,7 +28,7 @@ export const loadUser = (id) => (dispatch, getState) => {
 };
 
 // LOGIN USER 
-export const login = (profile) => async (dispatch) => {
+export const loginUser = (profile) => async (dispatch) => {
   dispatch({ type: USER_LOADING })
   const config = {
     headers: {
@@ -41,6 +41,7 @@ export const login = (profile) => async (dispatch) => {
       dispatch({ type: LOGIN_SUCCESS, payload: response.data });
     })
     .catch((error) => {
+      console.log(error)
       dispatch(setError(error.response.data, error.response.status));
       dispatch({ type: LOGIN_FAIL, payload: error.response });
     });

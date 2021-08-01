@@ -1,4 +1,6 @@
-import { SET_ERROR, SET_ALERT, REMOVE_ALERT, CLEAR_ERROR } from '../constants/types.js';
+import { SET_ERROR, SET_ALERT} from '../constants/types.js';
+import {toastify} from "../helpers"
+
 
 // SET ALERT
 export const setAlert = (msg) => {
@@ -10,6 +12,7 @@ export const setAlert = (msg) => {
 
 // SET ERRORS
 export const setError = (msg, status) => {
+  toastify.alertError(`Error: ${msg.message}, Status: ${status}`, 1500)
   return {
     type: SET_ERROR,
     payload: { msg, status },
