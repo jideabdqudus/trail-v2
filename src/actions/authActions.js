@@ -47,8 +47,14 @@ export const loginUser = (profile) => async (dispatch) => {
     });
 };
 
-// REGISTER USER
-export const register = (payload) => (dispatch) => {
+// REGISTER USER 
+export const register = (formData) => (dispatch) => {
+  delete formData.organization
+  delete formData.organizationType
+  delete formData.password2
+  delete formData.terms
+  console.log(formData, "FD")
+
   dispatch({ type: USER_LOADING })
   // Headers
   const config = {
@@ -57,7 +63,7 @@ export const register = (payload) => (dispatch) => {
     },
   };
   axios
-    .post(`${appConstants.REACT_APP_BASE_URL}/user/`, payload, config)
+    .post(`${appConstants.REACT_APP_BASE_URL}/user/`, formData, config)
     .then((res) => {
       dispatch({
         type: REGISTER_SUCCESS,

@@ -1,13 +1,18 @@
 import React, {useState} from 'react'
 import {Row, Col} from 'antd'
 import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
 //Imports
 import {assets} from "../assets/assets"
 import {SignUpForm} from "../components"
-import { ISignUp } from '../type.d'
+import { ISignUp, IAuthenticate } from '../type.d'
+import {register} from "../actions/authActions.js"
+import {toastify, validatePassword} from "../helpers/index.js"
 
 export const SignUp: React.FC= () => {
+  const dispatch = useDispatch();
+  const {loading} = useSelector((state: IAuthenticate) => state.auth);
   const [stepOne, setStepOne] = useState<boolean>(true)
   const [stepTwo, setStepTwo] = useState<boolean>(false)
   const [stepNumber, setStepNumber] = useState<number>(1)
@@ -22,6 +27,9 @@ export const SignUp: React.FC= () => {
     organizationType:"",
     terms: false
   })
+
+  const {firstName, lastName, email, phone, password, password2, terms} = formData
+
   const onChangeForm = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -32,7 +40,28 @@ export const SignUp: React.FC= () => {
     setFormData({ ...formData, organizationType: value});
   }
   const onSubmitForm = ()=>{
-    console.log(formData)
+    if (
+      firstName === "" ||
+      email === "" ||
+      lastName === "" ||
+      password === "" ||
+      password2 === "" ||
+      phone === 0 ||
+      terms === false
+    ) {
+      toastify.alertError("All fields are compulsory", 5000);
+    } else if (password !== password2) {
+      toastify.alertWarning("The passwords need to be the same", 5000);
+    } else if (password.length < 8) {
+      toastify.alertWarning("Password Length must be more than 8", 5000);
+    } else if (validatePassword(password) === false) {
+      toastify.alertWarning(
+        "Passwords must contain at least 1 Capital letter, 1 small letter and a special character",
+        5000
+      );
+    } else {
+      dispatch(register(formData));
+    }
   }
   const onChangeStep = ()=>{
     setStepOne(false)
@@ -44,7 +73,9 @@ export const SignUp: React.FC= () => {
     setStepTwo(false)
     setStepNumber(1)
   }
-
+  if (loading){
+    return <div className="loader">Loading...</div>
+  }
   return (
     <div className="auth">
       <Row className="auth__row">

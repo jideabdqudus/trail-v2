@@ -4,20 +4,15 @@ import { Link } from "react-router-dom";
 
 //Imports
 import {ILogin} from "../../type.d"
-import {assets} from "../../assets/assets"
 
 interface Props {
   formData: ILogin ;
   onChangeForm: (e: any) => void;
   onSubmitForm: ()=> void;
-  loading: boolean;
+  loading?: boolean;
 }
 
-export const LoginForm: React.FC<Props> = ({formData, onChangeForm, onSubmitForm, loading}) => {
-
-  if (loading){
-    return <div className="loader">Loading...</div>
-  }
+export const LoginForm: React.FC<Props> = ({formData, onChangeForm, onSubmitForm}) => {
   return (
     <div className="login">
       <h3>Welcome Back.</h3>

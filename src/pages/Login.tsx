@@ -21,7 +21,9 @@ export const Login: React.FC= () => {
   };
   const onSubmitForm = ()=>{
     dispatch(loginUser(formData))
-    console.log(formData)
+  }
+  if (loading){
+    return <div className="loader">Loading...</div>
   }
   return (
     <div className="auth">
@@ -32,7 +34,7 @@ export const Login: React.FC= () => {
         </Link>
         </Col>
         <Col xs={{ span: 20 }} lg={{ span: 14 }}>
-          <LoginForm formData={formData} loading={loading} onChangeForm={onChangeForm} onSubmitForm={onSubmitForm} />
+          <LoginForm formData={formData} onChangeForm={onChangeForm} onSubmitForm={onSubmitForm} />
         </Col>
       </Row>
     </div>

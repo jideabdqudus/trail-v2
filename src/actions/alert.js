@@ -4,6 +4,7 @@ import {toastify} from "../helpers"
 
 // SET ALERT
 export const setAlert = (msg) => {
+  toastify.alertSuccess(`${msg.message}`, 1500)
   return {
     type: SET_ALERT,
     payload: msg,

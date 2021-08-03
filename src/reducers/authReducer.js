@@ -28,7 +28,6 @@ const auth = (state = initialState, action) => {
         ...state,
         user: action.payload.data,
         loading: false,
-        token: localStorage.getItem("token"),
         isAuthenticated: false,
       };
       case LOGIN_SUCCESS:
@@ -37,7 +36,6 @@ const auth = (state = initialState, action) => {
           ...state,
           user: action.payload.data,
           loading: false,
-          token: localStorage.getItem("token"),
           isAuthenticated: true,
         };
     case AUTH_ERROR:
@@ -51,7 +49,6 @@ const auth = (state = initialState, action) => {
         token: null,
         isAuthenticated: false,
         loading: false,
-        message: action.payload.data,
       };
     default:
       return state;

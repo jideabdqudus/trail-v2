@@ -23,12 +23,14 @@ export const tokenConfig = (getState) => {
 
   return config;
 };
-// validatePassword: (password) => {
-//   const reg = new RegExp(
-//     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
-//   ).test(password);
-//   return reg;
-// },
+
+export const validatePassword = (password) => {
+  const reg = new RegExp(
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
+  ).test(password);
+  return reg;
+}
+
 export const toastify = {
   alertError: (message, duration) => {
     toast.error(message, {
