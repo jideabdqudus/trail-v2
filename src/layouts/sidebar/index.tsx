@@ -7,18 +7,14 @@ import {
   SolutionOutlined,
 } from "@ant-design/icons";
 
-export const SideBar = () => {
+export const SideBar:React.FC = () => {
   const onLogout = () => {
     localStorage.clear();
     // props.history.push("/login");
   };
-
   return (
     <div>
-      <nav
-        className="sidebar sidebar-offcanvas"
-        id="sidebar"
-      >
+      <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <ul className="nav">
           <li className="nav-item">
             <Link className="nav-link" to="/app/dashboard" key="1">
