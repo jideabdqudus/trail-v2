@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -10,8 +10,12 @@ import "./styles/index.scss"
 import store from './store'
 import {Login, SignUp, PrivacyPolicy, ForgotPassword, Overview} from "./pages"
 import PrivateRoute from "./routes/PrivateRoute"
+import { loadUser } from './actions/authActions';
 
-function App() {
+const App:React.FC=()=> {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  });
   return (
     <Provider store={store}>
       <Router>

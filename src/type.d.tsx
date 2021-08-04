@@ -23,7 +23,7 @@ export interface IAuth {
   user: object;
   loading: boolean;
   isAuthenticated: boolean;
-  token?: any;
+  accessToken?: any;
 }
 
 export interface IAuthenticate {

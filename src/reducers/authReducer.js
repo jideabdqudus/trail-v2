@@ -3,7 +3,7 @@ import { REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT_SUCC
 const initialState = {
   user: null,
   loading: false,
-  token: localStorage.getItem("token"),
+  accessToken: localStorage.getItem("accessToken"),
   isAuthenticated: false,
 };
 
@@ -20,33 +20,41 @@ const auth = (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: action.payload,
+        user: action.payload.data,
       };
     case REGISTER_SUCCESS:
-      localStorage.setItem("token", action.payload.data.token);
+      localStorage.setItem("accessToken", action.payload.data.accessToken);
+      localStorage.setItem("id", action.payload.data.id);
+      localStorage.setItem("email", action.payload.data.email);
       return {
         ...state,
         user: action.payload.data,
         loading: false,
+        accessToken: null, 
         isAuthenticated: false,
       };
-      case LOGIN_SUCCESS:
-        localStorage.setItem("token", action.payload.data.token);
+    case LOGIN_SUCCESS:
+        localStorage.setItem("accessToken", action.payload.data.accessToken);
+        localStorage.setItem("id", action.payload.data.id);
+        localStorage.setItem("email", action.payload.data.email);
         return {
           ...state,
           user: action.payload.data,
           loading: false,
+          accessToken: action.payload.data.accessToken,
           isAuthenticated: true,
         };
     case AUTH_ERROR:
     case LOGOUT_SUCCESS:
     case REGISTER_FAIL:
     case LOGIN_FAIL:
-      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('id');
+      localStorage.removeItem('email');
       return {
         ...state,
         user: null,
-        token: null,
+        accessToken: null,
         isAuthenticated: false,
         loading: false,
       };

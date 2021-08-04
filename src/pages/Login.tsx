@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Row, Col} from 'antd'
 import { Link } from 'react-router-dom'
+import {Redirect} from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 
 //Imports
@@ -11,7 +12,7 @@ import {loginUser} from "../actions/authActions.js"
 
 export const Login: React.FC= () => {
   const dispatch = useDispatch();
-  const {loading} = useSelector((state: IAuthenticate) => state.auth);
+  const {loading, isAuthenticated} = useSelector((state: IAuthenticate) => state.auth);
   const [formData, setFormData] = useState<ILogin>({
     email: "",
     password:""
@@ -22,8 +23,8 @@ export const Login: React.FC= () => {
   const onSubmitForm = ()=>{
     dispatch(loginUser(formData))
   }
-  if (loading){
-    return <div className="loader">Loading...</div>
+  if(isAuthenticated){
+   return <Redirect to="/app/dashboard" />
   }
   return (
     <div className="auth">
@@ -34,7 +35,7 @@ export const Login: React.FC= () => {
         </Link>
         </Col>
         <Col xs={{ span: 20 }} lg={{ span: 14 }}>
-          <LoginForm formData={formData} onChangeForm={onChangeForm} onSubmitForm={onSubmitForm} />
+          <LoginForm formData={formData} onChangeForm={onChangeForm} onSubmitForm={onSubmitForm} loading={loading} />
         </Col>
       </Row>
     </div>

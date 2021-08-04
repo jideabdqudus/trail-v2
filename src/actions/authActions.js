@@ -8,8 +8,9 @@ import {setError} from "./alert.js"
 
 
 // CHECK TOKEN & LOAD USER
-export const loadUser = (id) => (dispatch, getState) => {
+export const loadUser = () => (dispatch, getState) => {
   // User Loading
+  const id = localStorage.getItem("id")
   dispatch({ type: USER_LOADING });
   axios
     .get(`${appConstants.REACT_APP_BASE_URL}/user/${id}/`, tokenConfig(getState))
@@ -20,10 +21,18 @@ export const loadUser = (id) => (dispatch, getState) => {
       });
     })
     .catch((error) => {
-      dispatch(setError(error.response.data, error.response.status));
-      dispatch({
+      console.log(error.response)
+      if(error.response.status===401){
+        dispatch(setError("Unauthorized", error.response.status));
+        dispatch({
+          type: AUTH_ERROR,
+        });
+      }else{
+        dispatch(setError(error.response.data.message, error.response.status));
+        dispatch({
         type: AUTH_ERROR,
       });
+      }
     });
 };
 
@@ -41,9 +50,13 @@ export const loginUser = (profile) => async (dispatch) => {
       dispatch({ type: LOGIN_SUCCESS, payload: response.data });
     })
     .catch((error) => {
-      console.log(error)
-      dispatch(setError(error.response.data, error.response.status));
-      dispatch({ type: LOGIN_FAIL, payload: error.response });
+      if(error.response.data===""){
+        dispatch(setError("Error Found", "ERR"));
+        dispatch({ type: LOGIN_FAIL, payload: "Error Found" });
+      }else{
+        dispatch(setError(error.response.data, error.response.status));
+        dispatch({ type: LOGIN_FAIL, payload: error.response });
+      }
     });
 };
 
@@ -53,7 +66,6 @@ export const register = (formData) => (dispatch) => {
   delete formData.organizationType
   delete formData.password2
   delete formData.terms
-  console.log(formData, "FD")
 
   dispatch({ type: USER_LOADING })
   // Headers

@@ -1,14 +1,19 @@
 import React,{useState} from 'react'
 import {Row, Col} from 'antd'
 import { Link } from 'react-router-dom'
+import {Redirect} from 'react-router'
+import { useSelector } from 'react-redux'
+
 
 //Imports
 import {assets} from "../assets/assets"
 import {PasswordForm} from "../components"
-import { IForgotPassword } from '../type.d'
+import { IForgotPassword, IAuthenticate } from '../type.d'
 
 
 export const ForgotPassword: React.FC= () => {
+  const { isAuthenticated, loading} = useSelector((state: IAuthenticate) => state.auth);
+
   const [formData, setFormData] = useState<IForgotPassword>({
     email: "",
   })
@@ -18,6 +23,9 @@ export const ForgotPassword: React.FC= () => {
   const onSubmitForm = ()=>{
     console.log(formData)
   }
+  if(isAuthenticated){
+    return <Redirect to="/app/dashboard" />
+   }
   return (
     <div className="auth">
       <Row className="auth__row">
@@ -27,7 +35,7 @@ export const ForgotPassword: React.FC= () => {
         </Link>
         </Col>
         <Col xs={{ span: 20 }} lg={{ span: 14 }}>
-          <PasswordForm formData={formData} onChangeForm={onChangeForm} onSubmitForm={onSubmitForm} />
+          <PasswordForm formData={formData} onChangeForm={onChangeForm} onSubmitForm={onSubmitForm} loading={loading} />
         </Col>
       </Row>
     </div>

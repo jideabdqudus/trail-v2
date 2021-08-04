@@ -16,14 +16,17 @@ interface Props{
   onChangeForm: (e: any)=> void,
   onTickTerms: (e: any)=> void,
   onSubmitForm: ()=> void,
-  onOrganizationChange?:(e: any)=>void
+  onOrganizationChange?:(e: any)=>void,
+  loading?: boolean
 }
 
 
-export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onPrevStep, stepNumber, formData, onChangeForm, onTickTerms, onSubmitForm, onOrganizationChange}) => {
+export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onPrevStep, stepNumber, formData, onChangeForm, onTickTerms, onSubmitForm, onOrganizationChange, loading}) => {
   const { Option } = Select;
   const { firstName, lastName, email, phone, password, password2, terms, organization, organizationType } = formData;
-  
+  if (loading){
+    return <div className="loader">Loading...</div>
+  }
   return (
     <div className="sign-up">
       <h3>Welcome to Trail.</h3>

@@ -12,7 +12,10 @@ interface Props {
   loading?: boolean;
 }
 
-export const LoginForm: React.FC<Props> = ({formData, onChangeForm, onSubmitForm}) => {
+export const LoginForm: React.FC<Props> = ({formData, onChangeForm, onSubmitForm, loading}) => {
+  if (loading){
+    return <div className="loader">Loading...</div>
+  }
   return (
     <div className="login">
       <h3>Welcome Back.</h3>

@@ -8,10 +8,14 @@ import {IForgotPassword} from "../../type.d"
 interface Props {
   formData: IForgotPassword ;
   onChangeForm: (e: any) => void;
-  onSubmitForm: ()=> void
+  onSubmitForm: ()=> void;
+  loading?: boolean;
 }
 
-export const PasswordForm:React.FC <Props> = ({formData, onChangeForm, onSubmitForm}) => {
+export const PasswordForm:React.FC <Props> = ({formData, onChangeForm, onSubmitForm, loading}) => {
+  if (loading){
+    return <div className="loader">Loading...</div>
+  }
   return (
     <div className="login">
       <h3>Forgot Password.</h3>

@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Row, Col} from 'antd'
 import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 
 //Imports
@@ -12,7 +13,7 @@ import {toastify, validatePassword} from "../helpers/index.js"
 
 export const SignUp: React.FC= () => {
   const dispatch = useDispatch();
-  const {loading} = useSelector((state: IAuthenticate) => state.auth);
+  const {loading, isAuthenticated} = useSelector((state: IAuthenticate) => state.auth);
   const [stepOne, setStepOne] = useState<boolean>(true)
   const [stepTwo, setStepTwo] = useState<boolean>(false)
   const [stepNumber, setStepNumber] = useState<number>(1)
@@ -73,9 +74,9 @@ export const SignUp: React.FC= () => {
     setStepTwo(false)
     setStepNumber(1)
   }
-  if (loading){
-    return <div className="loader">Loading...</div>
-  }
+  if(isAuthenticated){
+    return <Redirect to="/app/dashboard" />
+   }
   return (
     <div className="auth">
       <Row className="auth__row">
@@ -85,7 +86,7 @@ export const SignUp: React.FC= () => {
         </Link>
         </Col>
         <Col xs={{ span: 20 }} lg={{ span: 14 }}>
-          <SignUpForm stepOne={stepOne} stepTwo={stepTwo} onChangeStep={onChangeStep} onPrevStep={onPrevStep} stepNumber={stepNumber} formData={formData} onChangeForm={onChangeForm} onTickTerms={onTickTerms} onSubmitForm={onSubmitForm} onOrganizationChange={onOrganizationChange} />
+          <SignUpForm stepOne={stepOne} stepTwo={stepTwo} onChangeStep={onChangeStep} onPrevStep={onPrevStep} stepNumber={stepNumber} formData={formData} onChangeForm={onChangeForm} onTickTerms={onTickTerms} onSubmitForm={onSubmitForm} onOrganizationChange={onOrganizationChange} loading={loading} />
         </Col>
       </Row>
     </div>

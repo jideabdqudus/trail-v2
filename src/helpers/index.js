@@ -7,7 +7,7 @@ export const regEx = new RegExp(
 // Setup config with token - helper function
 export const tokenConfig = (getState) => {
   // Get token from state
-  const token = getState().auth.token;
+  const token = getState().auth.accessToken || localStorage.getItem("accessToken");
 
   // Headers
   const config = {
@@ -18,9 +18,8 @@ export const tokenConfig = (getState) => {
 
   // If token, add to headers config
   if (token) {
-    config.headers['Authorization'] = token;
+    config.headers['accessToken'] = token;
   }
-
   return config;
 };
 
