@@ -56,14 +56,11 @@ export const Header = () => {
         <p onClick={onProfile}>Profile</p>
       </Menu.Item>
       <br />
-      <Menu.Item key="setting:5">
-        <p onClick={onLogout}>Logout</p>
-      </Menu.Item>
     </Menu>
   );
   return (
     <div>
-      <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <nav className="navbar default-layout fixed-top d-flex flex-row">
         <div className="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
           <div className="navbar-brand brand-logo">
             YES
@@ -76,7 +73,7 @@ export const Header = () => {
         </div>
 
         <div className="navbar-menu-wrapper d-flex align-items-center">
-          <ul className="navbar-nav ml-auto">
+          <ul className="navbar-nav ml-auto" style={{listStyle:"none", marginLeft:"auto", marginTop:"auto"}}>
             
             <li>
               <Dropdown overlay={menu} className="dropDownHidden">
@@ -143,7 +140,7 @@ export const Header = () => {
             data-toggle="offcanvas"
             onClick={showDrawer}
           >
-            <MenuFoldOutlined />
+            <MenuFoldOutlined style={{marginTop:"auto", marginBottom:"auto"}} />
           </button>
         </div>
       </nav>
