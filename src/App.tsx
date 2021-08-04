@@ -21,7 +21,7 @@ function App() {
           <Route exact path="/sign-up" render={(props) => <SignUp/>}/>
           <Route exact path="/privacy-policy" render={(props) => <PrivacyPolicy />}/>
           <Route exact path="/forgot-password" render={(props) => <ForgotPassword />}/>
-          <Route exact path="/app/dashboard" component={Overview}/>
+          <PrivateRoute exact path="/app/dashboard" component={Overview}/>
         </Switch>
       </Router>
     </Provider>

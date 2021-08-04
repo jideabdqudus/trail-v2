@@ -41,7 +41,7 @@ export const Header:React.FC = () => {
   const menu = (
     <Menu>
       <Menu.Item key="setting:4">
-        <Link to="/app/profile">Profile</Link>
+        <Link to="/app/profile" onClick={onProfile}>Profile</Link>
       </Menu.Item>
     </Menu>
   );
