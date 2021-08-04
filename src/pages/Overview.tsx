@@ -1,8 +1,9 @@
 import React from "react";
-import { Layout } from 'antd';
+import { Layout, Row, Col } from 'antd';
 
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
+import { OverviewStat } from "../components";
 
 export const Overview = () => {
   const { Footer } = Layout;
@@ -15,10 +16,15 @@ export const Overview = () => {
           <div className="content-wrapper">
             <div className="row page-title-header">
               <div className="col-12">
-                <div>
-                  <h4 className="view-title">Profile</h4>
-                </div>
-                  HELLO
+                  <h1 className="view-title">Profile</h1>
+                   <div className="dashboard-card">
+                      <OverviewStat/>
+                      <Row>
+                        <Col xs={{ span: 24 }} lg={{ span: 17 }}>
+                          
+                        </Col>
+                      </Row>
+                   </div>
               </div>
             </div>
           </div>
