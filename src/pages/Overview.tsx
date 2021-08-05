@@ -16,6 +16,7 @@ export const Overview = () => {
   const dispatch = useDispatch()
   const {user} = useSelector((state: IAuthenticate) => state.auth);
   const {budgetAndBeneficiaries, programs} = useSelector((state: IPrograms) => state.program);
+  
   useEffect(() => {
     dispatch(getBudgetAndBeneficiaries())
     dispatch(getPrograms())

@@ -25,7 +25,7 @@ export const SideBar:React.FC = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/app/dashboard/projects" key="2">
+            <Link className="nav-link" to="/app/programs" key="2">
               <span className="menu-title">
                 <FileDoneOutlined className="sidebar-icon" />
                 Programme Report

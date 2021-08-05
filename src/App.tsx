@@ -8,7 +8,7 @@ import 'antd/dist/antd.css'
 import 'react-toastify/dist/ReactToastify.css';
 import "./styles/index.scss"
 import store from './store'
-import {Login, SignUp, PrivacyPolicy, ForgotPassword, Overview} from "./pages"
+import {Login, SignUp, PrivacyPolicy, ForgotPassword, Overview, Programs} from "./pages"
 import PrivateRoute from "./routes/PrivateRoute"
 import { loadUser } from './actions/authActions';
 
@@ -26,6 +26,7 @@ const App:React.FC=()=> {
           <Route exact path="/privacy-policy" render={(props) => <PrivacyPolicy />}/>
           <Route exact path="/forgot-password" render={(props) => <ForgotPassword />}/>
           <PrivateRoute exact path="/app/dashboard" component={Overview}/>
+          <PrivateRoute exact path="/app/programs" component={Programs}/>
         </Switch>
       </Router>
     </Provider>

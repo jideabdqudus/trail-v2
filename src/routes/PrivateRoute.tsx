@@ -14,6 +14,7 @@ interface Props {
 const PrivateRoute: React.FC<Props> = ({component: Component,...rest
 })  =>  {
   const {isAuthenticated, loading} = useSelector((state: IAuthenticate) => state.auth)
+
   return(
   <Route
     {...rest}
@@ -23,7 +24,7 @@ const PrivateRoute: React.FC<Props> = ({component: Component,...rest
       } else if (!isAuthenticated) {
         return <Redirect to="/" />;
       } else {
-        return <Component {...props} />;
+        return <Component {...props}/>
       }
     }}
   />
