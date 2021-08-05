@@ -5,8 +5,13 @@ import { Link } from "react-router-dom";
 
 //Imports
 import { assets } from "../../assets/assets";
+import {IUser} from "../../type.d"
 
-export const Header:React.FC = () => {
+interface Props {
+  user: IUser
+}
+
+export const Header:React.FC<Props> = ({user}) => {
   const [visible, setVisible] = useState<boolean>(false);
   const showDrawer = () => {
     setVisible(true);
@@ -62,10 +67,10 @@ export const Header:React.FC = () => {
               <Dropdown overlay={menu} className="dropDownHidden">
                 <a className="nav-link dropdown-toggle" id="UserDropdown" href="!#" data-toggle="dropdown"
                   aria-expanded="false">
-                  Jide
+                  {`${user && user.firstName} ${user && user.lastName}`}
                 </a>
               </Dropdown>
-              <Drawer title={"Qudus"} placement="right" closable={false} onClose={onClose} visible={visible}
+              <Drawer title={`${user && user.firstName} ${user && user.lastName}`} placement="right" closable={false} onClose={onClose} visible={visible}
                 style={{ zIndex: 9999 }}>
                 <div className="drawerMenu">
                   <Link to="/app/dashboard" onClick={onDashboardClick}>

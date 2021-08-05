@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import {assets} from "../assets/assets"
 import { IAuthenticate } from '../type.d'
 
 
@@ -20,7 +19,7 @@ const PrivateRoute: React.FC<Props> = ({component: Component,...rest
     {...rest}
     render={(props) => {
       if (loading) {
-        return <img src={assets.spinner} alt="Spinner" />;
+        return <div className="loader">Loading...</div>
       } else if (!isAuthenticated) {
         return <Redirect to="/" />;
       } else {

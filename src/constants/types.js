@@ -21,3 +21,9 @@ export const CLEAR_ERROR = "CLEAR_ERROR";
 
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";
+
+
+//Programmes
+export const BUDGET_AND_BENEFICIARIES = "BUDGET_AND_BENEFICIARIES"
+export const GET_PROGRAMS = "GET_PROGRAMS"
+export const PROGRAM_ERROR = "PROGRAM_ERROR"
