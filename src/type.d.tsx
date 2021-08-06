@@ -73,7 +73,7 @@ export interface IProgramEach{
   name: string,
   description: string, 
   code: string,
-  image?: string, 
+  image?: any, 
   budget: number, 
   totalNumberOfBeneficiaries: number,
   form?: any,

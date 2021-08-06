@@ -39,7 +39,7 @@ export const Programs = () => {
                 <div className="top-header">
                   <h1 className="view-title">Profile</h1>
                   <Button className="new-programme-btn">
-                      <Link to="/app/dashboard/manager"> New Programme</Link>
+                      <Link to="/app/new-program"> New Programme</Link>
                     </Button>
                   </div>
                    <div className="dashboard-card">

@@ -4,6 +4,14 @@ export const regEx = new RegExp(
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
 );
 
+export const verifyString = (string)=>{
+  //Check for Special Character in first letter of the string
+  const stringify = String(string)
+  const firstChar = stringify.charAt(0)
+  const format  = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
+  return format.test(firstChar)
+}
+
 // Setup config with token - helper function
 export const tokenConfig = (getState) => {
   // Get token from state
