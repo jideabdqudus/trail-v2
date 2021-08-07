@@ -223,3 +223,12 @@
     height: 150px;
   }
 }
+
+.drop-zone{
+  width: 10px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 1px dashed;
+}

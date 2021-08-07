@@ -47,7 +47,7 @@ export const Overview = () => {
               </div>
             </div>
           </div>
-           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+           <Footer style={{ textAlign: 'center' }}>Trail ©2021 by GSV</Footer>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ export const verifyString = (string)=>{
   //Check for Special Character in first letter of the string
   const stringify = String(string)
   const firstChar = stringify.charAt(0)
+  // eslint-disable-next-line
   const format  = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
   return format.test(firstChar)
 }
