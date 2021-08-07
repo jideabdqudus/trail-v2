@@ -67,12 +67,12 @@ export const ProgramData:React.FC<Props> = ({file, fileForm, addressed, selected
                             : { backgroundColor: "#ffffff", cursor: "pointer" };
                           return (
                             <div
-                              {...getSuggestionItemProps(suggestion, {
-                                className,
-                                style,
-                              })}
+                            {...getSuggestionItemProps(suggestion, {
+                              className,
+                              style,
+                            })}
                             >
-                              <span>{suggestion.description}</span>
+                              <span >{suggestion.description}</span>
                             </div>
                           );
                         })}

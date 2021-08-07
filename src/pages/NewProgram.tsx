@@ -22,7 +22,6 @@ export const NewProgram:React.FC = () => {
   const [selectedPlace, setSelectedPlace] = useState<any>("")
   const [location, setLocation] = useState<any>("")
   const [mapCenter, setMapCenter] = useState<any>("")
-  const [sdg, setSdg] = useState<any>(sdgsAndIndicators)
   const [formData, setFormData] = useState<IProgramEach>({
     name:"",
     description:"",
@@ -36,9 +35,9 @@ export const NewProgram:React.FC = () => {
   })
   useEffect(() => {
     dispatch(getAllSdgsAndIndicators())
-    setSdg(sdgsAndIndicators)
     // eslint-disable-next-line
-  },[sdg])
+  },[])
+
   const handleDrop = (file: any) => {
     setFile(file.map((file: any) =>
       Object.assign(file, {
@@ -70,7 +69,8 @@ const onSubmitForm = ()=>{
 }
 if (loading){
   return <div className="loader">Loading...</div>
-}
+} 
+console.log(sdgsAndIndicators)
   return (
     <div className="container-scroller">
       <Header user={user} />
@@ -98,7 +98,7 @@ if (loading){
                         onChangeForm={onChangeForm} 
                         onSubmitForm={onSubmitForm} 
                       />
-                      <SdgGroup sdg={sdg} />
+                      <SdgGroup sdgsAndIndicators={sdgsAndIndicators} />
                    </div>
               </div>
             </div>
