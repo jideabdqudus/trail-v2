@@ -80,7 +80,7 @@ export const Header:React.FC<Props> = ({user}) => {
                   </Link>
                 </div>
                 <div className="drawerMenu">
-                  <Link to="/app/dashboard/projects" onClick={onProgramClick}>
+                  <Link to="/app/programs" onClick={onProgramClick}>
                     <span className="drawerMenu-span">
                       Program Report
                     </span>
