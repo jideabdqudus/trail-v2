@@ -11,10 +11,10 @@ export const SdgGroup:React.FC<Props> = ({sdg}) => {
             <ul>
               {sdg && sdg.map((sdgs: any)=>(
               <li>
-                <input type="checkbox" value={sdgs.id} name={sdgs.name} id="myCheckbox1" 
+                <input type="checkbox" value={sdgs.id} name={sdgs.name} id={sdgs.id} 
                 // onChange={(e)=> {e.target: e.target.value}} 
                 onClick={(e)=>console.log(e.target)} />
-                <label htmlFor="myCheckbox1"><img src="http://townandcountryremovals.com/wp-content/uploads/2013/10/firefox-logo-200x200.png" alt="asas" /></label>
+                <label htmlFor={sdgs.id}><img src={sdgs.image} alt="asas" /></label>
               </li>             
               )) }
               </ul>
