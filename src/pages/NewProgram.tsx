@@ -1,24 +1,28 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Layout } from 'antd';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {geocodeByAddress,getLatLng} from 'react-places-autocomplete';
 
 
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
-import { ProgramData } from "../components";
-import { IAuthenticate,IProgramEach  } from '../type.d'
+import { ProgramData, SdgGroup } from "../components";
+import { IAuthenticate,IProgramEach, IPrograms  } from '../type.d'
 import { toastify } from "../helpers";
+import { getAllSdgsAndIndicators } from "../actions/program";
 
 export const NewProgram:React.FC = () => {
   const { Footer } = Layout;
   const {user} = useSelector((state: IAuthenticate) => state.auth)
+  const {loading, sdgsAndIndicators} = useSelector((state: IPrograms) => state.program)
+  const dispatch = useDispatch()
   const [file, setFile] = useState<any>({})
   const [fileForm, setFileForm] = useState<any>({})
   const [addressed, setAddressed] = useState<any>("")
   const [selectedPlace, setSelectedPlace] = useState<any>("")
   const [location, setLocation] = useState<any>("")
   const [mapCenter, setMapCenter] = useState<any>("")
+  const [sdg, setSdg] = useState<any>(sdgsAndIndicators)
   const [formData, setFormData] = useState<IProgramEach>({
     name:"",
     description:"",
@@ -30,6 +34,11 @@ export const NewProgram:React.FC = () => {
     image:"",
     sdgs:[]
   })
+  useEffect(() => {
+    dispatch(getAllSdgsAndIndicators())
+    setSdg(sdgsAndIndicators)
+    // eslint-disable-next-line
+  },[sdg])
   const handleDrop = (file: any) => {
     setFile(file.map((file: any) =>
       Object.assign(file, {
@@ -59,6 +68,9 @@ export const NewProgram:React.FC = () => {
 const onSubmitForm = ()=>{
   console.log(formData)
 }
+if (loading){
+  return <div className="loader">Loading...</div>
+}
   return (
     <div className="container-scroller">
       <Header user={user} />
@@ -72,7 +84,21 @@ const onSubmitForm = ()=>{
                   <h1 className="view-title">Create New Programme</h1>
                 </div>
                    <div className="dashboard-card">
-                      <ProgramData file={file} fileForm={fileForm} addressed={addressed} selectedPlace={selectedPlace} location={location} mapCenter={mapCenter} formData={formData} handleDrop={handleDrop} handleSelectPlace={handleSelectPlace} handleChangePlace={handleChangePlace} onChangeForm={onChangeForm} onSubmitForm={onSubmitForm} />
+                      <ProgramData 
+                        file={file} 
+                        fileForm={fileForm} 
+                        addressed={addressed} 
+                        selectedPlace={selectedPlace} 
+                        location={location} 
+                        mapCenter={mapCenter} 
+                        formData={formData} 
+                        handleDrop={handleDrop} 
+                        handleSelectPlace={handleSelectPlace} 
+                        handleChangePlace={handleChangePlace} 
+                        onChangeForm={onChangeForm} 
+                        onSubmitForm={onSubmitForm} 
+                      />
+                      <SdgGroup sdg={sdg} />
                    </div>
               </div>
             </div>

@@ -87,6 +87,7 @@ export interface IProgram{
   loading?: boolean;
   budgetAndBeneficiaries?: IBudgetAndBeneficiaries
   programs?: []
+  sdgsAndIndicators?: []
 }
 
 export interface IPrograms{
