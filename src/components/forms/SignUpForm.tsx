@@ -43,7 +43,7 @@ export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onP
           <Form.Item name="firstName" rules={[
               { required: true, message: "Confirm your Input" },
             ]}>
-            <Input className="login__input" placeholder="Enter First Name" type="text" name="firstName" value={firstName} onChange={onChangeForm} />
+            <Input className="login__input" autoFocus={true} placeholder="Enter First Name" type="text" name="firstName" value={firstName} onChange={onChangeForm} />
           </Form.Item>
             </Col>
             <Col xs={{span: 24}} lg={{span: 12}}>
@@ -98,7 +98,7 @@ export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onP
           <Form.Item name="organization" 
           >
             <Input
-              className="login__input" type="text" name="organization" placeholder="Enter Organization" value={organization} onChange={onChangeForm} />
+              className="login__input" autoFocus={true} type="text" name="organization" placeholder="Enter Organization" value={organization} onChange={onChangeForm} />
           </Form.Item>
           <span>Organization Type</span>
           <Form.Item name="organizationType"

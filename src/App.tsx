@@ -14,7 +14,9 @@ import { loadUser } from './actions/authActions';
 
 const App:React.FC=()=> {
   useEffect(() => {
-    store.dispatch(loadUser());
+    if (localStorage.getItem("id")){
+      store.dispatch(loadUser());
+    }
   });
   return (
     <Provider store={store}>

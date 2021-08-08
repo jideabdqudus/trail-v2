@@ -28,7 +28,7 @@ export const LoginForm: React.FC<Props> = ({formData, onChangeForm, onSubmitForm
           <Form.Item name="email" rules={[
               { required: true, message: "Confirm your Input" },
             ]}>
-            <Input className="login__input" placeholder="Enter email" type="email" name="email" value={formData.email} onChange={onChangeForm} />
+            <Input className="login__input" placeholder="Enter email" type="email" name="email" autoFocus={true} value={formData.email} onChange={onChangeForm} />
           </Form.Item>
           <span>Password</span>
           <Form.Item name="password" rules={[
