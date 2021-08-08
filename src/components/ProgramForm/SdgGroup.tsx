@@ -1,5 +1,4 @@
 import React from 'react'
-import {Checkbox, Form, Col, Row} from 'antd'
 
 interface Props {
   sdgsAndIndicators: any

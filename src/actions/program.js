@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //Imports
-import { BUDGET_AND_BENEFICIARIES, PROGRAM_ERROR, GET_PROGRAMS, GET_ALL_SDGS_INDICATORS, LOADING_PROGRAMS } from '../constants/types.js';
+import { BUDGET_AND_BENEFICIARIES, PROGRAM_ERROR, GET_PROGRAMS, GET_ALL_SDGS_INDICATORS } from '../constants/types.js';
 import {appConstants} from "../constants/environment.js"
 import {tokenConfig} from "../helpers"
 import {setError} from "./alert.js"
