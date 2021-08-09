@@ -1,10 +1,11 @@
-import { BUDGET_AND_BENEFICIARIES, GET_PROGRAMS, GET_ALL_SDGS_INDICATORS, LOADING_PROGRAMS, LOADED_PROGRAMS } from "../constants/types";
+import { BUDGET_AND_BENEFICIARIES, GET_PROGRAMS, GET_ALL_SDGS_INDICATORS, LOADING_PROGRAMS, LOADED_PROGRAMS, PROGRAM_ERROR } from "../constants/types";
 
 const initialState = {
   loading: false,
   budgetAndBeneficiaries: {},
   sdgsAndIndicators: [],
-  programs: []
+  programs: [],
+  error: null,
 };
 
 const program = (state = initialState, action) => {
@@ -36,6 +37,12 @@ const program = (state = initialState, action) => {
         ...state,
         loading: false,
         programs: action.payload.data
+      }
+    case PROGRAM_ERROR:
+      return{
+        ...state, 
+        loading: false,
+        error: action.payload
       }
     default:
       return state;

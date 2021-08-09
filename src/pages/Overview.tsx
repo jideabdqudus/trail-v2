@@ -15,7 +15,7 @@ export const Overview = () => {
   const { Footer } = Layout;
   const dispatch = useDispatch()
   const {user} = useSelector((state: IAuthenticate) => state.auth);
-  const {budgetAndBeneficiaries, programs} = useSelector((state: IPrograms) => state.program);
+  const {budgetAndBeneficiaries, programs, loading} = useSelector((state: IPrograms) => state.program);
   
   useEffect(() => {
     dispatch(getBudgetAndBeneficiaries())
@@ -26,6 +26,9 @@ export const Overview = () => {
     const sdgs = uniqBy(flatten(programs?.map(({ sdgs }: any) => sdgs)), "sdgId");
     return sdgs || [];
   };
+  if (loading){
+    return <div className="loader">Loading...</div>
+  }
   return (
     <div className="container-scroller">
       <Header user={user} />
