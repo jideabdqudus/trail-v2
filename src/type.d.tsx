@@ -48,16 +48,6 @@ export interface IBudgetAndBeneficiaries{
   totalbeneficiaries:number
 }
 
-// id(pin):22
-// name(pin):"Tobi Esho"
-// description(pin):"Yes"
-// code(pin):"HUT"
-// image(pin):"https://boi-dta-prod.s3.eu-west-1.amazonaws.com/trails/232D6547A7MicrosoftTeams-image(10).png"
-// budget(pin):1209
-// totalNumberOfBeneficiaries(pin):32
-// form(pin):
-// created(pin):"Jul 06, 2021 11:07AM"
-
 export interface IIndicators{
   indicatorId: number,
   description: string, 

@@ -49,12 +49,18 @@ export const loginUser = (profile) => async (dispatch) => {
       dispatch({ type: LOGIN_SUCCESS, payload: response.data });
     })
     .catch((error) => {
-      if(error.response.data===""){
+      if(error.response===""){
         dispatch(setError("Error Found", "ERR"));
         dispatch({ type: LOGIN_FAIL, payload: "Error Found" });
+      }else if(error==="Network Error"){
+        dispatch(setError("Network Error", "ERR"));
+        dispatch({ type: LOGIN_FAIL, payload: "Network Error" });
+      }else if(error.message && error.response === undefined){
+        dispatch(setError(error.message, "ERR"));
+        dispatch({ type: LOGIN_FAIL, payload: error.message });
       }else{
-        dispatch(setError(error.response.data, error.response.status));
-        dispatch({ type: LOGIN_FAIL, payload: error.response });
+        dispatch(setError(error.response.data.message.message, error.response.status));
+        dispatch({ type: LOGIN_FAIL, payload: error.response.data.message.message });
       }
     });
 };
@@ -82,10 +88,22 @@ export const register = (formData) => (dispatch) => {
       });
     })
     .catch((error) => {
-      dispatch(setError(error.response.data, error.response.status));
-      dispatch({
-        type: REGISTER_FAIL,
-      });
+      if(error.response===""){
+        dispatch(setError("Error Found", "ERR"));
+        dispatch({ type: REGISTER_FAIL, payload: "Error Found" });
+      }else if(error==="Network Error"){
+        dispatch(setError("Network Error", "ERR"));
+        dispatch({ type: REGISTER_FAIL, payload: "Network Error" });
+      }else if(error.message && error.response === undefined){
+        dispatch(setError(error.message, "ERR"));
+        dispatch({ type: REGISTER_FAIL, payload: error.message });
+      }else{
+        dispatch(setError(error.response.data, error.response.status));
+        dispatch({
+          type: REGISTER_FAIL,
+          payload: error.response.data
+        });
+      }
     });
 };
 
