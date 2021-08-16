@@ -1,13 +1,10 @@
 import { REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT_SUCCESS, AUTH_ERROR, USER_LOADING, USER_LOADED } from "../constants/types";
-
 const initialState = {
   user: null,
   loading: false,
   accessToken: localStorage.getItem("accessToken"),
   isAuthenticated: false,
 };
-
-
 const auth = (state = initialState, action) => {
   switch (action.type) {
     case USER_LOADING:
@@ -62,5 +59,4 @@ const auth = (state = initialState, action) => {
       return state;
   }
 };
-
 export default auth;

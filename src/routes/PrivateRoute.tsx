@@ -14,7 +14,6 @@ interface Props {
 const PrivateRoute: React.FC<Props> = ({component: Component,...rest
 })  =>  {
   const {isAuthenticated, loading} = useSelector((state: IAuthenticate) => state.auth)
-
   return(
   <Route
     {...rest}

@@ -28,9 +28,7 @@ export const SignUp: React.FC= () => {
     organizationType:"",
     terms: false
   })
-
   const {firstName, lastName, email, phone, password, password2, terms} = formData
-
   const onChangeForm = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

@@ -3,7 +3,7 @@ import { Layout, Row, Col } from 'antd';
 import {useSelector, useDispatch} from 'react-redux';
 import { flatten, uniqBy } from "lodash";
 
-
+//Imports
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
 import { OverviewStat } from "../components";
@@ -16,7 +16,6 @@ export const Overview = () => {
   const dispatch = useDispatch()
   const {user} = useSelector((state: IAuthenticate) => state.auth);
   const {budgetAndBeneficiaries, programs, loading} = useSelector((state: IPrograms) => state.program);
-  
   useEffect(() => {
     dispatch(getBudgetAndBeneficiaries())
     dispatch(getPrograms())

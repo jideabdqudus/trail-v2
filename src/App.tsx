@@ -30,7 +30,6 @@ const App:React.FC=()=> {
           <PrivateRoute exact path="/app/dashboard" component={Overview}/>
           <PrivateRoute exact path="/app/programs" component={Programs}/>
           <PrivateRoute exact path="/app/new-program" component={NewProgram}/>
-
         </Switch>
       </Router>
     </Provider>
