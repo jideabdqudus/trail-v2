@@ -39,8 +39,7 @@ export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators}) => {
               </ul>
 
               <h1>Select Sdg indicators</h1>
-              {indicatorsUnderSdgs && indicatorsUnderSdgs?.length > 1 ? "hello" : "hi"}
-              {/* {indicatorsUnderSdgs && indicatorsUnderSdgs?.length > 1 ? indicatorsUnderSdgs.forEach((indicator: any)=>{
+              {indicatorsUnderSdgs && indicatorsUnderSdgs?.length > 0 ? indicatorsUnderSdgs.forEach((indicator: any)=>{
                 return (
                   indicator.map((indi: any)=>{
                     return(
@@ -50,7 +49,7 @@ export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators}) => {
                   )}
                 )
                 )
-              }): null} */}
+              }): null}
     </div>
   )
 }
