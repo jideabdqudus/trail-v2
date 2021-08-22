@@ -39,7 +39,7 @@ export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators}) => {
               </ul>
 
               <h1>Select Sdg indicators</h1>
-              {indicatorsUnderSdgs && indicatorsUnderSdgs?.length > 0 ? indicatorsUnderSdgs.forEach((indicator: any)=>{
+              {indicatorsUnderSdgs && indicatorsUnderSdgs?.length > 0 ? indicatorsUnderSdgs.map((indicator: any)=>{
                 return (
                   indicator.map((indi: any)=>{
                     return(
