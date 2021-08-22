@@ -1,22 +1,35 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+
+import {getIndicatorsUnderSdgs} from "../../actions/program.js"
+import {  IPrograms  } from '../../type.d'
 
 interface Props {
   sdgsAndIndicators: any
 }
 export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators}) => {
-  const copy = [...sdgsAndIndicators]
-  console.log(copy, "cop")
-  let arr: any = []
-  copy.filter(item => item.id === arr[0] || item.id === arr[1])
+  // const [copy, setCopy] = useState<any>([])
+  // const [setValue] = useState<any>("")
+  const dispatch = useDispatch()
+  const {indicatorsUnderSdgs} = useSelector((state: IPrograms) => state.program)
+  // const copy = [...sdgsAndIndicators]
+  // console.log(copy, "cop")
+  // let arr: any = []
+  // copy.filter(item => item.id === arr[0] || item.id === arr[1])
   const onClickSdg = (e: any)=>{
-    arr.push(e.target.value)
-    console.log(arr, "arra")
-    console.log(copy)
+    console.log(e.target.value)
+    // setValue(e.target.value)
+    dispatch(getIndicatorsUnderSdgs(e.target.value))
   }
+  useEffect(() => {
+    // getIndicatorsUnderSdgs(value)
+    console.log(indicatorsUnderSdgs)
+  },[indicatorsUnderSdgs])
   return (
     <div className="sdg-group">
             <ul>
-              {sdgsAndIndicators && sdgsAndIndicators.splice(sdgsAndIndicators.length-5, 5).map((sdgs: any)=>(
+              {sdgsAndIndicators && sdgsAndIndicators.map((sdgs: any)=>(
               <li key={sdgs.id}>
                 <input type="checkbox" value={sdgs.id} name={sdgs.name} id={sdgs.id} 
                 onClick={onClickSdg} />
@@ -26,16 +39,18 @@ export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators}) => {
               </ul>
 
               <h1>Select Sdg indicators</h1>
-              {copy && copy.filter(item => item.id === arr[0] || item.id === arr[1]).map((item: any)=>(
-                <div key={item.id}>
-                  {item.name}
-                  {item.indicators.map((indicator: any)=>(
-                    <ul>
-                      <li>{indicator.description}</li>
-                    </ul>
-                  ))}
-                </div>
-              ))}
+              {indicatorsUnderSdgs && indicatorsUnderSdgs?.length > 1 ? "hello" : "hi"}
+              {/* {indicatorsUnderSdgs && indicatorsUnderSdgs?.length > 1 ? indicatorsUnderSdgs.forEach((indicator: any)=>{
+                return (
+                  indicator.map((indi: any)=>{
+                    return(
+                    <div key={indi.id}>
+                   <h1 style={{color:"red"}}>{indi.description}</h1>
+                  </div>
+                  )}
+                )
+                )
+              }): null} */}
     </div>
   )
 }

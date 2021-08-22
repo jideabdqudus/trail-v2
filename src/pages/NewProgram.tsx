@@ -46,8 +46,6 @@ export const NewProgram:React.FC = () => {
     ))
     setFileForm(file[0])
     setFormData({ ...formData, image: file[0] });
-    console.log(file, fileForm)
-
   }
   const handleChangePlace = (address: any) => {
     setAddressed(address)
@@ -57,7 +55,6 @@ export const NewProgram:React.FC = () => {
     setSelectedPlace(selectedPlace)
     setLocation(location)
     setFormData({ ...formData, locations: location });
-    console.log(location)
     geocodeByAddress(addressed).then((results) => getLatLng(results[0])).then((latLng) => {
       setMapCenter(latLng)}).catch((error) => toastify.alertWarning(`Warning: ${error}`, 1500))
  }
@@ -70,7 +67,6 @@ const onSubmitForm = ()=>{
 if (loading){
   return <div className="loader">Loading...</div>
 } 
-console.log(sdgsAndIndicators)
   return (
     <div className="container-scroller">
       <Header user={user} />

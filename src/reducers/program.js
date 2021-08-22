@@ -31,7 +31,7 @@ const program = (state = initialState, action) => {
       return{
         ...state,
         loading: false,
-        indicatorsUnderSdgs: [...state, action.payload.data]
+        indicatorsUnderSdgs: [...state.indicatorsUnderSdgs, action.payload.data]
       }
     case BUDGET_AND_BENEFICIARIES:
       return{
