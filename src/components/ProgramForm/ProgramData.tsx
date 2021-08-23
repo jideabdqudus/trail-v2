@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Row, Col, Button } from 'antd';
+import { Form, Input, Row, Col, Divider } from 'antd';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import Dropzone from "react-dropzone";
 
@@ -23,6 +23,7 @@ export const ProgramData:React.FC<Props> = ({file, fileForm, addressed, selected
   const {name, description, code, totalNumberOfBeneficiaries, budget}=formData
   return (
     <div>
+       <Divider orientation="right">Program Data</Divider>
        <Form  name="normal_login" onFinish={onSubmitForm}>
          <Row gutter={[10, 30]}>
            <Col xs={{ span: 24 }} lg={{ span: 8 }}>
@@ -49,7 +50,9 @@ export const ProgramData:React.FC<Props> = ({file, fileForm, addressed, selected
               <PlacesAutocomplete  value={addressed}  onChange={value => handleChangePlace(value)}  onSelect={handleSelectPlace}
                 >
                   {({getInputProps, suggestions,  getSuggestionItemProps,  loading,}) => (
-                    <div> <input required  style={{ padding: "15px", width: "100%", border: "1px solid rgba(0, 0, 0, 0.23)",   borderRadius: "4px", }}
+                    <div> 
+                       <span>Program Location</span>                
+                      <input required  style={{ height:"40px", fontSize:"0.9rem", padding: "15px", width: "100%", border: "1px solid #D7DCE0", }}
                         {...getInputProps({
                           placeholder: "Programme Location",
                           className: "location-search-input",
@@ -88,39 +91,29 @@ export const ProgramData:React.FC<Props> = ({file, fileForm, addressed, selected
                 </Form.Item>
               </Col >
               <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-                <Dropzone  onDrop={handleDrop} multiple={false} 
-                    accept="image/png"
-                  >
+                <Dropzone  onDrop={handleDrop} multiple={false} accept="image/png">
                   {({ getRootProps, getInputProps }) => (<>
+                        <span>Programme Cover</span>
                       <div {...getRootProps({ className:"drop-zone" })}>
                         <input {...getInputProps()} required />
-                        <p className="dropzone-text">Upload Image</p>
-                          {file? file.name : ""}
-                          {/* {file? file.map((file: any) => 
-                          <div>
-                            {file.name}
-                            <img
-                              src={file.preview}
-                              alt="profile"
-                              height="100"
-                              width="100"
-                              key={file.size}
-                            />
-                          </div>) : null} */}
+                        <p style={{textAlign:"center", color:"#1354D3"}}>Upload Image</p>
+                        {fileForm.name === undefined ? <span>PNG or JPEG format only. Maximum size is 600kb</span> :<span>{fileForm.name}</span> }
                       </div>
                     </>
                   )}
                 </Dropzone>
+                <br/>
                </Col>
            </Row>
            <Row>
              <Col xs={{ span: 24 }} lg={{ span: 8 }}>
               <Form.Item name="description" rules={[{ required: true, message: "Confirm your Input" },]}>
-                <Input.TextArea className="login__input" placeholder="Enter program description" name="description" value={description} onChange={onChangeForm}  />
+                <span>Programme Description</span>
+                <Input.TextArea className="login__input" placeholder="Enter program description" name="description" rows={4} value={description} onChange={onChangeForm}  />
               </Form.Item>
              </Col>
            </Row>
-           <Row>
+           {/* <Row>
             <Col xs={{ span: 12 }} lg={{ span: 24 }}>
               <Form.Item>
                 <Button type="primary" htmlType="submit" className="login__btn" >
@@ -128,7 +121,7 @@ export const ProgramData:React.FC<Props> = ({file, fileForm, addressed, selected
                 </Button>
               </Form.Item>
             </Col>
-          </Row>
+          </Row> */}
         </Form>
     </div>
   )
