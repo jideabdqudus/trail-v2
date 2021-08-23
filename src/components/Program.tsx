@@ -28,9 +28,10 @@ export const Program:React.FC<Props> = ({programs, renderSdgs}) => {
              />
            }
          >
+           <div className="ant-card-body">
            <Row>
              <Col span={22}>
-               <h3 className="project-name">{program.name}</h3>
+               <h3 className="program__name">{program.name}</h3>
              </Col>
              <Col span={2}>
                <Popover content={content} placement="bottom">
@@ -39,15 +40,16 @@ export const Program:React.FC<Props> = ({programs, renderSdgs}) => {
              </Col>
            </Row>
            <Row gutter={[48, 32]}>
-             <Col span={12} style={{ paddingBottom: "0px" }}>
-               <p className="project-sub-headline">Impact</p>
+             <Col span={12}>
+               <p className="program__sub-headline">Impact</p>
                <p className="project-headline">{renderSdgs(program.sdgs)}</p>
              </Col>
-             <Col span={12} style={{ paddingBottom: "0px" }}>
-               <p className="project-sub-headline">Location</p>
-               <p className="project-headline">{program.locations[0].description}</p>
+             <Col span={12}>
+               <p className="program__sub-headline" style={{float:"right"}}>Location</p>
+               <p className="project-headline" style={{float:"right"}}> {program.locations[0].description.length > 20 ? program.locations[0].description.substring(0, 11) + "..." : program.locations[0].description} </p>
              </Col>
            </Row>
+             </div>
          </Card>
         </Col>
       ))}

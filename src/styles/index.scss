@@ -212,7 +212,7 @@
   .card{
     width: 300;
     max-height: 320px;  
-    height: 350px;
+    height: 300px;
     border: 1px solid #D7DCE0;
     border-radius: 5px;
     margin: 20px;
@@ -221,6 +221,26 @@
   .image{
     width: 288px;
     height: 150px;
+  }
+
+  &__name{
+    font-family: $font-inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: #0E347E;
+    letter-spacing: 0.25px;
+  }
+
+  &__sub-headline{
+    padding:0px;
+    margin: 2px;
+  }
+
+  .ant-card-body{
+    padding-top: 7px !important;
+    padding: 7px;
   }
 }
 
