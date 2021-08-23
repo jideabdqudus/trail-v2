@@ -1,20 +1,14 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import {Divider} from "antd"
-
-
-import {getIndicatorsUnderSdgs} from "../../actions/program.js"
-import {  IPrograms  } from '../../type.d'
+import {Divider, Checkbox, Row, Col} from "antd"
 
 interface Props {
   sdgsAndIndicators: any
+  onClickSdg: (e: any)=> void
+  indicatorsUnderSdgs: [] | undefined
 }
-export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators}) => {
-  const dispatch = useDispatch()
-  const {indicatorsUnderSdgs} = useSelector((state: IPrograms) => state.program)
-  const onClickSdg = (e: any)=>{
-    console.log(e.target.value)
-    dispatch(getIndicatorsUnderSdgs(e.target.value))
+export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators, onClickSdg, indicatorsUnderSdgs}) => { 
+  function onChange(checkedValues: any) {
+    console.log('checked = ', checkedValues);
   }
   return (
     <div className="sdg-group">
@@ -27,19 +21,21 @@ export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators}) => {
                 </li>             
               ))}
             </ul>
-{/* 
-              <h1>Select Sdg indicators</h1>
+            <Divider orientation="right">Select SDG Indicators</Divider>
+            <Row>
               {indicatorsUnderSdgs && indicatorsUnderSdgs?.length > 0 ? indicatorsUnderSdgs.map((indicator: any)=>{
                 return (
                   indicator.map((indi: any)=>{
+                   
                     return(
-                    <div key={indi.id}>
-                   <h1 style={{color:"red"}}>{indi.description}</h1>
-                  </div>
-                  )}
-                )
-                )
-              }): null} */}
+                      <Checkbox.Group className="indicator-style" onChange={onChange} key={indi.id}>
+                          <Col span={12}>
+                            <Checkbox value={indi.id}>{indi.description}</Checkbox>
+                          </Col>
+                       </Checkbox.Group> 
+                       )}))
+                  }): null}
+              </Row>
     </div>
   )
 }

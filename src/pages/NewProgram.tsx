@@ -9,12 +9,12 @@ import {Header} from "../layouts/header"
 import { ProgramData, SdgGroup } from "../components";
 import { IAuthenticate,IProgramEach, IPrograms  } from '../type.d'
 import { toastify } from "../helpers";
-import { getAllSdgsAndIndicators } from "../actions/program";
+import { getAllSdgsAndIndicators, getIndicatorsUnderSdgs } from "../actions/program";
 
 export const NewProgram:React.FC = () => {
   const { Footer } = Layout;
   const {user} = useSelector((state: IAuthenticate) => state.auth)
-  const {loading, sdgsAndIndicators} = useSelector((state: IPrograms) => state.program)
+  const {loading, sdgsAndIndicators, indicatorsUnderSdgs} = useSelector((state: IPrograms) => state.program)
   const dispatch = useDispatch()
   const [file, setFile] = useState<any>({})
   const [fileForm, setFileForm] = useState<any>({})
@@ -61,6 +61,10 @@ export const NewProgram:React.FC = () => {
  const onChangeForm = (e: any) => {
   setFormData({ ...formData, [e.target.name]: e.target.value });
 };
+const onClickSdg = (e: any)=>{
+  console.log(e.target.value)
+  dispatch(getIndicatorsUnderSdgs(e.target.value))
+}
 const onSubmitForm = ()=>{
   console.log(formData)
 }
@@ -94,7 +98,7 @@ if (loading){
                         onChangeForm={onChangeForm} 
                         onSubmitForm={onSubmitForm} 
                       />
-                      <SdgGroup sdgsAndIndicators={sdgsAndIndicators} />
+                      <SdgGroup sdgsAndIndicators={sdgsAndIndicators} onClickSdg={onClickSdg} indicatorsUnderSdgs={indicatorsUnderSdgs}  />
                    </div>
               </div>
             </div>

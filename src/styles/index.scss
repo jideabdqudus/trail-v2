@@ -313,3 +313,12 @@
     opacity: 1;
   }
 }
+
+.indicator-style{
+  display: block;
+  flex: 0 0 50%;
+  max-width: 80%;
+  label{
+    display: flex;
+  }
+}
