@@ -6,7 +6,7 @@ import {geocodeByAddress,getLatLng} from 'react-places-autocomplete';
 
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
-import { ProgramData, SdgGroup } from "../components";
+import { ProgramData } from "../components";
 import { IAuthenticate,IProgramEach, IPrograms  } from '../type.d'
 import { toastify } from "../helpers";
 import { getAllSdgsAndIndicators } from "../actions/program";
@@ -94,7 +94,7 @@ if (loading){
                         onChangeForm={onChangeForm} 
                         onSubmitForm={onSubmitForm} 
                       />
-                      <SdgGroup sdgsAndIndicators={sdgsAndIndicators} />
+                      {/* <SdgGroup sdgsAndIndicators={sdgsAndIndicators} /> */}
                    </div>
               </div>
             </div>
