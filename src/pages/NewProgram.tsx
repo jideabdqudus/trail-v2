@@ -71,10 +71,6 @@ const onSelectIndicator = (checkedValues: any) => {
 const onSubmitForm = ()=>{
   console.log(formData)
 }
-// if (loading){
-//   return <div className="loader">Loading...</div>
-// } 
-{console.log(loading, sdgsAndIndicators, indicatorsUnderSdgs)}
   return (
     <div className="container-scroller">
       <Header user={user} />
@@ -102,7 +98,6 @@ const onSubmitForm = ()=>{
                         onChangeForm={onChangeForm} 
                         onSubmitForm={onSubmitForm} 
                       />
-
                       <SdgGroup 
                         sdgsAndIndicators={sdgsAndIndicators} onClickSdg={onClickSdg} indicatorsUnderSdgs={indicatorsUnderSdgs} onSelectIndicator={onSelectIndicator}
                         loading={loading}
