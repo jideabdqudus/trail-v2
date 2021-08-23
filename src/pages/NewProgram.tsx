@@ -9,7 +9,7 @@ import {Header} from "../layouts/header"
 import { ProgramData, SdgGroup } from "../components";
 import { IAuthenticate,IProgramEach, IPrograms  } from '../type.d'
 import { toastify } from "../helpers";
-import { getAllSdgsAndIndicators, getIndicatorsUnderSdgs } from "../actions/program";
+import { getAllSdgsAndIndicators} from "../actions/program";
 
 export const NewProgram:React.FC = () => {
   const { Footer } = Layout;
@@ -22,6 +22,7 @@ export const NewProgram:React.FC = () => {
   const [selectedPlace, setSelectedPlace] = useState<any>("")
   const [location, setLocation] = useState<any>("")
   const [mapCenter, setMapCenter] = useState<any>("")
+  const [sdgId, setSdgId] = useState<any>([])
   const [formData, setFormData] = useState<IProgramEach>({
     name:"",
     description:"",
@@ -33,6 +34,7 @@ export const NewProgram:React.FC = () => {
     image:"",
     sdgs:[]
   })
+  let selectedSdgs: any = []
   useEffect(() => {
     dispatch(getAllSdgsAndIndicators())
     // eslint-disable-next-line
@@ -50,23 +52,34 @@ export const NewProgram:React.FC = () => {
   const handleChangePlace = (address: any) => {
     setAddressed(address)
   }
- const handleSelectPlace = (address?: any, selectedPlace?: any, location?: any) => {
+  const handleSelectPlace = (address?: any, selectedPlace?: any, location?: any) => {
     setAddressed(address)
     setSelectedPlace(selectedPlace)
     setLocation(location)
     setFormData({ ...formData, locations: location });
     geocodeByAddress(addressed).then((results) => getLatLng(results[0])).then((latLng) => {
-      setMapCenter(latLng)}).catch((error) => toastify.alertWarning(`Warning: ${error}`, 1500))
- }
- const onChangeForm = (e: any) => {
-  setFormData({ ...formData, [e.target.name]: e.target.value });
-};
+    setMapCenter(latLng)}).catch((error) => toastify.alertWarning(`Warning: ${error}`, 1500))
+  }
+  const onChangeForm = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 const onClickSdg = (e: any)=>{
   console.log(e.target.value)
-  dispatch(getIndicatorsUnderSdgs(e.target.value))
+  setSdgId([...sdgId, e.target.value])
 }
 const onSelectIndicator = (checkedValues: any) => {
-  console.log('checked = ', checkedValues);
+  console.log(checkedValues);
+}
+const getIndicators = ()=>{
+  sdgsAndIndicators?.filter((sdgs : any)=>{
+    sdgId.map((ava: any)=>{
+      if(sdgs.id === ava){
+          selectedSdgs.push(sdgs)
+      }
+      return null
+    })
+    return null
+  })
 }
 const onSubmitForm = ()=>{
   console.log(formData)
@@ -101,6 +114,9 @@ const onSubmitForm = ()=>{
                       <SdgGroup 
                         sdgsAndIndicators={sdgsAndIndicators} onClickSdg={onClickSdg} indicatorsUnderSdgs={indicatorsUnderSdgs} onSelectIndicator={onSelectIndicator}
                         loading={loading}
+                        sdgId={sdgId}
+                        selectedSdgs={selectedSdgs}
+                        getIndicators={getIndicators}
                       />
                    </div>
               </div>
