@@ -18,7 +18,9 @@ export const Program:React.FC<Props> = ({programs, renderSdgs}) => {
   );
   return (
     <div className="program">
+      <Row>
       {programs?.map((program)=>(
+        <Col span={8}>
            <Card className="card"
            cover={
              <Image src={program.image} className="image"
@@ -47,7 +49,9 @@ export const Program:React.FC<Props> = ({programs, renderSdgs}) => {
              </Col>
            </Row>
          </Card>
+        </Col>
       ))}
+        </Row>
     </div>
   )
 }

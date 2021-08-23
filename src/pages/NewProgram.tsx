@@ -6,7 +6,7 @@ import {geocodeByAddress,getLatLng} from 'react-places-autocomplete';
 
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
-import { ProgramData, SdgGroup } from "../components";
+import { ProgramData } from "../components";
 import { IAuthenticate,IProgramEach, IPrograms  } from '../type.d'
 import { toastify } from "../helpers";
 import { getAllSdgsAndIndicators } from "../actions/program";
@@ -46,8 +46,6 @@ export const NewProgram:React.FC = () => {
     ))
     setFileForm(file[0])
     setFormData({ ...formData, image: file[0] });
-    console.log(file, fileForm)
-
   }
   const handleChangePlace = (address: any) => {
     setAddressed(address)
@@ -57,7 +55,6 @@ export const NewProgram:React.FC = () => {
     setSelectedPlace(selectedPlace)
     setLocation(location)
     setFormData({ ...formData, locations: location });
-    console.log(location)
     geocodeByAddress(addressed).then((results) => getLatLng(results[0])).then((latLng) => {
       setMapCenter(latLng)}).catch((error) => toastify.alertWarning(`Warning: ${error}`, 1500))
  }
@@ -98,7 +95,7 @@ console.log(sdgsAndIndicators)
                         onChangeForm={onChangeForm} 
                         onSubmitForm={onSubmitForm} 
                       />
-                      <SdgGroup sdgsAndIndicators={sdgsAndIndicators} />
+                      {/* <SdgGroup sdgsAndIndicators={sdgsAndIndicators} /> */}
                    </div>
               </div>
             </div>
