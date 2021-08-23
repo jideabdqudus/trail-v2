@@ -1,5 +1,5 @@
 import React from 'react'
-import {Divider, Checkbox, Spin, Space} from "antd"
+import {Divider, Checkbox, Spin} from "antd"
 
 interface Props {
   sdgsAndIndicators: any
@@ -22,10 +22,8 @@ export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators, onClickSdg, indicat
                 </li>             
               ))}
             </ul> }
-
-            {loading?  <div className="sdg-loader"> <Spin tip="Loading Indicators Under SDGs" /> </div> :  
-            <Space>
             {indicatorsUnderSdgs && indicatorsUnderSdgs?.length > 0 ?  <Divider orientation="right">Select SDG Indicators</Divider> : null }
+            
 
               {indicatorsUnderSdgs && indicatorsUnderSdgs?.length > 0 ? indicatorsUnderSdgs.map((indicator: any)=>{
                   return (
@@ -38,9 +36,7 @@ export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators, onClickSdg, indicat
                         </Checkbox.Group>
                         </div>
                        )}))
-                  }): null}
-                  </Space> 
-                }
+                  }): null} 
                </div>
   )
 }
