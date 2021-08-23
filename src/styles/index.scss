@@ -315,10 +315,23 @@
 }
 
 .indicator-style{
-  display: block;
-  flex: 0 0 50%;
-  max-width: 80%;
+
+  &__checks{
+    display: block;
+    flex: 0 0 50%;
+    max-width: 80%;
+  }
   label{
     display: flex;
   }
+
+  h1{
+    display: block;
+    font-size: 15px;
+  }
+
+  .ant-col-12{
+    max-width: 80%;
+  }
 }
+

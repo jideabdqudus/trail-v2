@@ -1,18 +1,19 @@
 import React from 'react'
-import {Divider, Checkbox, Row, Col} from "antd"
+import {Divider, Checkbox, Spin, Space} from "antd"
 
 interface Props {
   sdgsAndIndicators: any
   onClickSdg: (e: any)=> void
   indicatorsUnderSdgs: [] | undefined
+  onSelectIndicator: (checkedValues: any)=> void
+  loading?: boolean, 
 }
-export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators, onClickSdg, indicatorsUnderSdgs}) => { 
-  function onChange(checkedValues: any) {
-    console.log('checked = ', checkedValues);
-  }
+export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators, onClickSdg, indicatorsUnderSdgs, onSelectIndicator, loading}) => { 
   return (
     <div className="sdg-group">
-       <Divider orientation="right">Select SDGs for the programme</Divider>
+     
+      {sdgsAndIndicators && <Divider orientation="right">Select SDGs for the programme</Divider>}
+           {loading?  <div className="sdg-loader"> <Spin tip="Loading Development Goals..." /> </div> :          
             <ul>
               {sdgsAndIndicators && sdgsAndIndicators.map((sdgs: any)=>(
                 <li key={sdgs.id}>
@@ -20,23 +21,27 @@ export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators, onClickSdg, indicat
                   <label htmlFor={sdgs.id}><img src={sdgs.image} alt="SDGs" /></label>
                 </li>             
               ))}
-            </ul>
-            <Divider orientation="right">Select SDG Indicators</Divider>
-            <Row>
+            </ul> }
+
+            {loading?  <div className="sdg-loader"> <Spin tip="Loading Indicators Under SDGs" /> </div> :  
+            <Space>
+            {indicatorsUnderSdgs && indicatorsUnderSdgs?.length > 0 ?  <Divider orientation="right">Select SDG Indicators</Divider> : null }
+
               {indicatorsUnderSdgs && indicatorsUnderSdgs?.length > 0 ? indicatorsUnderSdgs.map((indicator: any)=>{
-                return (
-                  indicator.map((indi: any)=>{
-                   
+                  return (
+                  indicator.map((indi: any, i: number)=>{
                     return(
-                      <Checkbox.Group className="indicator-style" onChange={onChange} key={indi.id}>
-                          <Col span={12}>
-                            <Checkbox value={indi.id}>{indi.description}</Checkbox>
-                          </Col>
-                       </Checkbox.Group> 
+                        <div className="indicator-style">
+                        {i === 0 && <h1>{indi.sdg}</h1>}
+                        <Checkbox.Group className="indicator-style__checks" onChange={onSelectIndicator} key={indi.id}> 
+                              <Checkbox value={indi.id}>{indi.description}</Checkbox>
+                        </Checkbox.Group>
+                        </div>
                        )}))
                   }): null}
-              </Row>
-    </div>
+                  </Space> 
+                }
+               </div>
   )
 }
 

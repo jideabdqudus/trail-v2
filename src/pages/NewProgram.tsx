@@ -65,12 +65,16 @@ const onClickSdg = (e: any)=>{
   console.log(e.target.value)
   dispatch(getIndicatorsUnderSdgs(e.target.value))
 }
+const onSelectIndicator = (checkedValues: any) => {
+  console.log('checked = ', checkedValues);
+}
 const onSubmitForm = ()=>{
   console.log(formData)
 }
-if (loading){
-  return <div className="loader">Loading...</div>
-} 
+// if (loading){
+//   return <div className="loader">Loading...</div>
+// } 
+{console.log(loading, sdgsAndIndicators, indicatorsUnderSdgs)}
   return (
     <div className="container-scroller">
       <Header user={user} />
@@ -98,7 +102,11 @@ if (loading){
                         onChangeForm={onChangeForm} 
                         onSubmitForm={onSubmitForm} 
                       />
-                      <SdgGroup sdgsAndIndicators={sdgsAndIndicators} onClickSdg={onClickSdg} indicatorsUnderSdgs={indicatorsUnderSdgs}  />
+
+                      <SdgGroup 
+                        sdgsAndIndicators={sdgsAndIndicators} onClickSdg={onClickSdg} indicatorsUnderSdgs={indicatorsUnderSdgs} onSelectIndicator={onSelectIndicator}
+                        loading={loading}
+                      />
                    </div>
               </div>
             </div>

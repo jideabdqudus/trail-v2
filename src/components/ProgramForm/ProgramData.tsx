@@ -9,7 +9,7 @@ interface Props {
   fileForm: any,
   addressed: any, 
   selectedPlace: any, 
-  location: any, 
+  location: any,
   mapCenter: any, 
   formData: any, 
   handleDrop: (file: any)=> void,
