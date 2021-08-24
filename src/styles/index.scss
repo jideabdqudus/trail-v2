@@ -1,26 +1,24 @@
-@import '_config';
-@import '_preloader';
-@import '_sidebar';
-@import '_abstract';
+@import "_config";
+@import "_preloader";
+@import "_sidebar";
+@import "_abstract";
 
-
-
-//Button  
+//Button
 %btn {
-  background-color: $login-button-color ;
-  color: #fff ;
-  padding: 10px 10px 28px ;
-  font-size: 14px ;
-  font-weight: 700 ;
-  text-decoration: none ;
+  background-color: $login-button-color;
+  color: #fff;
+  padding: 10px 10px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
   border-color: $login-button-color;
-  width: 100% ;
-  cursor: pointer ;
-  outline: none ;
-  -webkit-transition: all 0.3s ease ;
-  transition: all 0.3s ease ;
-  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.16) ;
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0.16) ;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.16);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.16);
 }
 
 //Container+Breathing
@@ -46,21 +44,20 @@
   }
 }
 
-
-.auth{
-  &__row{
+.auth {
+  &__row {
     height: 100vh;
   }
-  &__bg{
+  &__bg {
     background-color: $auth-background;
     background-image: url(/assets/trail_background_image.png);
-    background-size:  400px;
+    background-size: 400px;
     background-repeat: no-repeat;
     background-position: center;
   }
 }
 
-.login{
+.login {
   width: 450px;
   margin: 0 auto;
   transform: translate(-50%, -50%);
@@ -83,25 +80,23 @@
     line-height: 30px;
   }
 
-  p{
+  p {
     text-align: center;
   }
 
-  &__input{
+  &__input {
     height: 40px;
     font-size: 0.9rem;
-    border-color: #D7DCE0;
-    border: 1px solid #D7DCE0,
+    border-color: #d7dce0;
+    border: 1px solid #d7dce0;
   }
 
-  &__btn{
+  &__btn {
     @extend %btn;
   }
 }
 
-
-
-.sign-up{
+.sign-up {
   width: 450px;
   margin: 0 auto;
   transform: translate(-50%, -50%);
@@ -123,70 +118,69 @@
     font-family: $font-inter;
     line-height: 30px;
   }
-  h4{
+  h4 {
     cursor: pointer;
     float: right;
   }
 
-  p{
+  p {
     text-align: center;
   }
 
-  &__input{
+  &__input {
     height: 40px;
     font-size: 0.9rem;
-    border-color: #D7DCE0;
-    border: 1px solid #D7DCE0,
+    border-color: #d7dce0;
+    border: 1px solid #d7dce0;
   }
 
-  &__btn{
+  &__btn {
     @extend %btn;
   }
 }
 
-.terms-condition{
-  &__row{
+.terms-condition {
+  &__row {
     height: 100vh;
   }
-  &__bg{
+  &__bg {
     background-color: $auth-background;
     background-image: url(/assets/trail_background_image.png);
-    background-size:  400px;
+    background-size: 400px;
     background-repeat: no-repeat;
     background-position: center;
   }
 
-  .terms-condition__channel{
+  .terms-condition__channel {
     height: 80vh;
     overflow: auto;
     margin: 50px;
-    .icon{
+    .icon {
       font-size: 20px;
       cursor: pointer;
       padding: 4px;
-      border: 1px #D7DCE0 solid;
-      color: #3A434B;
+      border: 1px #d7dce0 solid;
+      color: #3a434b;
       margin-right: 10px;
     }
-    .section{
+    .section {
       margin-bottom: 20px;
-      text-align: justify ;
-      text-justify: inter-word ;
+      text-align: justify;
+      text-justify: inter-word;
       margin-right: 20px;
-
     }
-    h1{
-      color: #0E347E;
+    h1 {
+      color: #0e347e;
       position: sticky;
       top: 0;
       margin-bottom: 20px;
       background-color: white;
     }
-    h3{
-      color: #0D0F11;
+    h3 {
+      color: #0d0f11;
     }
-    span{
-      color: #3A434B;
+    span {
+      color: #3a434b;
     }
   }
 
@@ -195,36 +189,36 @@
   }
 
   .terms-condition__channel::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
+    background: #f1f1f1;
+  }
 
   .terms-condition__channel::-webkit-scrollbar-thumb {
     background: #888;
   }
 
   .terms-condition__channel::-webkit-scrollbar-thumb:hover {
-      background: #555;
+    background: #555;
   }
 }
 
-.program{
+.program {
   display: inline-flex;
-  .card{
+  .card {
     width: 300;
-    max-height: 320px;  
+    max-height: 320px;
     height: 350px;
-    border: 1px solid #D7DCE0;
+    border: 1px solid #d7dce0;
     border-radius: 5px;
     margin: 20px;
   }
 
-  .image{
+  .image {
     width: 300px;
     height: 150px;
   }
 }
 
-.drop-zone{
+.drop-zone {
   width: 10px;
   height: 100px;
   border-radius: 50%;
@@ -233,24 +227,24 @@
   border: 1px dashed;
 }
 
-.sdg-group{
+.sdg-group {
   ul {
     list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333333;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333333;
   }
-  
+
   li {
     display: inline-block;
     float: left;
   }
-  
+
   input[type="checkbox"][id^="myCheckbox"] {
     display: none;
   }
-  
+
   label {
     border: 1px solid #fff;
     padding: 10px;
@@ -259,7 +253,7 @@
     margin: 10px;
     cursor: pointer;
   }
-  
+
   label:before {
     background-color: white;
     color: white;
@@ -277,27 +271,86 @@
     transition-duration: 0.4s;
     transform: scale(0);
   }
-  
+
   label img {
     height: 100px;
     width: 100px;
     transition-duration: 0.2s;
     transform-origin: 50% 50%;
   }
-  
+
   :checked + label {
     border-color: #ddd;
   }
-  
+
   :checked + label:before {
     content: "✓";
     background-color: grey;
     transform: scale(1);
   }
-  
+
   :checked + label img {
     transform: scale(0.9);
     /* box-shadow: 0 0 5px #333; */
     z-index: -1;
   }
+}
+//  table
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  
+}
+.table th,
+.table td {
+  padding: 12px 15px;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  background-color: #f4f5f6;
+}
+.table tbody + tbody {
+  border-top: 2px solid #dee2e6;
+}
+
+.table-sm th,
+.table-sm td {
+  padding: 0.3rem;
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+  border-bottom-width: 2px;
+}
+
+.table-borderless th,
+.table-borderless td,
+.table-borderless thead th,
+.table-borderless tbody + tbody {
+  border: 0;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-hover tbody tr:hover {
+  color: #212529;
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.search_input {
+  background: #ffffff;
+  border: 1px solid #d7dce0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 100%
+}
+
+input[type="text"].search_input::-webkit-input-placeholder {
+  font-size: 13px;
+  padding: 6px;
 }
