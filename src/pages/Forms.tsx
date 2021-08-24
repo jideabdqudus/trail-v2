@@ -27,9 +27,9 @@ export const Forms = () => {
     dispatch(getForms(page));
 
     // handles Search inputs
-    if(filtered===null){
-      filterInputText.current.value=''
-    }
+    // if(filtered===null){
+    //   filterInputText.current.value=''
+    // }
     
   }, [dispatch, filtered, page]);
   console.log(forms);
