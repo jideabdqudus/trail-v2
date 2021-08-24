@@ -102,7 +102,7 @@ export interface IForm {
   loading?: boolean;
   forms?: IFormData;
   filtered?: any;
-  pagination?: IPagination;
+  pagination: IPagination;
 }
 
 export interface IForms {

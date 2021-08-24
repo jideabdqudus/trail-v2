@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 
 //IMPORTS
 import { FormFilter } from "./FormFilter";
+import {IPagination} from "../type.d"
 // import MenuDoted from "../../assets/colored_burger_menu.svg"; // assets
 
 interface Props{
   loading: any;
   forms: any;
-  pagination: any;
+  pagination: IPagination;
   handleChange: any;
   inputChange: any;
   filtered: any
@@ -23,6 +24,7 @@ export const FormTable = ({loading, forms, pagination, handleChange, inputChange
       <Link to="/">Delete</Link>
     </div>
   );
+  console.log(pagination)
   const pageSizeOption: string[]=["10", "20", "50" ,"100"];
   return (
     <Layout>
