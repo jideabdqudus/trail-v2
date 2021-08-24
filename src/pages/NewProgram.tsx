@@ -35,11 +35,6 @@ export const NewProgram:React.FC = () => {
     sdgs:[]
   })
   let selectedSdgs: any = []
-  useEffect(() => {
-    dispatch(getAllSdgsAndIndicators())
-    // eslint-disable-next-line
-  },[])
-
   const handleDrop = (file: any) => {
     setFile(file.map((file: any) =>
       Object.assign(file, {
@@ -70,6 +65,7 @@ const onClickSdg = (e: any)=>{
 const onSelectIndicator = (checkedValues: any) => {
   console.log(checkedValues);
 }
+
 const getIndicators = ()=>{
   sdgsAndIndicators?.filter((sdgs : any)=>{
     sdgId.map((ava: any)=>{
@@ -84,6 +80,10 @@ const getIndicators = ()=>{
 const onSubmitForm = ()=>{
   console.log(formData)
 }
+useEffect(() => {
+  dispatch(getAllSdgsAndIndicators())
+  // eslint-disable-next-line
+},[])
   return (
     <div className="container-scroller">
       <Header user={user} />
