@@ -9,9 +9,8 @@ export const LOGOUT_FAIL = "LOGOUT_FAIL";
 
 export const AUTH_ERROR = "AUTH_ERROR";
 
-export const VALIDATION_SUCCESS = "VALIDATION_SUCCESS"
-export const VALIDATION_ERROR = "VALIDATION_ERROR"
-
+export const VALIDATION_SUCCESS = "VALIDATION_SUCCESS";
+export const VALIDATION_ERROR = "VALIDATION_ERROR";
 
 export const SET_ALERT = "SET_ALERT";
 export const REMOVE_ALERT = "REMOVE_ALERT";
@@ -22,7 +21,6 @@ export const CLEAR_ERROR = "CLEAR_ERROR";
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";
 
-
 //Programmes
 export const LOADING_PROGRAMS = "LOADING_PROGRAMS"
 export const LOADED_PROGRAMS = "LOADED_PROGRAMS"
@@ -31,3 +29,13 @@ export const GET_PROGRAMS = "GET_PROGRAMS"
 export const PROGRAM_ERROR = "PROGRAM_ERROR"
 export const GET_ALL_SDGS_INDICATORS = "GET_ALL_SDGS_INDICATORS"
 export const GET_INDICATORS_UNDER_SDGS = "GET_INDICATORS_UNDER_SDGS"
+
+//form Management
+export const CREATE_FORM_SUCCESS = "CREATE_FORM_SUCCESS";
+export const FORMS_SUCCESS = "FORMS_SUCCESS";
+export const FORM_ERROR = "FORM_ERROR";
+export const DELETE_FORM = "DELETE_FORM";
+export const FORM_LOADING = "FORM_LOADING";
+export const FILTER_FORM = "FILTER_FORM";
+export const CLEAR_FILTER = "CLEAR_FILTER";
+
