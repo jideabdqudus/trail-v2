@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import {Divider, Checkbox, Spin} from "antd"
 
 interface Props {
@@ -35,15 +35,18 @@ export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators, onClickSdg, onSelec
       { selectedSdgs && selectedSdgs?.length > 0 ?  
         <Divider orientation="right">Select SDG Indicators</Divider> : null }
 
-      { selectedSdgs && selectedSdgs?.length > 0 ? selectedSdgs.map((sdg: any)=>{
+      { selectedSdgs && selectedSdgs?.length > 0 ? selectedSdgs.map((sdg: any, k: number)=>{
+        console.log(sdg, selectedSdgs, k)
         return (
           sdg.indicators.map((indicator: any, i: number)=>{
-           return (
-            <div className="indicator-style" key={indicator.id}>
-              {i === 0 && <h1>{sdg.name}</h1>}
+            return (
+            <div className="indicator-style">
+              {i === 0 &&<Fragment> <h1>{sdg.name}</h1>
                 <Checkbox.Group className="indicator-style__checks" onChange={onSelectIndicator}> 
                       <Checkbox value={indicator.id}>{indicator.description}</Checkbox>
                 </Checkbox.Group>
+                </Fragment>
+                }
             </div>
             )}))
           })
