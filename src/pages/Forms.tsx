@@ -18,7 +18,7 @@ export const Forms = () => {
   const { user } = useSelector((state: IAuthenticate) => state.auth);
   const { loading, forms, pagination, filtered } = useSelector((state: IForms) => state.form);
   const [page, setPage]=useState(1)
-  const filterInputText=useRef<any | null>('')
+  const filterInputText=useRef<any>('')
 
   
 
@@ -27,21 +27,19 @@ export const Forms = () => {
     dispatch(getForms(page));
 
     // handles Search inputs
-    // if(filtered===null){
-    //   filterInputText.current.value=''
-    // }
+    if(filtered===null){
+      filterInputText.current=''
+    }
     
   }, [dispatch, filtered, page]);
-  console.log(forms);
-  console.log(page)
-  // console.log(pagination)
+  
 
-  const handlePageChange = (_page: number) => {setPage(_page); console.log('hello' + _page)}
+  const handlePageChange = (_page: number) => setPage(_page)
 
   const inputChange=(e: any)=>{
     if(filterInputText.current.value!==""){
       dispatch(filterForm(e.target.value))
-      console.log(filterInputText)
+     
     }else{
 
     }

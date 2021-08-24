@@ -9,6 +9,7 @@ import MenuDoted from "../../assets/colored_burger_menu.svg";
 import { FormFilter } from "./FormFilter";
 import { IForms } from "../../type.d";
 import {IPagination} from "../../type.d"
+import form from "../../reducers/form";
 
 interface Props{
   loading: any;
@@ -21,7 +22,7 @@ interface Props{
 
 export const FormTable = ({loading, forms, pagination, handleChange, inputChange, filtered}: Props) => {
   
-  
+  console.log(filtered)
   const content = (
     <div>
       <Link to="/">View</Link>
@@ -29,7 +30,7 @@ export const FormTable = ({loading, forms, pagination, handleChange, inputChange
     </div>
   );
   const pageSizeOption: string[]=["10", "20", "50" ,"100"];
-  console.log(pagination)
+  
   return (
     <Layout>
       <div>
@@ -71,7 +72,25 @@ export const FormTable = ({loading, forms, pagination, handleChange, inputChange
                 </thead>
                 {!loading ? (
                   <tbody>
-                    {forms.map((form: any) => {
+                    {filtered!==null ? 
+                    filtered.map((filt: any)=>{
+                      return (
+                        <tr key={filt.id}>
+                            <td>{filt.name}</td>
+                            <td><a href={filt.formlink} target="_blank">
+                              {filt.formlink.length> 20? filt.formlink.substring(0,50) + "...": filt.formlink}{" "}
+                              </a>
+                            </td>
+                            <td>
+                            <Popover content={content}>
+                              <img src={MenuDoted} alt="menu" />
+                            </Popover>
+                          </td>
+                        </tr>
+                      )
+                    }) :
+                  
+                    forms.map((form: any) => {
                       return (
                         <tr key={form.id}>
                           <td>{form.name}</td>
