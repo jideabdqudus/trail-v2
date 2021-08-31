@@ -140,3 +140,94 @@ element.style {
 
 //Checkbox 
 
+.sdg-loader{
+  margin: 20px 0;
+  margin-bottom: 20px;
+  padding: 20px 20px;
+  text-align: center;
+}
+
+
+//  table
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  
+}
+.table th,
+.table td {
+  padding: 12px 15px;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  background-color: #f4f5f6;
+}
+.table tbody + tbody {
+  border-top: 2px solid #dee2e6;
+}
+
+.table-sm th,
+.table-sm td {
+  padding: 0.3rem;
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+  border-bottom-width: 2px;
+}
+
+.table-borderless th,
+.table-borderless td,
+.table-borderless thead th,
+.table-borderless tbody + tbody {
+  border: 0;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-hover tbody tr:hover {
+  color: #212529;
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.search_input {
+  background: #ffffff;
+  border: 1px solid #d7dce0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 100%
+}
+
+input[type="text"].search_input::-webkit-input-placeholder {
+  font-size: 13px;
+  padding: 6px;
+}
+.form-builder-input {
+  background: #ffffff;
+  border: 1px solid #d7dce0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.content-p {
+  font-family: $font-inter;
+  width: 60px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #0d0f11;
+}
+
+.content-p :hover {
+  background: #f4f5f6 !important;
+}

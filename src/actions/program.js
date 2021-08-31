@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //Imports
-import { BUDGET_AND_BENEFICIARIES, PROGRAM_ERROR, GET_PROGRAMS, GET_ALL_SDGS_INDICATORS, LOADING_PROGRAMS } from '../constants/types.js';
+import { BUDGET_AND_BENEFICIARIES, PROGRAM_ERROR, GET_PROGRAMS, GET_ALL_SDGS_INDICATORS, LOADING_PROGRAMS, GET_INDICATORS_UNDER_SDGS } from '../constants/types.js';
 import {appConstants} from "../constants/environment.js"
 import {tokenConfig} from "../helpers"
 import {setError} from "./alert.js"
@@ -52,7 +52,7 @@ export const getPrograms = () => async (dispatch, getState) => {
 
 export const getAllSdgsAndIndicators = () => async (dispatch, getState) => {
   //#TODO: Add Preloader here
-  // dispatch({ type: LOADING_PROGRAMS });
+  dispatch({ type: LOADING_PROGRAMS });
   axios.get(`${appConstants.REACT_APP_BASE_URL}/sdgs/all/indicators/`, tokenConfig(getState)).then((res)=>{
     dispatch({type: GET_ALL_SDGS_INDICATORS, payload: res.data})
   }).catch((error)=>{
@@ -71,4 +71,28 @@ export const getAllSdgsAndIndicators = () => async (dispatch, getState) => {
   }
 }
 )}
+
+export const getIndicatorsUnderSdgs = (id) => async (dispatch, getState) => {
+  //#TODO: Add Preloader here
+  dispatch({ type: LOADING_PROGRAMS });
+  axios.get(`${appConstants.REACT_APP_BASE_URL}/sdgs/${id}/indicators/`, tokenConfig(getState)).then((res)=>{
+    dispatch({type: GET_INDICATORS_UNDER_SDGS, payload: res.data})
+  }).catch((error)=>{
+    if(error.message && error.response === undefined){
+      dispatch(setError(error.message, "ERR"));
+      dispatch({
+      type: PROGRAM_ERROR,
+      payload: error.message
+    })
+  }else{
+    dispatch(setError(error.response.data.message, error.response.status));
+    dispatch({
+    type: PROGRAM_ERROR,
+    payload: error.response.data.message
+  })
+  }
+}
+)}
+
+
 

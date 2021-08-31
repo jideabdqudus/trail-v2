@@ -1,3 +1,5 @@
+import { Interface } from "readline";
+
 export interface ISignUp {
   firstName: string;
   lastName: string;
@@ -77,6 +79,7 @@ export interface IProgram {
   budgetAndBeneficiaries?: IBudgetAndBeneficiaries;
   programs?: [];
   sdgsAndIndicators?: [];
+  indicatorsUnderSdgs?: [],
 }
 
 export interface IPrograms {
@@ -89,7 +92,7 @@ export interface IFormData{
   formid: number,
   formlink: string,
   createdBy: number,
-  name: string
+  name: string,
 }
 
 export interface IPagination{
@@ -97,13 +100,27 @@ export interface IPagination{
   limit: number,
   totalPages: number
 }
+
+export interface IProgramForm{
+  id: number,
+  name: string,
+  description: string,
+  code: string,
+  sdgs:[]
+}
 export interface IForm {
-  loading?: boolean;
-  forms?: IFormData;
-  filtered?: any;
-  pagination?: IPagination;
+  loading: boolean;
+  forms: [];
+  filtered: [] | null;
+  pagination: IPagination;
+  programs: [],
+  indicatorQuestions: []
 }
 
 export interface IForms {
   form: IForm;
+}
+export interface IBuildType{
+  name: string,
+  value: string
 }

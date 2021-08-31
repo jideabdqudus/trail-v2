@@ -33,7 +33,7 @@ export const SideBar:React.FC = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/app/dashboard/form" key="3">
+            <Link className="nav-link" to="/app/forms" key="3">
               <span className="menu-title">
                 <SolutionOutlined className="sidebar-icon" />
                 Forms Management

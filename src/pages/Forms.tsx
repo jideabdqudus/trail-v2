@@ -1,47 +1,42 @@
 import React, {useEffect} from "react";
-import { useState, useRef } from "react";
+import { useState} from "react";
 import { Button, Layout } from "antd";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 
 //IMPORT
-import { FormTable } from "../components/FormIO/FormTable";
+import { FormTable } from "../components/FormTable";
 import { Header } from "../layouts/header";
 import { SideBar } from "../layouts/sidebar";
 import { IAuthenticate } from "../type.d";
-import { getForms, filterForm} from "../actions/form";
+import { getForms, filterForm, clearFilter} from "../actions/form";
 import { IForms } from "../type.d";
 
 export const Forms = () => {
   const { Footer } = Layout;
   const { user } = useSelector((state: IAuthenticate) => state.auth);
-  const { loading, forms, pagination, filtered } = useSelector((state: IForms) => state.form);
+  const { loading, forms, pagination, filtered} = useSelector((state: IForms) => state.form);
   const [page, setPage]=useState(1)
-  const filterInputText=useRef<any>('')
-
-  
-
+  const [inputtext, setInputText]=useState('')
+  // const filterText=useRef<string>('') //Change Type
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getForms(page));
-
-    // handles Search inputs
-    if(filtered===null){
-      filterInputText.current=''
-    }
     
-  }, [dispatch, filtered, page]);
-  
+  }, [dispatch, page]);
 
   const handlePageChange = (_page: number) => setPage(_page)
 
   const inputChange=(e: any)=>{
-    if(filterInputText.current.value!==""){
-      dispatch(filterForm(e.target.value))
-     
+    setInputText(e.target.value)
+    console.log(inputtext)
+    if(inputtext!==""){ // Strict Typing
+      
+      dispatch(filterForm(inputtext))
     }else{
-
+      dispatch(clearFilter())
     }
   }
  
@@ -60,12 +55,18 @@ export const Forms = () => {
                     className="new-programme-btn"
                     style={{backgroundColor: "#d66f0f",color: "white",width: "140px"}}
                   >
-                    <Link to=""> New Form</Link>
+                    <Link to="/app/build_form"> New Form</Link>
                   </Button>
                 </div>
                 <div className="dashboard-card">
-                  <FormTable forms={forms} loading={loading} pagination={pagination} handleChange={handlePageChange} 
-                  inputChange={inputChange} filtered={filtered}
+                  <FormTable 
+                    forms={forms} 
+                    loading={loading} 
+                    pagination={pagination} 
+                    handleChange={handlePageChange} 
+                    inputChange={inputChange} 
+                    filtered={filtered}
+                    inputtext={inputtext}
                   />
                 </div>
               </div>

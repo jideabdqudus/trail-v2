@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Button } from 'antd';
+import { Layout, Button, Tag} from 'antd';
 import {useSelector} from 'react-redux';
 import {Link} from "react-router-dom"
 
@@ -18,10 +18,9 @@ export const Programs = () => {
     for (let i in sdgs) {
       sdgElems.push(
         <>
-          <label className="p-0 m-0">
-            SDG {`${sdgs[i].sdgId} `} 
-            {/* {i !== sdgs.length - 1 ? ", " : ""} */}
-          </label>
+          <Tag color="green" style={{display:"inline"}}>
+            SDG {`${sdgs[i].sdgId} `}
+          </Tag>
         </>
       );
     }
@@ -41,7 +40,7 @@ export const Programs = () => {
                   <Button className="new-programme-btn">
                       <Link to="/app/new-program"> New Programme</Link>
                     </Button>
-                  </div>
+                  </div> 
                    <div className="dashboard-card">
                       <Program programs={programs} renderSdgs={renderSdgs} />
                    </div>

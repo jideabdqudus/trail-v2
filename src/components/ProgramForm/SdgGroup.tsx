@@ -1,21 +1,61 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import {Divider, Checkbox, Spin} from "antd"
 
 interface Props {
   sdgsAndIndicators: any
+  onClickSdg: (e: any)=> void
+  indicatorsUnderSdgs: [] | undefined
+  onSelectIndicator: (checkedValues: any)=> void
+  loading?: boolean,
+  sdgId: any 
+  selectedSdgs: any,
+  getIndicators: ()=> void
 }
-export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators}) => {
+export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators, onClickSdg, onSelectIndicator, loading, sdgId, selectedSdgs, getIndicators}) => { 
   return (
     <div className="sdg-group">
-            <ul>
-              {sdgsAndIndicators && sdgsAndIndicators.splice(sdgsAndIndicators.length-5, 5).map((sdgs: any)=>(
-              <li key={sdgs.id}>
-                <input type="checkbox" value={sdgs.id} name={sdgs.name} id={sdgs.id} 
-                // onChange={(e)=> {e.target: e.target.value}} 
-                onClick={(e)=>console.log(e.target)} />
-                <label htmlFor={sdgs.id}><img src={sdgs.image} alt="asas" /></label>
-              </li>             
-              )) }
-              </ul>
-    </div>
+     <Divider orientation="right">Select SDGs for the programme</Divider>
+      { loading?  
+        <div className="sdg-loader"> 
+          <Spin tip="Loading Development Goals..." /> 
+        </div> 
+        : 
+        <ul>
+          {sdgsAndIndicators && sdgsAndIndicators.map((sdgs: any)=>(
+            <li key={sdgs.id}>
+              <input type="checkbox" value={sdgs.id} name={sdgs.name} id={sdgs.id} onClick={onClickSdg} />
+              <label htmlFor={sdgs.id}><img src={sdgs.image} alt="SDGs" /></label>
+            </li>             
+          ))}
+        </ul>
+      }
+      
+      {getIndicators()}     
+      
+      { selectedSdgs && selectedSdgs?.length > 0 ?  
+        <Divider orientation="right">Select SDG Indicators</Divider> : null }
+
+      { selectedSdgs && selectedSdgs?.length > 0 ? selectedSdgs.map((sdg: any, k: number)=>{
+        console.log(sdg, selectedSdgs, k)
+        return (
+          sdg.indicators.map((indicator: any, i: number)=>{
+            return (
+            <div className="indicator-style">
+              {i === 0 &&<Fragment> <h1>{sdg.name}</h1>
+                <Checkbox.Group className="indicator-style__checks" onChange={onSelectIndicator}> 
+                      <Checkbox value={indicator.id}>{indicator.description}</Checkbox>
+                </Checkbox.Group>
+                </Fragment>
+                }
+            </div>
+            )}))
+          })
+          : 
+          null
+      }              
+      </div>
+
   )
 }
+
+

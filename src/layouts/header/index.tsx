@@ -94,7 +94,7 @@ export const Header:React.FC<Props> = ({user}) => {
                   </Link>
                 </div>
                 <div className="drawerMenu">
-                  <Link to="/app/dashboard/form" onClick={onFormClick}>
+                  <Link to="/app/forms" onClick={onFormClick}>
                     <span className="drawerMenu-span">
                       Forms
                     </span>

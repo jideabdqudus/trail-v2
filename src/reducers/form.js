@@ -1,11 +1,11 @@
 import {
-  CREATE_FORM_SUCCESS,
   FORMS_SUCCESS,
   FORM_ERROR,
-  DELETE_FORM,
   FORM_LOADING,
   FILTER_FORM,
   CLEAR_FILTER,
+  DELETE_FORM,
+  PROGRAMS_SUCCESS
 } from "../constants/types";
 
 const initialState = {
@@ -15,6 +15,8 @@ const initialState = {
   error: "",
   filtered: null,
   pagination: {},
+  programs: [],
+  indicatorQuestions: []
 };
 
 const form = (state = initialState, action) => {
@@ -30,10 +32,12 @@ const form = (state = initialState, action) => {
         loading: false,
         error: true,
         forms: action.payload.data,
+        filtered: null,
         pagination: action.payload.pagination,
       };
     case FILTER_FORM: return{
       ...state,
+      loading:false,
       filtered: state.forms.filter((form)=>{
         return  form.name.match()
       })
@@ -44,9 +48,24 @@ const form = (state = initialState, action) => {
     }
     case FORM_ERROR:
       return {
+        ...state,
         forms: [],
         error: action.payload,
       };
+      case DELETE_FORM: return{
+        ...state,
+        loading:false,
+        forms: state.forms.filter((form)=>{
+          return form.id!== action.payload
+        }),
+        filtered: null, 
+      };
+      case PROGRAMS_SUCCESS: return{
+        ...state,
+        loading: true,
+        programs: action.payload.data
+
+      }
     default:
       return state;
   }
