@@ -4,12 +4,21 @@ export const regEx = new RegExp(
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
 );
 
-export const verifyString = (string)=>{
+export const validateString = (string)=>{
   //Check for Special Character in first letter of the string
   const stringify = String(string)
   const firstChar = stringify.charAt(0)
   // eslint-disable-next-line
-  const format  = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
+  const format  = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~1234567890]/
+  return format.test(firstChar)
+}
+
+export const validateNumbers = (value)=>{
+  //Check for Special Character in first letter of the string
+ 	const stringify = String(value)
+  const firstChar = stringify.charAt(0)
+  // eslint-disable-next-line
+  const format  = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?abcdefghijklmnopqrstuvwxyz~]/
   return format.test(firstChar)
 }
 
@@ -61,3 +70,4 @@ export const toastify = {
     });
   },
 };
+

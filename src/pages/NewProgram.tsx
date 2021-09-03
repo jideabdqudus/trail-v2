@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Layout } from 'antd';
+import { Layout, Button } from 'antd';
 import {useSelector, useDispatch} from 'react-redux';
 import {geocodeByAddress,getLatLng} from 'react-places-autocomplete';
 
@@ -8,8 +8,8 @@ import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
 import { ProgramData, SdgGroup } from "../components";
 import { IAuthenticate,IProgramEach, IPrograms  } from '../type.d'
-import { toastify } from "../helpers";
-import { getAllSdgsAndIndicators} from "../actions/program";
+import { toastify, validateNumbers, validateString } from "../helpers";
+import { getAllSdgsAndIndicators, createProgram} from "../actions/program";
 
 export const NewProgram:React.FC = () => {
   const { Footer } = Layout;
@@ -30,10 +30,12 @@ export const NewProgram:React.FC = () => {
     totalNumberOfBeneficiaries: 0,
     budget: 0,
     locations:{},
-    activeMarker:{},
+    activeMarker:location,
     image:"",
-    sdgs:[]
+    sdgs:[],
+    organisationId: 0
   })
+  const {name, description, code, totalNumberOfBeneficiaries, budget, locations, activeMarker, image, sdgs, organisationId} = formData
   let selectedSdgs: any = []
   const handleDrop = (file: any) => {
     setFile(file.map((file: any) =>
@@ -51,7 +53,8 @@ export const NewProgram:React.FC = () => {
     setAddressed(address)
     setSelectedPlace(selectedPlace)
     setLocation(location)
-    setFormData({ ...formData, locations: location });
+    console.log(location)
+    setFormData({ ...formData, locations: location, activeMarker: location });
     geocodeByAddress(addressed).then((results) => getLatLng(results[0])).then((latLng) => {
     setMapCenter(latLng)}).catch((error) => toastify.alertWarning(`Warning: ${error}`, 1500))
   }
@@ -62,9 +65,7 @@ const onClickSdg = (e: any)=>{
   console.log(e.target.value)
   setSdgId([...sdgId, e.target.value])
 }
-const onSelectIndicator = (checkedValues: any) => {
-  console.log(checkedValues);
-}
+
 
 const getIndicators = ()=>{
   sdgsAndIndicators?.filter((sdgs : any)=>{
@@ -78,7 +79,41 @@ const getIndicators = ()=>{
   })
 }
 const onSubmitForm = ()=>{
-  console.log(formData)
+  if (
+    name === "" ||
+    description === ""||
+    code === "" ||
+    totalNumberOfBeneficiaries === null ||
+    budget === null ||
+    locations === {} ||
+    activeMarker === {} ||
+    sdgs === [] ||
+    image === ""
+  ){
+    toastify.alertError("All fields are compulsory", 5000)
+  }else if(validateString(name)){
+    toastify.alertWarning("Name can't start with number or special character")
+  }else if(validateNumbers(budget)){
+    toastify.alertWarning("Budget should contain only numbers")
+  } else if(validateNumbers(totalNumberOfBeneficiaries)){
+    toastify.alertWarning("Number of Beneficiiaries should contain only numbers")
+  } else if(validateString(code)){
+    toastify.alertWarning("Program code can't start with number or special character")
+  } 
+  else{
+    let submissionPayload = new FormData()
+    submissionPayload.append('name', name)
+    submissionPayload.append('description', description)  
+    submissionPayload.append('code', code)  
+    submissionPayload.append('totalNumberOfBeneficiaries', totalNumberOfBeneficiaries.toString())  
+    submissionPayload.append('budget', budget.toString())  
+    submissionPayload.append('organisationId', organisationId.toString())
+    submissionPayload.append('locations', JSON.stringify(locations))
+    submissionPayload.append('activeMarker', JSON.stringify(activeMarker))
+    submissionPayload.append('sdgs', JSON.stringify(sdgs))
+    submissionPayload.append('image', image)
+    dispatch(createProgram(submissionPayload))
+  }
 }
 useEffect(() => {
   dispatch(getAllSdgsAndIndicators())
@@ -112,12 +147,19 @@ useEffect(() => {
                         onSubmitForm={onSubmitForm} 
                       />
                       <SdgGroup 
-                        sdgsAndIndicators={sdgsAndIndicators} onClickSdg={onClickSdg} indicatorsUnderSdgs={indicatorsUnderSdgs} onSelectIndicator={onSelectIndicator}
+                        sdgsAndIndicators={sdgsAndIndicators} 
+                        onClickSdg={onClickSdg} 
+                        indicatorsUnderSdgs={indicatorsUnderSdgs}
                         loading={loading}
                         sdgId={sdgId}
                         selectedSdgs={selectedSdgs}
                         getIndicators={getIndicators}
+                        formData={formData} 
+                        setFormData={setFormData}
                       />
+                      <div style={{ paddingTop:"200px"}}>
+                        <Button type="primary" onClick={onSubmitForm}>Primary Button</Button>
+                      </div>
                    </div>
               </div>
             </div>

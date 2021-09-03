@@ -5,19 +5,34 @@ interface Props {
   sdgsAndIndicators: any
   onClickSdg: (e: any)=> void
   indicatorsUnderSdgs: [] | undefined
-  onSelectIndicator: (checkedValues: any)=> void
   loading?: boolean,
   sdgId: any
   selectedSdgs: any,
+  formData: any, 
   getIndicators: ()=> void
+  setFormData:any
 }
-export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators, onClickSdg, onSelectIndicator, loading, sdgId, selectedSdgs, getIndicators}) => {
+export const SdgGroup:React.FC<Props> = ({
+  sdgsAndIndicators, 
+  loading, 
+  setFormData, 
+  formData}) => {
+    
   const [available, setAvailable] = useState<any>([])
+  const [crazy, setCrazy] = useState<any>([])
   let arr: any = []
   const onClickHere = (e: any)=>{
-    // console.log(random)
-    setAvailable([...available, e.target.value])
-    // dispatch(getIndicatorsUnderSdgs(e.target.value))
+    if (available.includes(e.target.value)){
+      let valueIndex =  available.indexOf(e.target.value)
+      available.splice(valueIndex, 1)
+      setAvailable([...available])
+      crazy.splice(valueIndex, 1)
+      setCrazy([...crazy])
+    }else{
+      setAvailable([...available, e.target.value])
+      setCrazy([...crazy, {id: e.target.value, indicators: []}])
+    }
+    console.log(crazy)
   }
   const setIndicators = ()=>{
     sdgsAndIndicators.filter((sdgs : any)=>{
@@ -29,6 +44,20 @@ export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators, onClickSdg, onSelec
       })
       return null
     })
+  }
+  const onSelectIndicator = (e: any, sdgId: any, indicatorDesc: any, indicatorId: any, indicatorIndex: any, checkedValues?: any, ) => {
+    // eslint-disable-next-line 
+    crazy.map((mad: any)=>{
+      if (mad.id === sdgId){
+        if (mad.indicators.includes(indicatorId)){
+            let indicatorIndexinArray = mad.indicators.indexOf(indicatorId)
+            mad.indicators.splice(indicatorIndexinArray, 1)
+        }else{
+          mad.indicators.push(indicatorId)
+        }
+      }
+    })
+    setFormData({...formData, sdgs: [...crazy]})
   }
   return (
     <div className="sdg-group">
@@ -59,7 +88,8 @@ export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators, onClickSdg, onSelec
             return (
             <div className="indicator-style">
               {i === 0 && <h1>{sdg.name}</h1>}
-                <Checkbox.Group className="indicator-style__checks" onChange={onSelectIndicator}>
+                <Checkbox.Group className="indicator-style__checks" 
+                onChange={(e)=>onSelectIndicator(e, sdg.id, indicator.description, indicator.id, i)}>
                       <Checkbox value={indicator.id}>{indicator.description}</Checkbox>
                 </Checkbox.Group>
             </div>
@@ -72,3 +102,6 @@ export const SdgGroup:React.FC<Props> = ({sdgsAndIndicators, onClickSdg, onSelec
 
   )
 }
+
+
+

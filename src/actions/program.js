@@ -96,3 +96,26 @@ export const getIndicatorsUnderSdgs = (id) => async (dispatch, getState) => {
 
 
 
+export const createProgram = (submissionPayload) => async (dispatch, getState) => {
+  //#TODO: Add Preloader here
+  dispatch({ type: LOADING_PROGRAMS });
+  axios.post(`${appConstants.REACT_APP_BASE_URL}/programs/`, submissionPayload, tokenConfig(getState)).then((res)=>{
+    console.log(res)
+    // dispatch({type: GET_INDICATORS_UNDER_SDGS, payload: res.data})
+  }).catch((error)=>{
+    console.log(error)
+    if(error.message && error.response === undefined){
+      dispatch(setError(error.message, "ERR"));
+      dispatch({
+      type: PROGRAM_ERROR,
+      payload: error.message
+    })
+  }else{
+    dispatch(setError(error.response.data.message, error.response.status));
+    dispatch({
+    type: PROGRAM_ERROR,
+    payload: error.response.data.message
+  })
+  }
+}
+)}

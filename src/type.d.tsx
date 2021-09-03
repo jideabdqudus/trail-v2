@@ -70,6 +70,7 @@ export interface IProgramEach{
   locations: any,
   activeMarker: any,
   sdgs: ISdg[],
+  organisationId: number
   created?: string
 }
 
