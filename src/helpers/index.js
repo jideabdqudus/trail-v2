@@ -22,6 +22,15 @@ export const validateNumbers = (value)=>{
   return format.test(firstChar)
 }
 
+export const validateNumbersAndZero = (value)=>{
+  //Check for Special Character in first letter of the string
+ 	const stringify = String(value)
+  const firstChar = stringify.charAt(0)
+  // eslint-disable-next-line
+  const format  = /[ `!@#$%^&*()_+0\-=\[\]{};':"\\|,.<>\/?abcdefghijklmnopqrstuvwxyz~]/
+  return format.test(firstChar)
+}
+
 // Setup config with token - helper function
 export const tokenConfig = (getState) => {
   // Get token from state

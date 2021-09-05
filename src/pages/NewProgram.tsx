@@ -2,13 +2,15 @@ import React, {useState, useEffect} from "react";
 import { Layout, Button } from 'antd';
 import {useSelector, useDispatch} from 'react-redux';
 import {geocodeByAddress,getLatLng} from 'react-places-autocomplete';
+import { useHistory } from "react-router-dom";
+
 
 
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
 import { ProgramData, SdgGroup } from "../components";
 import { IAuthenticate,IProgramEach, IPrograms  } from '../type.d'
-import { toastify, validateNumbers, validateString } from "../helpers";
+import { toastify, validateString, validateNumbersAndZero } from "../helpers";
 import { getAllSdgsAndIndicators, createProgram} from "../actions/program";
 
 export const NewProgram:React.FC = () => {
@@ -16,6 +18,7 @@ export const NewProgram:React.FC = () => {
   const {user} = useSelector((state: IAuthenticate) => state.auth)
   const {loading, sdgsAndIndicators, indicatorsUnderSdgs} = useSelector((state: IPrograms) => state.program)
   const dispatch = useDispatch()
+  const history = useHistory();
   const [file, setFile] = useState<any>({})
   const [fileForm, setFileForm] = useState<any>({})
   const [addressed, setAddressed] = useState<any>("")
@@ -54,7 +57,6 @@ export const NewProgram:React.FC = () => {
     setAddressed(address)
     setSelectedPlace(selectedPlace)
     setLocation(location)
-    console.log(location)
     setFormData({ ...formData, locations: location, activeMarker: location });
     geocodeByAddress(addressed).then((results) => getLatLng(results[0])).then((latLng) => {
     setMapCenter(latLng)}).catch((error) => toastify.alertWarning(`Warning: ${error}`, 1500))
@@ -63,7 +65,6 @@ export const NewProgram:React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 const onClickSdg = (e: any)=>{
-  console.log(e.target.value)
   setSdgId([...sdgId, e.target.value])
 }
 
@@ -80,23 +81,23 @@ const getIndicators = ()=>{
   })
 }
 const onSubmitForm = ()=>{
-  if (
-    name === "" ||
-    description === ""||
-    code === "" ||
-    totalNumberOfBeneficiaries === null ||
-    budget === null ||
-    locations === {} ||
-    activeMarker === {} ||
-    sdgs === [] ||
-    image === ""
-  ){
-    toastify.alertError("All fields are compulsory", 5000)
-  }else if(validateString(name)){
+  if (sdgs.length < 1){
+    toastify.alertWarning("Please select at least one SDG and Indicator")
+  } else if( name === ""){
+    toastify.alertWarning("Program Name is compulsory")
+  }else if (description === ""){
+    toastify.alertWarning("Program Description is compulsory")
+  }else if(totalNumberOfBeneficiaries === null){
+    toastify.alertWarning("Number of Beneficiaries is compulsory")
+  }else if(budget === null){
+    toastify.alertWarning("Program Budget is compulsory")
+  } else if(activeMarker.length < 1){
+    toastify.alertWarning("Program Location is invalid")
+  } else if(validateString(name)){
     toastify.alertWarning("Name can't start with number or special character")
-  }else if(validateNumbers(budget)){
+  }else if(validateNumbersAndZero(budget)){
     toastify.alertWarning("Budget should contain only numbers")
-  } else if(validateNumbers(totalNumberOfBeneficiaries)){
+  } else if(validateNumbersAndZero(totalNumberOfBeneficiaries)){
     toastify.alertWarning("Number of Beneficiiaries should contain only numbers")
   } else if(validateString(code)){
     toastify.alertWarning("Program code can't start with number or special character")
@@ -112,8 +113,8 @@ const onSubmitForm = ()=>{
     submissionPayload.append('locations', JSON.stringify(locations))
     submissionPayload.append('activeMarker', JSON.stringify(activeMarker))
     submissionPayload.append('sdgs', JSON.stringify(sdgs))
-    submissionPayload.append('image', image)
-    dispatch(createProgram(submissionPayload))
+    submissionPayload.append('image', image, image.name)
+    dispatch(createProgram(submissionPayload, history))
   }
 }
 useEffect(() => {
@@ -132,7 +133,7 @@ useEffect(() => {
                 <div className="top-header">
                   <h1 className="view-title">Create New Programme</h1>
                 </div>
-                   <div className="dashboard-card">
+                   <div className="dashboard-card" style={{paddingBottom:"50px"}}>
                       <ProgramData 
                         file={file} 
                         fileForm={fileForm} 
@@ -158,8 +159,9 @@ useEffect(() => {
                         formData={formData} 
                         setFormData={setFormData}
                       />
-                      <div style={{ paddingTop:"200px"}}>
-                        <Button type="primary" onClick={onSubmitForm}>Create Program</Button>
+                      <div>
+                      <Button type="primary" onClick={onSubmitForm} className="create__program" disabled={loading} loading={loading}>Create</Button>
+                        <Button type="primary" onClick={onSubmitForm} className="cancel__program">Cancel</Button>
                       </div>
                    </div>
               </div>

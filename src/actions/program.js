@@ -1,9 +1,17 @@
 import axios from 'axios';
 
 //Imports
-import { BUDGET_AND_BENEFICIARIES, PROGRAM_ERROR, GET_PROGRAMS, GET_ALL_SDGS_INDICATORS, LOADING_PROGRAMS, GET_INDICATORS_UNDER_SDGS } from '../constants/types.js';
+import {
+  CREATED_PROGRAM, 
+  BUDGET_AND_BENEFICIARIES, 
+  PROGRAM_ERROR, 
+  GET_PROGRAMS, 
+  GET_ALL_SDGS_INDICATORS, 
+  LOADING_PROGRAMS, 
+  GET_INDICATORS_UNDER_SDGS 
+} from '../constants/types.js';
 import {appConstants} from "../constants/environment.js"
-import {tokenConfig} from "../helpers"
+import {tokenConfig, toastify} from "../helpers"
 import {setError} from "./alert.js"
 
 
@@ -96,26 +104,50 @@ export const getIndicatorsUnderSdgs = (id) => async (dispatch, getState) => {
 
 
 
-export const createProgram = (submissionPayload) => async (dispatch, getState) => {
-  //#TODO: Add Preloader here
-  dispatch({ type: LOADING_PROGRAMS });
-  axios.post(`${appConstants.REACT_APP_BASE_URL}/programs/`, submissionPayload, tokenConfig(getState)).then((res)=>{
-    console.log(res)
-    // dispatch({type: GET_INDICATORS_UNDER_SDGS, payload: res.data})
-  }).catch((error)=>{
-    console.log(error)
-    if(error.message && error.response === undefined){
-      dispatch(setError(error.message, "ERR"));
+export const createProgram = (submissionPayload, history) => async (dispatch, getState) => {
+    //#TODO: Add Preloader here
+    dispatch({ type: LOADING_PROGRAMS });
+    axios.post(`${appConstants.REACT_APP_BASE_URL}/programs/`, submissionPayload, tokenConfig(getState)
+    ).then((res)=>{
+      toastify.alertSuccess("Program created successfully.")
+      dispatch({type: CREATED_PROGRAM, payload: res.data})
+      setTimeout(history.push(`/app/programs`), 7000);
+    }).catch((error)=>{
+      if(error.message && error.response === undefined){
+        dispatch(setError(error.message, "ERR"));
+        dispatch({
+        type: PROGRAM_ERROR,
+        payload: error.message
+      })
+    }else{
+      dispatch(setError(error.response.data.message, error.response.status));
       dispatch({
       type: PROGRAM_ERROR,
-      payload: error.message
+      payload: error.response.data.message
     })
-  }else{
-    dispatch(setError(error.response.data.message, error.response.status));
-    dispatch({
-    type: PROGRAM_ERROR,
-    payload: error.response.data.message
+    }
   })
-  }
 }
-)}
+
+export const deleteProgram = (id) => async (dispatch, getState) =>{
+    dispatch ({type: LOADING_PROGRAMS});
+    axios.delete(`${appConstants.REACT_APP_BASE_URL}/programs/${id}/`, tokenConfig(getState)
+    ).then((res)=>{
+      toastify.alertSuccess("Successfully deleted program")
+      dispatch(getPrograms())
+    }).catch((error)=>{
+      if(error.message && error.response === undefined){
+        dispatch(setError(error.message, "ERR"));
+        dispatch({
+        type: PROGRAM_ERROR,
+        payload: error.message
+      })
+    }else{
+      dispatch(setError(error.response.data.message, error.response.status));
+      dispatch({
+      type: PROGRAM_ERROR,
+      payload: error.response.data.message
+    })
+    }
+  })
+}

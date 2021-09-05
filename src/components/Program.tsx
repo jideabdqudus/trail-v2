@@ -1,25 +1,30 @@
 import React from 'react'
 import { Row, Col, Card, Image, Popover } from "antd";
+import { useDispatch } from 'react-redux';
 
 //Imports
 import { assets } from '../assets/assets';
 import {IProgramEach} from "../type.d"
+import {deleteProgram} from "../actions/program.js"
 
 interface Props {
   programs?: IProgramEach[]
   renderSdgs: (sdg: any)=> any
 }
 export const Program:React.FC<Props> = ({programs, renderSdgs}) => {
-  const content = (
-    <div>
-      <p className="content-p"> View</p>
-      <p className="content-p"> Delete</p>
-    </div>
-  );
+  const dispatch = useDispatch()
+  
   return (
     <div className="program">
       <Row>
-      {programs?.map((program)=>(
+      {programs?.map((program)=>{
+        const content = (
+          <div>
+            <p className="content-p"> View</p>
+            <p className="content-p" onClick={()=>dispatch(deleteProgram(program.id))}> Delete</p>
+          </div>
+        );
+        return (
         <Col span={8}>
            <Card className="card"
            cover={
@@ -52,7 +57,7 @@ export const Program:React.FC<Props> = ({programs, renderSdgs}) => {
              </div>
          </Card>
         </Col>
-      ))}
+      )})}
         </Row>
     </div>
   )

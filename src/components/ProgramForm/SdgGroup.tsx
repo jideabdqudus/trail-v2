@@ -1,5 +1,5 @@
-import React,{useState} from 'react'
-import {Divider, Checkbox, Spin} from "antd"
+import React,{ useState} from 'react'
+import {Divider, Checkbox, Spin,} from "antd"
 
 interface Props {
   sdgsAndIndicators: any
@@ -32,7 +32,6 @@ export const SdgGroup:React.FC<Props> = ({
       setAvailable([...available, e.target.value])
       setCrazy([...crazy, {id: e.target.value, indicators: []}])
     }
-    console.log(crazy)
   }
   const setIndicators = ()=>{
     sdgsAndIndicators.filter((sdgs : any)=>{
@@ -61,7 +60,7 @@ export const SdgGroup:React.FC<Props> = ({
   }
   return (
     <div className="sdg-group">
-     <Divider orientation="right">Select SDGs for the programme</Divider>
+     <Divider orientation="right">Select SDGs for the program</Divider>
       { loading?
         <div className="sdg-loader">
           <Spin tip="Loading Development Goals..." />
@@ -90,7 +89,7 @@ export const SdgGroup:React.FC<Props> = ({
               {i === 0 && <h1>{sdg.name}</h1>}
                 <Checkbox.Group className="indicator-style__checks" 
                 onChange={(e)=>onSelectIndicator(e, sdg.id, indicator.description, indicator.id, i)}>
-                      <Checkbox value={indicator.id}>{indicator.description}</Checkbox>
+                     <Checkbox value={indicator.id}>{indicator.description}</Checkbox>  
                 </Checkbox.Group>
             </div>
             )}))
@@ -99,9 +98,5 @@ export const SdgGroup:React.FC<Props> = ({
           null
       }
       </div>
-
   )
 }
-
-
-
