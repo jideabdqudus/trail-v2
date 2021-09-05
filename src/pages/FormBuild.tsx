@@ -1,21 +1,26 @@
 import { useState, Fragment, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Layout } from "antd";
+import { Layout, Menu } from "antd";
 
 // import 
 import { Header } from "../layouts/header";
 import { SideBar } from '../layouts/sidebar';
 import {CreateForm} from '../components/CreateForm'
-import { IAuthenticate} from '../type.d'
+import { IAuthenticate, IForms, IBuildType, IInputsFields} from '../type.d'
 import { COMPONENT_TYPES } from "../constants/environment";
-import { IForms, IBuildType } from "../type.d";
-import {getPrograms} from '../actions/form'
+import {getPrograms, getIndicatorQuestions} from '../actions/form';
+import {builderTypeNumber, builderTypeRadio, builderTypeText, deleteAComponent,onChangeComponent} from '../actions/builderType';
+
 
 export const FormBuild = () => {
     const {Footer}= Layout;
     const dispatch =useDispatch();
     const { user } = useSelector((state: IAuthenticate) => state.auth);
-    const {programs}= useSelector((state: IForms) => state.form)
+    const {programs, indicatorQuestions}= useSelector((state: IForms) => state.form)
+    const {components}=useSelector((state: any)=>state.builderType)
+
+    //defining all states found in component
+    const [indicator, setIndicator]=useState<string[]>()
     const [builderTypes, ]=useState <IBuildType[]>([
         {
             name: 'Text Input',
@@ -31,9 +36,110 @@ export const FormBuild = () => {
         },
     ])
 
-    useEffect(()=>{
-        dispatch(getPrograms());
+    const [inputs, setInputs]=useState<IInputsFields>({
+      title: '',
+      display: 'form',
+      type: 'form',
+      name: '',
+      program: '',
+      instructions: '',
+      buttonType: 'submit',
+      buttonValue: 'Submit',
+      customQuestionInput: {},
+      components: []
+  })
+    
+    
+
+   useEffect(()=>{
+        dispatch(getPrograms())
     },[dispatch])
+
+    const handleBuildTypeChange=(builderType_value: string)=>{
+      if(builderType_value==='number'){
+        dispatch(builderTypeNumber(builderType_value))
+      }else if(builderType_value==='radio'){
+        dispatch(builderTypeRadio(builderType_value))
+      }else{
+        dispatch(builderTypeText(builderType_value))
+      }
+      
+      
+  }
+ 
+  
+  const menu=(
+      <Menu>
+          {builderTypes.map((builderType: IBuildType)=>{
+             return  <Menu.Item
+              key={builderType.value}
+              onClick={()=>{handleBuildTypeChange(builderType.value)}}
+              >
+                  {builderType.name}
+              </Menu.Item>
+          })}
+          
+      </Menu>
+  )
+
+
+    const handleIndicator=(value: string)=>{
+      let ind: string[]=[]
+      // eslint-disable-next-line 
+     programs.filter((program: any)=>{
+        if(value===program.id){
+         return program.sdgs.map((sdg: any)=>{
+           return sdg.indicators.map((indicator: any)=>{
+              
+           return ind.push(indicator)
+            
+            })
+          })
+        }
+        
+      })
+     
+     setIndicator(ind)
+  }
+
+  
+  const handleIndicatorQuestion=(value: string)=>{
+   dispatch(getIndicatorQuestions(value))
+  }
+ 
+  const delete_a_component=(id: number)=>{
+    dispatch(deleteAComponent(id))
+  }
+
+  // update state on change of inputs
+  const OnchangeOfInputs= (e: any)=>{
+    const value=e.target.value;
+
+    setInputs({
+        ...inputs,
+        [e.target.name]: value
+    })
+    
+}
+
+//update state on change of select fields
+const onChangeSelectDropdown=(value: string)=>{
+  setInputs({
+    ...inputs,
+    program : value,
+})
+
+}
+
+//handle change for component array
+const changeComponent=(value: any)=>{
+  
+  dispatch(onChangeComponent(value))
+  console.log(value)
+}
+
+
+  
     
     return (
         <div className="container-scroller">
@@ -47,8 +153,19 @@ export const FormBuild = () => {
                   
                   <Fragment>
                     <CreateForm 
-                    builderTypes={builderTypes}
                     programs={programs}
+                    menu={menu}
+                    handleIndicator={handleIndicator}
+                    indicator={indicator}
+                    handleIndicatorQuestion={handleIndicatorQuestion}
+                    indicatorQuestions={indicatorQuestions}
+                    components={components}
+                    delete_a_component={delete_a_component}
+                    OnchangeOfInputs={OnchangeOfInputs}
+                    inputs={inputs}
+                    onChangeSelectDropdown={onChangeSelectDropdown}
+                    changeComponent={changeComponent}
+                    
                     />
                   </Fragment>
                 </div>

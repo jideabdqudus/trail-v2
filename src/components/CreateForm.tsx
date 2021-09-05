@@ -1,36 +1,31 @@
-import React, { useState } from 'react'
-import {Row,Col,Card,Form,Input,Button,Select,InputNumber,Dropdown,Menu} from 'antd'
+import {Row,Col,Card,Form,Input,Button,Select,InputNumber,Dropdown} from 'antd'
+import { MinusCircleOutlined } from '@ant-design/icons'
+
 
 // imports 
-import { IBuildType, IProgramForm } from '../type.d'
+import { IProgramForm ,IInputsFields} from '../type.d'
+import { isEmpty } from 'lodash'
 
 
 interface Props{
-    builderTypes: IBuildType[],
-    programs: []
+    programs: [],
+    handleIndicator: (value: string)=>void,
+    menu: any
+    indicator: any
+    handleIndicatorQuestion: (value: string)=>void
+    indicatorQuestions: string[]
+    components: string[]//define an interface for it
+    delete_a_component: (id:number)=>void
+    OnchangeOfInputs:(e: any)=>void
+    inputs:IInputsFields
+    onChangeSelectDropdown: (value: string)=>void
+    changeComponent:(value: any)=>void
+    
 }
-export const CreateForm = ({builderTypes, programs}: Props) => {
+export const CreateForm = ({programs, handleIndicator,menu, indicator, handleIndicatorQuestion, indicatorQuestions, components, delete_a_component,OnchangeOfInputs, inputs, onChangeSelectDropdown, changeComponent}: Props) => {
     const { Option } = Select
-    const [inputFields, setInputFields]=useState(false)
-    console.log(programs)
-
-    const handleBuildTypeChange=(builderType_value: string)=>{
-        setInputFields(true)
-    }
-
-    const menu=(
-        <Menu>
-            {builderTypes.map((builderType: IBuildType)=>{
-               return  <Menu.Item
-                key={builderType.value}
-                onClick={()=>{handleBuildTypeChange(builderType.value)}}
-                >
-                    {builderType.name}
-                </Menu.Item>
-            })}
-            
-        </Menu>
-    )
+   
+    
     return (
         <div>
             <Row>
@@ -50,12 +45,15 @@ export const CreateForm = ({builderTypes, programs}: Props) => {
                                         required: true,
                                         message: "Form name is required"
                                     }]}
+                                    
                                     >
                                         <Input
                                         type="text"
                                         placeholder="Form Name"
                                         name="name"
                                         className="form-builder-input"
+                                        value={inputs.name}
+                                        onChange={OnchangeOfInputs}
                                         
                                         />
 
@@ -68,15 +66,20 @@ export const CreateForm = ({builderTypes, programs}: Props) => {
                                         required: true,
                                         message: "Select a programme"
                                     }]}
+                                    // name="program"
                                     >
                                         <Select 
                                         placeholder="Select"
                                         className="form-builder-input"
+                                        
+                                        onSelect={handleIndicator}
+                                        onChange={onChangeSelectDropdown}
+                                        value={inputs.program }
                                         >
+                                            
                                             {programs.map((program: IProgramForm)=>{
                                                 
-                                                console.log(program.sdgs)
-                                                return <Option key={program.id} value={program.name}>{program.name}</Option>
+                                                return <Option key={program.id} value={program.id}>{program.name}</Option>
                                             })}
                                             
                                         </Select>
@@ -84,13 +87,14 @@ export const CreateForm = ({builderTypes, programs}: Props) => {
                                 </Col>
                                 <Col span={8}>
                                 
-                                    <Form.Item label="Instructions (Optional)">
+                                    <Form.Item label="Instructions (Optional)"name="instructions">
                                         <Input.TextArea
                                             rows={6}
                                             className="form-builder-input"
                                             placeholder="Instructions"
                                             name="instructions"
-                                            
+                                            onChange={OnchangeOfInputs}
+                                            value={inputs.instructions}
                                         />
                                     </Form.Item>
                                 </Col>
@@ -108,9 +112,12 @@ export const CreateForm = ({builderTypes, programs}: Props) => {
                                 </Button>
                             </Dropdown>
 
-                            {/* inputs field  */}
-                            {inputFields && <div>
-                                <Row gutter={[16,16]}>
+                            
+                           {/* {inputFields && <div> */}
+                            {components.map((component:any, idx)=>{
+
+                            
+                               return <Row gutter={[16,16]} key={idx}>
                                     <Col span={7}>
                                         <Form.Item label=""
                                         rules={[
@@ -121,9 +128,20 @@ export const CreateForm = ({builderTypes, programs}: Props) => {
                                             },
                                         ]}
                                         style={{marginBottom: 0}}
+                                        name="linkedIndicator"
                                         >
-                                            <Select placeholder="select">
-                                                <Option value="">choose</Option>
+                                            <Select placeholder="select" 
+                                            
+                                            onSelect={handleIndicatorQuestion}
+                                            
+                                            onChange={changeComponent} //not working
+                                            
+                                             >
+                                               
+                                                {indicator && indicator.map((ind: any)=>{
+                                                  return  <Option key={ind.indicatorId} value={ind.indicatorId}>{ind.description}</Option>
+                                                })}
+                                                
                                             </Select>
                                         </Form.Item>
                                     </Col>
@@ -137,21 +155,31 @@ export const CreateForm = ({builderTypes, programs}: Props) => {
                                                 },
                                             ]}
                                             style={{marginBottom: 0}}
+                                            name="custom"
                                             >
-                                            <Select placeholder="select">
-                                                <Option value="">choose</Option>
+                                            <Select placeholder="select" 
+                                            onChange={OnchangeOfInputs}
+                                            // value={component.indicatorquestion}
+                                            // defaultValue={component.indicatorquestion}
+                                            >
+                                                <Option value="custom">Custom Question</Option>
+                                                {indicatorQuestions.map((questions: any)=>{
+                                                    return <Option key={questions.id} value={questions.id}>{questions.question}</Option>
+                                                })}
                                             </Select>
                                         </Form.Item>
                                     </Col>
-                                    <Col span={6}>
+                                     <Col span={6}>
                                         <Form.Item
                                            style={{marginBottom: 0}}
+                                           name="question"
                                         >
                                             <Input
                                                 type="text"
                                                 name="question"
                                                 placeholder="--Type Question--"
-                                                // value={}
+                                                value={component.question}
+                                                onChange={OnchangeOfInputs}
                                             />
                                         </Form.Item>
                                     </Col>
@@ -165,10 +193,13 @@ export const CreateForm = ({builderTypes, programs}: Props) => {
                                                 },
                                             ]}
                                             style={{marginBottom: 0}}
+                                            name="indicator metric"
                                         >
                                             <Select
                                                 placeholder="Select indicator metric"
-                                                
+                                            //   value={component.targetType}  
+                                            //   defaultValue={component.targetType} 
+                                              onChange={OnchangeOfInputs}
                                             >
                                                 <Option value="number">
                                                     Number
@@ -188,17 +219,60 @@ export const CreateForm = ({builderTypes, programs}: Props) => {
                                                         'Target Value is required',
                                                 },
                                             ]}
-                                            style={{marginBottom: 0}}
+                                            style={{marginBottom: "20px"}}
+                                            name="targetType"
                                         >
                                             <InputNumber
-                                               
+                                               value={component.targetValue}
+                                               min={0}
+                                               max={
+                                                component.targetType ===
+                                                   'percentage'
+                                                       ? 99
+                                                       : 1000000
+                                               }
                                                 style={{width: '100%'}}                              
                                                 placeholder="--Target Value--"
+                                                onChange={OnchangeOfInputs}
+                                                name="targetType"
                                             />
                                         </Form.Item>
                                     </Col>
+                                    <Col span={1}>
+                                        <Button
+                                            type={"primary"}
+                                            danger
+                                            onClick={() =>
+                                                delete_a_component(idx)
+                                            }
+                                            icon={
+                                                <MinusCircleOutlined />
+                                            }
+                                            size={"middle"}
+                                        />
+                                    </Col>
                                 </Row>
-                            </div>}
+                            })}
+                            {!isEmpty(components) && <Row>
+                                <Row gutter={[16, 16]}>
+                                    <Col span={3}>
+                                        <Form.Item>
+                                            <Button
+                                                type="primary"
+                                                htmlType="submit"
+                                                className="forgetBtn"
+                                                
+                                            >
+                                                Create Form
+                                                {/* {id
+                                                    ? 'Update Form'
+                                                    : 'Create Form'} */}
+                                            </Button>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Row>}
+                        {/* </div>} */}
                         </Card>
                     </Form>
                 </Col>

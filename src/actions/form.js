@@ -4,7 +4,7 @@ import axios from "axios";
 import { appConstants } from "../constants/environment.js";
 import { tokenConfig } from "../helpers";
 import { setError, setAlert } from "./alert";
-import { FORMS_SUCCESS, FORM_ERROR, FORM_LOADING, FILTER_FORM, CLEAR_FILTER,DELETE_FORM , PROGRAMS_SUCCESS, INDICATOR_QUESTIONS_SUCCESS} from "../constants/types";
+import { FORMS_SUCCESS, FORM_ERROR, FORM_LOADING, FILTER_FORM, CLEAR_FILTER,DELETE_FORM , PROGRAMS_SUCCESS, INDICATOR_QUESTIONS_SUCCESS, CREATE_FORM_SUCCESS} from "../constants/types";
 
 export const getForms = (page) => (dispatch, getState) => {
   dispatch({ type: FORM_LOADING, });
@@ -79,7 +79,7 @@ export const getPrograms=()=>(dispatch, getState)=>{
     type: FORM_LOADING
   })
   axios.get(`${appConstants.REACT_APP_BASE_URL}/programs`,tokenConfig(getState)).then((response)=>{
-    
+    console.log(response.data)
     dispatch({
       type: PROGRAMS_SUCCESS,
       payload: response.data
@@ -88,3 +88,40 @@ export const getPrograms=()=>(dispatch, getState)=>{
     console.log(error.message)
   })
 }
+
+export const getIndicatorQuestions=(id)=>(dispatch, getState)=>{
+  axios.get(`${appConstants.REACT_APP_BASE_URL}/all_indicator_questions/${id}`,tokenConfig(getState)).then((response)=>{
+    dispatch({
+      type: INDICATOR_QUESTIONS_SUCCESS,
+      payload: response.data
+    })
+  }).catch((error)=>{
+    console.log(error.message)//come back to write proper error code
+  })
+}
+
+export const createForm=(formData, history)=>dispatch=>{
+  dispatch({
+    type: FORM_LOADING
+  })
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  axios.post(`${appConstants.REACT_APP_BASE_URL}/form/`, formData, config).then((response)=>{
+    dispatch({
+      type: CREATE_FORM_SUCCESS,
+      payload: response.data
+    })
+  }).catch((error)=>{
+    if (error.message && error.response === undefined) {
+      dispatch(setError(error.message, "ERR"));
+      dispatch({type: FORM_ERROR, payload: error.message,});
+    } else {
+      dispatch(setError(error.response.data.message, error.response.status));
+      dispatch({ type: FORM_ERROR, payload: error.response.data.message, });
+    }
+  })
+}
+

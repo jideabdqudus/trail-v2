@@ -124,3 +124,16 @@ export interface IBuildType{
   name: string,
   value: string
 }
+
+export interface IInputsFields{
+     title: string,
+    display: string,
+    type: string,
+    name: string,
+    program: string,
+    instructions: string,
+    buttonType: string,
+    buttonValue: string,
+    customQuestionInput: {},
+    components: any
+}

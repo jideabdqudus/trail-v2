@@ -1,12 +1,14 @@
 import {Popover,Skeleton,Row,Col,Layout,Pagination, Popconfirm} from "antd";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { Fragment } from "react";
 
 //IMPORTS
 import { FormFilter } from "./FormFilter";
 import {IPagination} from "../type.d"
 import {assets} from "../assets/assets"
 import {deleteForm} from "../actions/form"
+
 
 
 interface Props{
@@ -24,7 +26,7 @@ interface Props{
 export const FormTable = ({loading, forms, pagination, handleChange, filtered, inputChange, inputtext}: Props) => {  
  const dispatch=useDispatch();
   const content = (id:number)=>{
-  return  <div>
+  return  <Fragment>
       <Link to="/" className="content-p">View</Link>
       {/* <Link to="/">Delete</Link> */}
       <Popconfirm
@@ -35,7 +37,7 @@ export const FormTable = ({loading, forms, pagination, handleChange, filtered, i
       >
       <p style={{ cursor: 'pointer' }}>Delete</p>
       </Popconfirm>
-    </div>
+    </Fragment>
   };
   console.log(filtered)
   const pageSizeOption: string[]=["10", "20", "50" ,"100"];

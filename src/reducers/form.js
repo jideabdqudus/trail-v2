@@ -5,7 +5,9 @@ import {
   FILTER_FORM,
   CLEAR_FILTER,
   DELETE_FORM,
-  PROGRAMS_SUCCESS
+  PROGRAMS_SUCCESS,
+  INDICATOR_QUESTIONS_SUCCESS,
+  CREATE_FORM_SUCCESS
 } from "../constants/types";
 
 const initialState = {
@@ -65,6 +67,15 @@ const form = (state = initialState, action) => {
         loading: true,
         programs: action.payload.data
 
+      }
+
+      case INDICATOR_QUESTIONS_SUCCESS: return{
+        ...state,
+        indicatorQuestions: action.payload.data
+      }
+      case CREATE_FORM_SUCCESS: return {
+        loading: false,
+        forms: [...state, action.payload]
       }
     default:
       return state;
