@@ -231,3 +231,16 @@ input[type="text"].search_input::-webkit-input-placeholder {
 .content-p :hover {
   background: #f4f5f6 !important;
 }
+.form-preview-section {
+  .form-preview-section {
+      &-title {
+          font-size: 20px;
+      }
+      &-link {
+          font-size: 16px;
+          a {
+              cursor: pointer;
+          }
+      }
+  }
+}

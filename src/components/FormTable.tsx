@@ -27,7 +27,7 @@ export const FormTable = ({loading, forms, pagination, handleChange, filtered, i
  const dispatch=useDispatch();
   const content = (id:number)=>{
   return  <Fragment>
-      <Link to="/" className="content-p">View</Link>
+      <Link to={`/app/form/preview/${id}`} className="content-p">View</Link>
       {/* <Link to="/">Delete</Link> */}
       <Popconfirm
       title="Are you sure you want to delete this?"

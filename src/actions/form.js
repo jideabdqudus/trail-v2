@@ -125,3 +125,9 @@ export const createForm=(formData, history)=>dispatch=>{
   })
 }
 
+//get a form
+// export const getForm=(id)=>(dispatch, getState)=>{
+//   dispatch({
+//     type: FORM_LOADING
+//   })
+// }

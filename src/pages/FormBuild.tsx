@@ -67,7 +67,7 @@ export const FormBuild = () => {
       
   }
  
-  
+  console.log(inputs)
   const menu=(
       <Menu>
           {builderTypes.map((builderType: IBuildType)=>{
