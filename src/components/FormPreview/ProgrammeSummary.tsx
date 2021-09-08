@@ -1,8 +1,8 @@
 import {  Card, Col, Row, Typography } from "antd";
-import { IUserForm } from "../../type.d";
+// import { IUserForm, IInputsFields } from "../../type.d";
 
 interface Props{
- form: IUserForm
+ form: any
 }
 export const ProgrammeSummary = ({form}: Props) => {
     return (

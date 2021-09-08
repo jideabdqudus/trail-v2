@@ -121,7 +121,7 @@ export interface IUserForm{
 export interface IForm {
   loading: boolean;
   forms: [];
-  form: IUserForm
+  form:IFormData,
   filtered: [] | null;
   pagination: IPagination;
   programs: [],
@@ -137,6 +137,18 @@ export interface IBuildType{
   value: string
 }
 
+export interface IComponentBuild{
+  question: string,
+  targetValue: number,
+  targetType: string,
+  inputType: string,
+  input: boolean,
+  placeholder: string,
+  linkedIndicator: number | null,
+  indicatorquestion: number | null,
+  value: string,
+}
+
 export interface IInputsFields{
      title: string,
     display: string,
@@ -148,6 +160,7 @@ export interface IInputsFields{
     buttonType: string,
     buttonValue: string,
     // customQuestionInput: {},
+    builderType: string
     components: any
 }
 export interface ILinkedIndicator{

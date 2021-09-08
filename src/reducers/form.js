@@ -77,7 +77,7 @@ const form = (state = initialState, action) => {
       case CREATE_FORM_SUCCESS: return {
         ...state,
         loading: false,
-        forms: [...state, action.payload]
+        form: action.payload
       }
       case FORM_SUCCESS: return{
         ...state,

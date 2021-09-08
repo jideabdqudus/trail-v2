@@ -20,8 +20,9 @@ interface Props{
 
     componentBuild: any
     removeComponents: (index: number)=>void
-    handleChange: (event: any, attribute: string, index: number)=>void
+    handleChangeQuestion: (event: any, attribute: string, index: number)=>void
     handleSelect: (value: any, attribute: string, index: number)=>void
+    onFinish: ()=>void
     
 }
 export const CreateForm = ({
@@ -36,10 +37,22 @@ export const CreateForm = ({
     onChangeSelectDropdown, 
     componentBuild, 
     removeComponents,
-    handleChange, 
-    handleSelect}: Props) => {
+    handleChangeQuestion, 
+    handleSelect,
+    onFinish}: Props) => {
     const { Option } = Select
-   
+    
+   //destructure inputs
+   const {
+    title,
+    name,
+    program,
+    organisationId,
+    instructions,
+    // components
+    
+    
+} = inputs
     
     return (
         <div>
@@ -48,8 +61,9 @@ export const CreateForm = ({
                     <Form
                     name="normal_login"
                     className="login-form"
-                    initialValues={{ }}
+                    initialValues={ {title, instructions, name, program, organisationId} }
                     layout={'vertical'}
+                    onFinish={onFinish}
                     >
                         <Card title={'Form Details'}>
                             <Row gutter={[16,24]}>
@@ -99,6 +113,7 @@ export const CreateForm = ({
                                             
                                         </Select>
                                     </Form.Item>
+                                    <Input type="hidden" value={organisationId} />
                                 </Col>
                                 <Col span={8}>
                                 
@@ -129,7 +144,7 @@ export const CreateForm = ({
 
                             
                            {/* {inputFields && <div> */}
-                            {componentBuild && componentBuild.map((component:any, idx: any)=>{
+                            {componentBuild && componentBuild.map((component:any, idx: number)=>{
                                 const {
                                     targetType,
                                     linkedIndicator,
@@ -203,7 +218,7 @@ export const CreateForm = ({
                                                 
                                                 placeholder="--Type Question--"
                                                 value={question || ""}
-                                                onChange={(e)=>handleChange(e, "question",idx )} 
+                                                onChange={(e)=>handleChangeQuestion(e, "question",idx )} 
                                             />
                                         </Form.Item>
                                     </Col>}
@@ -247,7 +262,7 @@ export const CreateForm = ({
                                             style={{marginBottom: "20px"}}
                                             name="targetValue"
                                         >
-                                            <Input
+                                            <InputNumber
                                                value={targetValue}
                                                
                                             
@@ -260,7 +275,7 @@ export const CreateForm = ({
                                                }
                                                 style={{width: '100%'}}                              
                                                 placeholder="--Target Value--"
-                                                onChange={(e)=>handleChange(e, "targetValue",idx )} 
+                                                onChange={(value)=>handleSelect(value, "targetValue",idx )} 
                                                 
                                             />
                                         </Form.Item>

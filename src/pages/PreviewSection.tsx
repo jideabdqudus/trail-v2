@@ -1,5 +1,5 @@
 import {useEffect} from 'react'
-import { Button, Col, Row, Typography } from "antd";
+import { Button, Col, Row, Typography, Skeleton } from "antd";
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -21,6 +21,8 @@ export const PreviewSection = () => {
     },[])
     console.log(form)
     console.log(id, 'this is id')
+
+    if (loading) return <Skeleton />;
     return (
         <div>
             <section className="form-preview-section">
@@ -28,7 +30,10 @@ export const PreviewSection = () => {
                     <Col span={24}>
                     <Typography.Paragraph className="form-preview-section-link">
                         Generated Link:{" "}
-                        {/* <a target="_blank" rel="noreferrer" href="google.com"></a> */}
+                        <a target="_blank" rel="noreferrer" href={form.formlink}>
+                        {" "}
+                        {form.formlink}
+                        </a>
                     </Typography.Paragraph>
                     </Col>
                     <Col span={24}>
@@ -40,7 +45,7 @@ export const PreviewSection = () => {
                     </Typography.Text>
                     </Col>
                     <Col span={24}>
-                    <PreviewQuestions  />
+                    <PreviewQuestions  form={form}/>
                     </Col>
                     <Col span={12}>
                     <Button

@@ -30,24 +30,7 @@ export const clearFilter=()=>(dispatch)=>{
   dispatch({ type: CLEAR_FILTER })
 }
 
-// export const deleteForm=(id)=>(dispatch, getState)=>{
-//   axios.delete(`${appConstants.REACT_APP_BASE_URL}/form/${id}`,tokenConfig(getState))
-//   .then((response)=>{
-//     dispatch({
-//       type: DELETE_FORM,
-//       payload: id
-//     })
-//     dispatch(setError(response.data, "ERR"))
-//   }).catch((error)=>{
-//     if (error.message && error.response === undefined) {
-//       dispatch(setError(error.message, "ERR"));
-//       dispatch({type: FORM_ERROR, payload: error.message,});
-//     } else {
-//       dispatch(setError(error.response.data.message, error.response.status));
-//       dispatch({ type: FORM_ERROR, payload: error.response.data.message, });
-//     }
-//   })
-// }
+
 export const deleteForm=(id)=> async (dispatch, getState)=>{
   try{
     const response=await axios.delete(`${appConstants.REACT_APP_BASE_URL}/form/${id}`,tokenConfig(getState))
@@ -100,20 +83,18 @@ export const getIndicatorQuestions=(id)=>(dispatch, getState)=>{
   })
 }
 
-export const createForm=(formData, history)=>dispatch=>{
+export const createForm=(formData, history)=>(dispatch, getState)=>{
   dispatch({
     type: FORM_LOADING
   })
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  axios.post(`${appConstants.REACT_APP_BASE_URL}/form/`, formData, config).then((response)=>{
+ 
+  axios.post(`${appConstants.REACT_APP_BASE_URL}/form/`, formData, tokenConfig(getState)).then((response)=>{
     dispatch({
       type: CREATE_FORM_SUCCESS,
       payload: response.data
     })
+    dispatch(setAlert(response.data))
+    setTimeout(history.push(`/app/forms`), 2000)
   }).catch((error)=>{
     if (error.message && error.response === undefined) {
       dispatch(setError(error.message, "ERR"));

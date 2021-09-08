@@ -1,9 +1,6 @@
 import React from 'react'
 
-interface Props{
-    form: any
-}
-export const PreviewQuestions = ({form}: Props) => {
+export const Builder = () => {
     return (
         <div>
             

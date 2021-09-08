@@ -1,6 +1,7 @@
 import { useState, Fragment, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Layout, Menu } from "antd";
+import { useHistory } from "react-router-dom";
 
 // import 
 import { Header } from "../layouts/header";
@@ -8,12 +9,13 @@ import { SideBar } from '../layouts/sidebar';
 import {CreateForm} from '../components/CreateForm'
 import { IAuthenticate, IForms, IBuildType, IInputsFields} from '../type.d'
 import { COMPONENT_TYPES } from "../constants/environment";
-import {getPrograms, getIndicatorQuestions} from '../actions/form';
+import {getPrograms, getIndicatorQuestions, createForm} from '../actions/form';
 import { toastify } from "../helpers";
 
 
 
 export const FormBuild = () => {
+  const history=useHistory()
     const {Footer}= Layout;
     const dispatch =useDispatch();
     const { user } = useSelector((state: IAuthenticate) => state.auth);
@@ -42,16 +44,19 @@ export const FormBuild = () => {
     ])
 
     const [inputs, setInputs]=useState<IInputsFields>({
-      title: '',
+      title: 'form',
       display: 'form',
-      type: 'form',
+      type: 'number',
       name: '',
       program: '',
       organisationId: 0,
       instructions: '',
       buttonType: 'submit',
       buttonValue: 'Submit',
+      
+      builderType: 'text',
       components: []
+
   })
     const [componentBuild, setComponentBuild] = useState<any>([]);
 
@@ -70,20 +75,21 @@ export const FormBuild = () => {
             value: 'number',
           },
     ]);
-    console.log('hello')
+    
     }
 
  
-  console.log(componentBuild)
+ 
   const menu=(
       <Menu>
-          {builderTypes.map((builderType: IBuildType)=>{
+          {builderTypes.map((builderType: IBuildType, idx)=>{
              return  <Menu.Item
-              key={builderType.value}
+              key={idx}
               onClick={()=>{if(inputs.program ===""){
                 toastify.alertWarning('Kindly choose a program', 3000)
               }else{
                 addBuilderTypes(builderType.value)
+                setInputs({...inputs, builderType: builderType.value})
               }
               }}
               >
@@ -113,7 +119,7 @@ export const FormBuild = () => {
       })
      
       setLinkedIndicator(ind)
-      console.log(LinkedIndicator)
+      
   }
 
   
@@ -137,7 +143,7 @@ export const FormBuild = () => {
   const onChangeSelectDropdown=(value: string)=>{
     setInputs({
       ...inputs,
-      program : value,
+      program : value.toString(),
     })
 }
 
@@ -151,9 +157,11 @@ export const FormBuild = () => {
   }
 
   //handle input type change for component
-  const handleChange= (event: any, name: string, index: number) => {
-    componentBuild[index][name] = event.target.value;
+  const handleChangeQuestion= (e: any, name: string, index: number) => {
+    componentBuild[index][name] = e.target.value;
     setComponentBuild(componentBuild);
+    setInputs({ ...inputs,
+                components: componentBuild})
     };
     
   //handle select dropdown change for component
@@ -162,10 +170,18 @@ export const FormBuild = () => {
       const tempComp=[...componentBuild]
       tempComp[index][name] = value;
       setComponentBuild(tempComp);
+      setInputs({ ...inputs,
+                components: componentBuild})
     }
     
     };
-  console.log(inputs)
+ 
+  
+
+  const onFinish=()=>{
+        dispatch(createForm(inputs, history))
+      
+  }
     return (
         <div className="container-scroller">
         <Header user={ user }/>
@@ -190,8 +206,9 @@ export const FormBuild = () => {
 
                     componentBuild={componentBuild}
                     removeComponents={removeComponents}
-                    handleChange={handleChange}
+                    handleChangeQuestion={handleChangeQuestion}
                     handleSelect={handleSelect}
+                    onFinish={onFinish}
                     
                     />
                   </Fragment>
