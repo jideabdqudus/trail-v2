@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { Layout, Row, Col } from 'antd';
+import React, {useEffect, useState} from "react";
+import { Layout, Row, Col, Spin } from 'antd';
 import {useSelector, useDispatch} from 'react-redux';
 import { flatten, uniqBy } from "lodash";
 
@@ -16,20 +16,23 @@ export const Overview = () => {
   const dispatch = useDispatch()
   const {user} = useSelector((state: IAuthenticate) => state.auth);
   const {budgetAndBeneficiaries, programs, loading} = useSelector((state: IPrograms) => state.program);
+  const [watch] = useState<any>(programs)
   useEffect(() => {
     dispatch(getBudgetAndBeneficiaries())
     dispatch(getPrograms())
-    // eslint-disable-next-line
-  },[])
+    console.log(watch, "watch")    
+  },[watch, dispatch])
   const calculateSize = (programs: any) => {
     const sdgs = uniqBy(flatten(programs?.map(({ sdgs }: any) => sdgs)), "sdgId");
     return sdgs || [];
   };
-  if (loading){
-    return <div className="loader">Loading...</div>
-  }
   return (
     <div className="container-scroller">
+      {
+        loading ? <div className="loading-overlay">
+          <Spin size="large" />
+        </div> : null 
+      }
       <Header user={user} />
       <div className="page-body-wrapper" style={{marginTop:"60px"}}>
         <SideBar  />

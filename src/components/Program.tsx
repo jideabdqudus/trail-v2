@@ -20,7 +20,7 @@ export const Program:React.FC<Props> = ({programs, renderSdgs}) => {
       {programs?.map((program)=>{
         const content = (
           <div>
-            <p className="content-p"> View</p>
+            <p className="content-p">View</p>
             <p className="content-p" onClick={()=>dispatch(deleteProgram(program.id))}> Delete</p>
           </div>
         );
@@ -29,7 +29,7 @@ export const Program:React.FC<Props> = ({programs, renderSdgs}) => {
            <Card className="card"
            cover={
              <Image src={program.image} className="image"
-               fallback="https://codespeedy.com/wp-content/uploads/2019/03/Chrome-Broken-Image-Icon.png"
+               fallback="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
              />
            }
          >

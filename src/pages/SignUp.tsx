@@ -84,7 +84,19 @@ export const SignUp: React.FC= () => {
         </Link>
         </Col>
         <Col xs={{ span: 20 }} lg={{ span: 14 }}>
-          <SignUpForm stepOne={stepOne} stepTwo={stepTwo} onChangeStep={onChangeStep} onPrevStep={onPrevStep} stepNumber={stepNumber} formData={formData} onChangeForm={onChangeForm} onTickTerms={onTickTerms} onSubmitForm={onSubmitForm} onOrganizationChange={onOrganizationChange} loading={loading} />
+          <SignUpForm 
+            stepOne={stepOne} 
+            stepTwo={stepTwo} 
+            onChangeStep={onChangeStep} 
+            onPrevStep={onPrevStep} 
+            stepNumber={stepNumber} 
+            formData={formData} 
+            onChangeForm={onChangeForm} 
+            onTickTerms={onTickTerms} 
+            onSubmitForm={onSubmitForm} 
+            onOrganizationChange={onOrganizationChange} 
+            loading={loading} 
+            />
         </Col>
       </Row>
     </div>

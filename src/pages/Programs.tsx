@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Button, Tag} from 'antd';
+import { Layout, Button, Tag, Spin} from 'antd';
 import {useSelector} from 'react-redux';
 import {Link} from "react-router-dom"
 
@@ -9,10 +9,10 @@ import {Header} from "../layouts/header"
 import { Program } from "../components";
 import { IAuthenticate, IPrograms } from '../type.d'
 
-export const Programs = () => {
+export const Programs: React.FC = () => {
   const { Footer } = Layout;
   const {user} = useSelector((state: IAuthenticate) => state.auth)
-  const {programs} = useSelector((state: IPrograms) => state.program);
+  const {programs, loading} = useSelector((state: IPrograms) => state.program);
   const renderSdgs = (sdgs: any) => {
     let sdgElems = [];
     for (let i in sdgs) {
@@ -28,6 +28,11 @@ export const Programs = () => {
   };
   return (
     <div className="container-scroller">
+      {
+        loading ? <div className="loading-overlay">
+          <Spin size="large" />
+        </div> : null 
+      }
       <Header user={user} />
       <div className="page-body-wrapper" style={{marginTop:"60px"}}>
         <SideBar  />

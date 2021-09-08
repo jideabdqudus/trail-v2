@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Button, Select, Row, Col, Checkbox } from "antd";
+import { Form, Input, Button, Select, Row, Col, Checkbox, Spin } from "antd";
 import { Link } from "react-router-dom";
 
 //Imports
@@ -24,11 +24,13 @@ interface Props{
 export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onPrevStep, stepNumber, formData, onChangeForm, onTickTerms, onSubmitForm, onOrganizationChange, loading}) => {
   const { Option } = Select;
   const { firstName, lastName, email, phone, password, password2, terms, organization, organizationType } = formData;
-  if (loading){
-    return <div className="loader">Loading...</div>
-  }
   return (
     <div className="sign-up">
+      {
+        loading ? <div className="loading-overlay">
+          <Spin size="large" />
+        </div> : null 
+      }
       <h3>Welcome to Trail.</h3>
       <h5>
          Fill in your details to get started.  
