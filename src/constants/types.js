@@ -42,8 +42,3 @@ export const CLEAR_FILTER = "CLEAR_FILTER";
 export const PROGRAMS_SUCCESS= "PROGRAMS_SUCCESS"
 export const INDICATOR_QUESTIONS_SUCCESS="INDICATOR_QUESTIONS_SUCCESS"
 
-export const COMPONENT_TYPES = {
-    number: 'number',
-    radio: 'radio',
-    text: 'text',
-}

@@ -9,20 +9,35 @@ import { isEmpty } from 'lodash'
 
 interface Props{
     programs: [],
-    handleIndicator: (value: string)=>void,
+    handleLinkedIndicator: (value: string)=>void,
     menu: any
-    indicator: any
+    LinkedIndicator: any
     handleIndicatorQuestion: (value: string)=>void
     indicatorQuestions: string[]
-    components: string[]//define an interface for it
-    delete_a_component: (id:number)=>void
     OnchangeOfInputs:(e: any)=>void
     inputs:IInputsFields
     onChangeSelectDropdown: (value: string)=>void
-    changeComponent:(value: any)=>void
+
+    componentBuild: any
+    removeComponents: (index: number)=>void
+    handleChange: (event: any, attribute: string, index: number)=>void
+    handleSelect: (value: any, attribute: string, index: number)=>void
     
 }
-export const CreateForm = ({programs, handleIndicator,menu, indicator, handleIndicatorQuestion, indicatorQuestions, components, delete_a_component,OnchangeOfInputs, inputs, onChangeSelectDropdown, changeComponent}: Props) => {
+export const CreateForm = ({
+    programs, 
+    handleLinkedIndicator,
+    menu, 
+    LinkedIndicator,
+    handleIndicatorQuestion, 
+    indicatorQuestions, 
+    OnchangeOfInputs,
+    inputs, 
+    onChangeSelectDropdown, 
+    componentBuild, 
+    removeComponents,
+    handleChange, 
+    handleSelect}: Props) => {
     const { Option } = Select
    
     
@@ -72,7 +87,7 @@ export const CreateForm = ({programs, handleIndicator,menu, indicator, handleInd
                                         placeholder="Select"
                                         className="form-builder-input"
                                         
-                                        onSelect={handleIndicator}
+                                        onSelect={handleLinkedIndicator}
                                         onChange={onChangeSelectDropdown}
                                         value={inputs.program }
                                         >
@@ -114,8 +129,15 @@ export const CreateForm = ({programs, handleIndicator,menu, indicator, handleInd
 
                             
                            {/* {inputFields && <div> */}
-                            {components.map((component:any, idx)=>{
-
+                            {componentBuild && componentBuild.map((component:any, idx: any)=>{
+                                const {
+                                    targetType,
+                                    linkedIndicator,
+                                    question,
+                                    //placeholder,
+                                    targetValue,
+                                    indicatorquestion,
+                                } = component
                             
                                return <Row gutter={[16,16]} key={idx}>
                                     <Col span={7}>
@@ -133,13 +155,13 @@ export const CreateForm = ({programs, handleIndicator,menu, indicator, handleInd
                                             <Select placeholder="select" 
                                             
                                             onSelect={handleIndicatorQuestion}
-                                            
-                                            onChange={changeComponent} //not working
+                                            value={linkedIndicator || ""}
+                                            onChange={(value)=>handleSelect(value, "linkedIndicator",idx )} 
                                             
                                              >
                                                
-                                                {indicator && indicator.map((ind: any)=>{
-                                                  return  <Option key={ind.indicatorId} value={ind.indicatorId}>{ind.description}</Option>
+                                                {LinkedIndicator && LinkedIndicator.map((ind: any, index: number)=>{
+                                                  return  <Option key={index} value={ind.indicatorId}>{ind.description}</Option>
                                                 })}
                                                 
                                             </Select>
@@ -155,21 +177,22 @@ export const CreateForm = ({programs, handleIndicator,menu, indicator, handleInd
                                                 },
                                             ]}
                                             style={{marginBottom: 0}}
-                                            name="custom"
+                                            name="indicatorquestion"
+                                            
                                             >
                                             <Select placeholder="select" 
-                                            onChange={OnchangeOfInputs}
-                                            // value={component.indicatorquestion}
-                                            // defaultValue={component.indicatorquestion}
+                                            onChange={(value)=>handleSelect(value, "indicatorquestion",idx )} 
+                                            value={indicatorquestion || ""}
+                                            defaultValue={indicatorquestion || ""}
                                             >
-                                                <Option value="custom">Custom Question</Option>
-                                                {indicatorQuestions.map((questions: any)=>{
-                                                    return <Option key={questions.id} value={questions.id}>{questions.question}</Option>
+                                                <Option value={0}>Custom Question</Option>
+                                                {indicatorQuestions.map((questions: any, index: any)=>{
+                                                    return <Option key={index} value={questions.id}>{questions.question}</Option>
                                                 })}
                                             </Select>
                                         </Form.Item>
                                     </Col>
-                                     <Col span={6}>
+                                     {isEmpty(indicatorquestion) && <Col span={6}>
                                         <Form.Item
                                            style={{marginBottom: 0}}
                                            name="question"
@@ -177,12 +200,13 @@ export const CreateForm = ({programs, handleIndicator,menu, indicator, handleInd
                                             <Input
                                                 type="text"
                                                 name="question"
+                                                
                                                 placeholder="--Type Question--"
-                                                value={component.question}
-                                                onChange={OnchangeOfInputs}
+                                                value={question || ""}
+                                                onChange={(e)=>handleChange(e, "question",idx )} 
                                             />
                                         </Form.Item>
-                                    </Col>
+                                    </Col>}
                                     <Col span={4}>
                                         <Form.Item
                                             rules={[
@@ -193,13 +217,14 @@ export const CreateForm = ({programs, handleIndicator,menu, indicator, handleInd
                                                 },
                                             ]}
                                             style={{marginBottom: 0}}
-                                            name="indicator metric"
+                                            name="targetType"
                                         >
                                             <Select
                                                 placeholder="Select indicator metric"
-                                            //   value={component.targetType}  
-                                            //   defaultValue={component.targetType} 
-                                              onChange={OnchangeOfInputs}
+                                                
+                                              value={targetType || ""}  
+                                              defaultValue={targetType || ""} 
+                                            onChange={(value)=>handleSelect(value, "targetType",idx )} 
                                             >
                                                 <Option value="number">
                                                     Number
@@ -220,10 +245,12 @@ export const CreateForm = ({programs, handleIndicator,menu, indicator, handleInd
                                                 },
                                             ]}
                                             style={{marginBottom: "20px"}}
-                                            name="targetType"
+                                            name="targetValue"
                                         >
-                                            <InputNumber
-                                               value={component.targetValue}
+                                            <Input
+                                               value={targetValue}
+                                               
+                                            
                                                min={0}
                                                max={
                                                 component.targetType ===
@@ -233,8 +260,8 @@ export const CreateForm = ({programs, handleIndicator,menu, indicator, handleInd
                                                }
                                                 style={{width: '100%'}}                              
                                                 placeholder="--Target Value--"
-                                                onChange={OnchangeOfInputs}
-                                                name="targetType"
+                                                onChange={(e)=>handleChange(e, "targetValue",idx )} 
+                                                
                                             />
                                         </Form.Item>
                                     </Col>
@@ -243,7 +270,8 @@ export const CreateForm = ({programs, handleIndicator,menu, indicator, handleInd
                                             type={"primary"}
                                             danger
                                             onClick={() =>
-                                                delete_a_component(idx)
+                                                // delete_a_component(idx)
+                                                removeComponents(idx)
                                             }
                                             icon={
                                                 <MinusCircleOutlined />
@@ -253,7 +281,7 @@ export const CreateForm = ({programs, handleIndicator,menu, indicator, handleInd
                                     </Col>
                                 </Row>
                             })}
-                            {!isEmpty(components) && <Row>
+                            {!isEmpty(componentBuild) && <Row>
                                 <Row gutter={[16, 16]}>
                                     <Col span={3}>
                                         <Form.Item>

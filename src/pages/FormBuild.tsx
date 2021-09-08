@@ -9,7 +9,8 @@ import {CreateForm} from '../components/CreateForm'
 import { IAuthenticate, IForms, IBuildType, IInputsFields} from '../type.d'
 import { COMPONENT_TYPES } from "../constants/environment";
 import {getPrograms, getIndicatorQuestions} from '../actions/form';
-import {builderTypeNumber, builderTypeRadio, builderTypeText, deleteAComponent,onChangeComponent} from '../actions/builderType';
+import { toastify } from "../helpers";
+
 
 
 export const FormBuild = () => {
@@ -17,10 +18,14 @@ export const FormBuild = () => {
     const dispatch =useDispatch();
     const { user } = useSelector((state: IAuthenticate) => state.auth);
     const {programs, indicatorQuestions}= useSelector((state: IForms) => state.form)
-    const {components}=useSelector((state: any)=>state.builderType)
+
+    useEffect(()=>{
+      dispatch(getPrograms())
+      // eslint-disable-next-line 
+  },[])
 
     //defining all states found in component
-    const [indicator, setIndicator]=useState<string[]>()
+    const [LinkedIndicator, setLinkedIndicator]=useState<string[]>()
     const [builderTypes, ]=useState <IBuildType[]>([
         {
             name: 'Text Input',
@@ -42,38 +47,45 @@ export const FormBuild = () => {
       type: 'form',
       name: '',
       program: '',
+      organisationId: 0,
       instructions: '',
       buttonType: 'submit',
       buttonValue: 'Submit',
-      customQuestionInput: {},
       components: []
   })
-    
-    
+    const [componentBuild, setComponentBuild] = useState<any>([]);
 
-   useEffect(()=>{
-        dispatch(getPrograms())
-    },[dispatch])
+    const addBuilderTypes = (value: string )=> {
+      setComponentBuild([
+    ...componentBuild,
+          {
+            question: '',
+            targetValue: null,
+            targetType: 'Percentage',
+            inputType: value,
+            input: true,
+            placeholder: '',
+            linkedIndicator: null,
+            indicatorquestion: '',
+            value: 'number',
+          },
+    ]);
+    console.log('hello')
+    }
 
-    const handleBuildTypeChange=(builderType_value: string)=>{
-      if(builderType_value==='number'){
-        dispatch(builderTypeNumber(builderType_value))
-      }else if(builderType_value==='radio'){
-        dispatch(builderTypeRadio(builderType_value))
-      }else{
-        dispatch(builderTypeText(builderType_value))
-      }
-      
-      
-  }
  
-  console.log(inputs)
+  console.log(componentBuild)
   const menu=(
       <Menu>
           {builderTypes.map((builderType: IBuildType)=>{
              return  <Menu.Item
               key={builderType.value}
-              onClick={()=>{handleBuildTypeChange(builderType.value)}}
+              onClick={()=>{if(inputs.program ===""){
+                toastify.alertWarning('Kindly choose a program', 3000)
+              }else{
+                addBuilderTypes(builderType.value)
+              }
+              }}
               >
                   {builderType.name}
               </Menu.Item>
@@ -83,9 +95,10 @@ export const FormBuild = () => {
   )
 
 
-    const handleIndicator=(value: string)=>{
+  //get linkedindicator 
+    const handleLinkedIndicator=(value: string)=>{
       let ind: string[]=[]
-      // eslint-disable-next-line 
+      // eslint-disable-next-line
      programs.filter((program: any)=>{
         if(value===program.id){
          return program.sdgs.map((sdg: any)=>{
@@ -99,7 +112,8 @@ export const FormBuild = () => {
         
       })
      
-     setIndicator(ind)
+      setLinkedIndicator(ind)
+      console.log(LinkedIndicator)
   }
 
   
@@ -107,9 +121,6 @@ export const FormBuild = () => {
    dispatch(getIndicatorQuestions(value))
   }
  
-  const delete_a_component=(id: number)=>{
-    dispatch(deleteAComponent(id))
-  }
 
   // update state on change of inputs
   const OnchangeOfInputs= (e: any)=>{
@@ -123,24 +134,38 @@ export const FormBuild = () => {
 }
 
 //update state on change of select fields
-const onChangeSelectDropdown=(value: string)=>{
-  setInputs({
-    ...inputs,
-    program : value,
-})
-
+  const onChangeSelectDropdown=(value: string)=>{
+    setInputs({
+      ...inputs,
+      program : value,
+    })
 }
 
-//handle change for component array
-const changeComponent=(value: any)=>{
+  //delete object in component array
+  const removeComponents = (index: number) => {
+  const component_build = componentBuild.filter((e: any, idx: number) => 
+  idx !== index
+  );
+  setComponentBuild( component_build );
   
-  dispatch(onChangeComponent(value))
-  console.log(value)
-}
+  }
 
-
-  
+  //handle input type change for component
+  const handleChange= (event: any, name: string, index: number) => {
+    componentBuild[index][name] = event.target.value;
+    setComponentBuild(componentBuild);
+    };
     
+  //handle select dropdown change for component
+  const handleSelect = (value: any, name: string, index: number) => {
+    if(index !==-1){
+      const tempComp=[...componentBuild]
+      tempComp[index][name] = value;
+      setComponentBuild(tempComp);
+    }
+    
+    };
+  console.log(inputs)
     return (
         <div className="container-scroller">
         <Header user={ user }/>
@@ -155,16 +180,18 @@ const changeComponent=(value: any)=>{
                     <CreateForm 
                     programs={programs}
                     menu={menu}
-                    handleIndicator={handleIndicator}
-                    indicator={indicator}
+                    handleLinkedIndicator={handleLinkedIndicator}
+                    LinkedIndicator={LinkedIndicator}
                     handleIndicatorQuestion={handleIndicatorQuestion}
                     indicatorQuestions={indicatorQuestions}
-                    components={components}
-                    delete_a_component={delete_a_component}
                     OnchangeOfInputs={OnchangeOfInputs}
                     inputs={inputs}
                     onChangeSelectDropdown={onChangeSelectDropdown}
-                    changeComponent={changeComponent}
+
+                    componentBuild={componentBuild}
+                    removeComponents={removeComponents}
+                    handleChange={handleChange}
+                    handleSelect={handleSelect}
                     
                     />
                   </Fragment>

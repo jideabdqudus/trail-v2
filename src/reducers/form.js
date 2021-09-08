@@ -7,7 +7,8 @@ import {
   DELETE_FORM,
   PROGRAMS_SUCCESS,
   INDICATOR_QUESTIONS_SUCCESS,
-  CREATE_FORM_SUCCESS
+  CREATE_FORM_SUCCESS,
+  FORM_SUCCESS
 } from "../constants/types";
 
 const initialState = {
@@ -74,8 +75,14 @@ const form = (state = initialState, action) => {
         indicatorQuestions: action.payload.data
       }
       case CREATE_FORM_SUCCESS: return {
+        ...state,
         loading: false,
         forms: [...state, action.payload]
+      }
+      case FORM_SUCCESS: return{
+        ...state,
+        loading: false,
+        form: action.payload.data
       }
     default:
       return state;

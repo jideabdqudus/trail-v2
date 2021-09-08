@@ -108,9 +108,20 @@ export interface IProgramForm{
   code: string,
   sdgs:[]
 }
+export interface IUserForm{
+  name: string,
+
+  program: string,
+  organisationId: number,
+  instructions: string,
+  // buttonType: 'submit',
+  // buttonValue: 'Submit',
+  components: []
+}
 export interface IForm {
   loading: boolean;
   forms: [];
+  form: IUserForm
   filtered: [] | null;
   pagination: IPagination;
   programs: [],
@@ -120,6 +131,7 @@ export interface IForm {
 export interface IForms {
   form: IForm;
 }
+
 export interface IBuildType{
   name: string,
   value: string
@@ -131,9 +143,14 @@ export interface IInputsFields{
     type: string,
     name: string,
     program: string,
+    organisationId: number
     instructions: string,
     buttonType: string,
     buttonValue: string,
-    customQuestionInput: {},
+    // customQuestionInput: {},
     components: any
+}
+export interface ILinkedIndicator{
+  id: number
+  description: string
 }

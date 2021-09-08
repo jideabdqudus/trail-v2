@@ -4,7 +4,7 @@ import axios from "axios";
 import { appConstants } from "../constants/environment.js";
 import { tokenConfig } from "../helpers";
 import { setError, setAlert } from "./alert";
-import { FORMS_SUCCESS, FORM_ERROR, FORM_LOADING, FILTER_FORM, CLEAR_FILTER,DELETE_FORM , PROGRAMS_SUCCESS, INDICATOR_QUESTIONS_SUCCESS, CREATE_FORM_SUCCESS} from "../constants/types";
+import { FORMS_SUCCESS, FORM_ERROR, FORM_LOADING, FILTER_FORM, CLEAR_FILTER,DELETE_FORM , PROGRAMS_SUCCESS, INDICATOR_QUESTIONS_SUCCESS, CREATE_FORM_SUCCESS, FORM_SUCCESS} from "../constants/types";
 
 export const getForms = (page) => (dispatch, getState) => {
   dispatch({ type: FORM_LOADING, });
@@ -126,8 +126,23 @@ export const createForm=(formData, history)=>dispatch=>{
 }
 
 //get a form
-// export const getForm=(id)=>(dispatch, getState)=>{
-//   dispatch({
-//     type: FORM_LOADING
-//   })
-// }
+export const getForm=(id)=>(dispatch, getState)=>{
+  dispatch({
+    type: FORM_LOADING
+  })
+  axios.get(`${appConstants.REACT_APP_BASE_URL}/form/${id}`,tokenConfig(getState)).then((res)=>{
+    // console.log(res.data.data)
+    dispatch({
+      type: FORM_SUCCESS,
+      payload: res.data
+    })
+  }).catch((error)=>{
+    if (error.message && error.response === undefined) {
+      dispatch(setError(error.message, "ERR"));
+      dispatch({type: FORM_ERROR, payload: error.message,});
+    } else {
+      dispatch(setError(error.response.data.message, error.response.status));
+      dispatch({ type: FORM_ERROR, payload: error.response.data.message, });
+    }
+  })
+}

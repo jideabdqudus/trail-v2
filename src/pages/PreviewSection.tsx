@@ -1,12 +1,26 @@
-import React from 'react'
+import {useEffect} from 'react'
 import { Button, Col, Row, Typography } from "antd";
-// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 // import 
 import { ProgrammeSummary } from '../components/FormPreview/ProgrammeSummary';
 import { PreviewQuestions } from '../components/FormPreview/PreviewQuestions';
+import { IForms } from '../type.d';
+import { getForm } from '../actions/form';
+
 
 export const PreviewSection = () => {
+    const {form, loading} = useSelector((state: IForms) => state.form)
+    const {id}= useParams<any>()
+   const dispatch = useDispatch()
+
+    useEffect(()=>{
+        dispatch(getForm(id))
+        // eslint-disable-next-line
+    },[])
+    console.log(form)
+    console.log(id, 'this is id')
     return (
         <div>
             <section className="form-preview-section">
@@ -18,7 +32,7 @@ export const PreviewSection = () => {
                     </Typography.Paragraph>
                     </Col>
                     <Col span={24}>
-                    <ProgrammeSummary  />
+                    <ProgrammeSummary  form={form}/>
                     </Col>
                     <Col span={24}>
                     <Typography.Text className="form-preview-section-title">
