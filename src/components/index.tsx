@@ -5,4 +5,5 @@ export * from "./OverviewStat"
 export * from "./Program"
 export * from "./ProgramForm/ProgramData"
 export * from "./ProgramForm/SdgGroup"
-
+export * from "./ProgramStat"
+export * from "./ProgramForms"

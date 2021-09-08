@@ -1,5 +1,6 @@
 import React from 'react'
 import { Row, Col, Card, Image, Popover } from "antd";
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 //Imports
@@ -19,13 +20,13 @@ export const Program:React.FC<Props> = ({programs, renderSdgs}) => {
       <Row>
       {programs?.map((program)=>{
         const content = (
-          <div>
-            <p className="content-p">View</p>
+          <div key={program.id}>
+            <Link to={`/app/program-report/${program.id}`} className="content-p">View</Link>
             <p className="content-p" onClick={()=>dispatch(deleteProgram(program.id))}> Delete</p>
           </div>
         );
         return (
-        <Col span={8}>
+        <Col span={8} key={program.id}>
            <Card className="card"
            cover={
              <Image src={program.image} className="image"

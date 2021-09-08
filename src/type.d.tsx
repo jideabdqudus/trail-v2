@@ -77,7 +77,7 @@ export interface IProgramEach{
 export interface IProgram{
   loading?: boolean;
   budgetAndBeneficiaries?: IBudgetAndBeneficiaries
-  programs?: [],
+  programs?: any,
   sdgsAndIndicators?: [],
   indicatorsUnderSdgs?: [],
 }
