@@ -19,18 +19,18 @@ export const SdgGroup:React.FC<Props> = ({
   formData}) => {
     
   const [available, setAvailable] = useState<any>([])
-  const [crazy, setCrazy] = useState<any>([])
+  const [indicatorValue, setIndicatorValue] = useState<any>([])
   let arr: any = []
   const onClickHere = (e: any)=>{
     if (available.includes(e.target.value)){
       let valueIndex =  available.indexOf(e.target.value)
       available.splice(valueIndex, 1)
       setAvailable([...available])
-      crazy.splice(valueIndex, 1)
-      setCrazy([...crazy])
+      indicatorValue.splice(valueIndex, 1)
+      setIndicatorValue([...indicatorValue])
     }else{
       setAvailable([...available, e.target.value])
-      setCrazy([...crazy, {id: e.target.value, indicators: []}])
+      setIndicatorValue([...indicatorValue, {id: e.target.value, indicators: []}])
     }
   }
   const setIndicators = ()=>{
@@ -46,7 +46,7 @@ export const SdgGroup:React.FC<Props> = ({
   }
   const onSelectIndicator = (e: any, sdgId: any, indicatorDesc: any, indicatorId: any, indicatorIndex: any, checkedValues?: any, ) => {
     // eslint-disable-next-line 
-    crazy.map((mad: any)=>{
+    indicatorValue.map((mad: any)=>{
       if (mad.id === sdgId){
         if (mad.indicators.includes(indicatorId)){
             let indicatorIndexinArray = mad.indicators.indexOf(indicatorId)
@@ -56,7 +56,7 @@ export const SdgGroup:React.FC<Props> = ({
         }
       }
     })
-    setFormData({...formData, sdgs: [...crazy]})
+    setFormData({...formData, sdgs: [...indicatorValue]})
   }
   return (
     <div className="sdg-group">
