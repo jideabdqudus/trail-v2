@@ -70,14 +70,16 @@ export interface IProgramEach{
   locations: any,
   activeMarker: any,
   sdgs: ISdg[],
+  organisationId: number
   created?: string
 }
 
 export interface IProgram{
   loading?: boolean;
   budgetAndBeneficiaries?: IBudgetAndBeneficiaries
-  programs?: [],
+  programs?: any,
   sdgsAndIndicators?: [],
+  report?: [],
   indicatorsUnderSdgs?: [],
 }
 

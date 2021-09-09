@@ -1,4 +1,15 @@
-import { BUDGET_AND_BENEFICIARIES, GET_PROGRAMS, GET_ALL_SDGS_INDICATORS, LOADING_PROGRAMS, LOADED_PROGRAMS, PROGRAM_ERROR, GET_INDICATORS_UNDER_SDGS } from "../constants/types";
+import { 
+  BUDGET_AND_BENEFICIARIES, 
+  GET_PROGRAMS, 
+  GET_ALL_SDGS_INDICATORS, 
+  LOADING_PROGRAMS, 
+  LOADED_PROGRAMS, 
+  PROGRAM_ERROR, 
+  GET_INDICATORS_UNDER_SDGS, 
+  CREATED_PROGRAM,
+  FORM_REPORT_FOR_PROGRAM,
+  CLEAR_REPORT
+} from "../constants/types";
 
 const initialState = {
   loading: false,
@@ -6,6 +17,7 @@ const initialState = {
   sdgsAndIndicators: [],
   indicatorsUnderSdgs: [],
   programs: [],
+  report: [],
   error: null,
 };
 
@@ -44,6 +56,25 @@ const program = (state = initialState, action) => {
         ...state,
         loading: false,
         programs: action.payload.data
+      }
+    case CREATED_PROGRAM:
+      state.programs.unshift((action.payload.data))
+      return{
+        ...state, 
+        loading: false,
+        // programs: [...state.programs, action.payload.data]
+      }
+    case FORM_REPORT_FOR_PROGRAM:
+      return {
+        ...state,
+        loading: false,
+        report: action.payload.data
+      }
+    case CLEAR_REPORT:
+      return {
+        ...state, 
+        loading: false,
+        report: []
       }
     case PROGRAM_ERROR:
       return{

@@ -1,30 +1,36 @@
 import React from 'react'
 import { Row, Col, Card, Image, Popover } from "antd";
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 //Imports
 import { assets } from '../assets/assets';
 import {IProgramEach} from "../type.d"
+import {deleteProgram} from "../actions/program.js"
 
 interface Props {
   programs?: IProgramEach[]
   renderSdgs: (sdg: any)=> any
 }
 export const Program:React.FC<Props> = ({programs, renderSdgs}) => {
-  const content = (
-    <div>
-      <p className="content-p"> View</p>
-      <p className="content-p"> Delete</p>
-    </div>
-  );
+  const dispatch = useDispatch()
+  
   return (
     <div className="program">
       <Row>
-      {programs?.map((program)=>(
-        <Col span={8}>
+      {programs?.map((program)=>{
+        const content = (
+          <div key={program.id}>
+            <Link to={`/app/program-report/${program.id}`} className="content-p">View</Link>
+            <p className="content-p" onClick={()=>dispatch(deleteProgram(program.id))}> Delete</p>
+          </div>
+        );
+        return (
+        <Col span={8} key={program.id}>
            <Card className="card"
            cover={
              <Image src={program.image} className="image"
-               fallback="https://codespeedy.com/wp-content/uploads/2019/03/Chrome-Broken-Image-Icon.png"
+               fallback="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
              />
            }
          >
@@ -52,7 +58,7 @@ export const Program:React.FC<Props> = ({programs, renderSdgs}) => {
              </div>
          </Card>
         </Col>
-      ))}
+      )})}
         </Row>
     </div>
   )

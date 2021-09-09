@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Button, Row, Col } from "antd";
+import { Form, Input, Button, Row, Col, Spin } from "antd";
 import { Link } from "react-router-dom";
 
 //Imports
@@ -13,11 +13,13 @@ interface Props {
 }
 
 export const LoginForm: React.FC<Props> = ({formData, onChangeForm, onSubmitForm, loading}) => {
-  if (loading){
-    return <div className="loader">Loading...</div>
-  }
   return (
     <div className="login">
+      {
+        loading ? <div className="loading-overlay">
+          <Spin size="large" />
+        </div> : null 
+      }
       <h3>Welcome Back.</h3>
       <h5>
         Login with your details below.

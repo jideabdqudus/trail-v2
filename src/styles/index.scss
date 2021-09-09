@@ -250,7 +250,7 @@
   background-color: #E8EFFD;
   object-fit: cover;
   object-position: center;
-  // border: 1px dashed #1354D3;
+  border: 1px dashed #1354D3;
   cursor: pointer;
 }
 
@@ -331,7 +331,32 @@
   }
 
   .ant-col-12{
-    max-width: 80%;
+    max-width: 100%;
   }
 }
 
+.create__program{
+    // color: red;
+    @extend %btn;
+    width: 13%;
+    float: right;
+}
+
+.cancel__program{
+  color: black;
+  @extend %btn;
+  background-color: transparent;
+  border-color: transparent;
+  margin-right: 5px;
+  width: 13%;
+  float: right;
+}
+
+.content-p{
+  cursor: pointer;
+}
+
+.program-report__sub{
+  font-size: 18px;
+  margin-top: 40px;
+}
