@@ -8,7 +8,9 @@ import {
   GET_PROGRAMS, 
   GET_ALL_SDGS_INDICATORS, 
   LOADING_PROGRAMS, 
-  GET_INDICATORS_UNDER_SDGS 
+  GET_INDICATORS_UNDER_SDGS ,
+  FORM_REPORT_FOR_PROGRAM,
+  CLEAR_REPORT
 } from '../constants/types.js';
 import {appConstants} from "../constants/environment.js"
 import {tokenConfig, toastify} from "../helpers"
@@ -150,4 +152,36 @@ export const deleteProgram = (id) => async (dispatch, getState) =>{
     })
     }
   })
+}
+
+
+
+export const getFormReportforProgram = (id, path) => async (dispatch, getState) => {
+  //#TODO: Add Preloader here
+  console.log("ernter")
+  dispatch({ type: LOADING_PROGRAMS });
+  axios.get(`${appConstants.REACT_APP_BASE_URL}/program_report/${id}/${path}`, tokenConfig(getState)
+  ).then((res)=>{
+    console.log(res)
+    dispatch({type: FORM_REPORT_FOR_PROGRAM, payload: res.data})
+  }).catch((error)=>{
+    console.error(error)
+    if(error.message && error.response === undefined){
+      dispatch(setError(error.message, "ERR"));
+      dispatch({
+      type: PROGRAM_ERROR,
+      payload: error.message
+    })
+  }else{
+    dispatch(setError(error.response.data.message, error.response.status));
+    dispatch({
+    type: PROGRAM_ERROR,
+    payload: error.response.data.message
+  })
+  }
+})
+}
+
+export const clearReport = () => (dispatch)=>{
+  dispatch({type: CLEAR_REPORT})
 }

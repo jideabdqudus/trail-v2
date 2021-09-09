@@ -2,22 +2,27 @@ import React, {useState, useEffect} from "react";
 import { Divider, Layout, Spin } from 'antd';
 import {useSelector} from 'react-redux';
 import { useParams } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+
 
 //Imports
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
-import { ProgramForms, ProgramStat } from "../components";
+import { ProgramFormReport, ProgramForms, ProgramStat } from "../components";
+import {clearReport} from "../actions/program.js"
 import { IAuthenticate, IPrograms } from '../type.d'
 
 export const ProgramReport = () => {
   const { Footer } = Layout;
   const {user} = useSelector((state: IAuthenticate) => state.auth);
+  const dispatch = useDispatch()
   const { id } = useParams<{id: string}>();
-  const {loading, programs} = useSelector((state: IPrograms) => state.program);
+  const {loading, programs, report} = useSelector((state: IPrograms) => state.program);
   const [program, setProgram] = useState<any>({})
   const [indicatorNumber, setIndicatorNumber] = useState<number>(0)
   useEffect(() => {
    getProgram(id)
+   dispatch(clearReport())
     //eslint-disable-next-line
   }, [])
   let indicatorValue = 0  
@@ -34,7 +39,8 @@ export const ProgramReport = () => {
     })
     return null
   }
-  
+  console.log(program, "program")
+  console.log(report, "reporttttt")
   return (
     <div className="container-scroller">
       {
@@ -54,7 +60,8 @@ export const ProgramReport = () => {
                       <ProgramStat program = {program} indicatorNumber={indicatorNumber} />
                       <h2 className="program-report__sub">Performance Indicators</h2>
                       <Divider/>
-                      <ProgramForms program={program}/>
+                      <ProgramForms program={program} id={id} />
+                      {report && report?.length > 0 ? <ProgramFormReport report={report} />: null}
                    </div>
               </div>
             </div>

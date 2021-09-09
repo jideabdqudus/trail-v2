@@ -6,7 +6,9 @@ import {
   LOADED_PROGRAMS, 
   PROGRAM_ERROR, 
   GET_INDICATORS_UNDER_SDGS, 
-  CREATED_PROGRAM 
+  CREATED_PROGRAM,
+  FORM_REPORT_FOR_PROGRAM,
+  CLEAR_REPORT
 } from "../constants/types";
 
 const initialState = {
@@ -15,6 +17,7 @@ const initialState = {
   sdgsAndIndicators: [],
   indicatorsUnderSdgs: [],
   programs: [],
+  report: [],
   error: null,
 };
 
@@ -43,7 +46,6 @@ const program = (state = initialState, action) => {
         indicatorsUnderSdgs: [...state.indicatorsUnderSdgs, action.payload.data]
       }
     case BUDGET_AND_BENEFICIARIES:
-
       return{
         ...state,
         loading: false,
@@ -61,6 +63,18 @@ const program = (state = initialState, action) => {
         ...state, 
         loading: false,
         // programs: [...state.programs, action.payload.data]
+      }
+    case FORM_REPORT_FOR_PROGRAM:
+      return {
+        ...state,
+        loading: false,
+        report: action.payload.data
+      }
+    case CLEAR_REPORT:
+      return {
+        ...state, 
+        loading: false,
+        report: []
       }
     case PROGRAM_ERROR:
       return{

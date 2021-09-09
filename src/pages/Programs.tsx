@@ -41,7 +41,7 @@ export const Programs: React.FC = () => {
             <div className="row page-title-header">
               <div className="col-12">
                 <div className="top-header">
-                  <h1 className="view-title">Profile</h1>
+                  <h1 className="view-title">Programs</h1>
                   <Button className="new-programme-btn">
                       <Link to="/app/new-program"> New Programme</Link>
                     </Button>

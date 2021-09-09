@@ -40,7 +40,7 @@ export const Overview = () => {
           <div className="content-wrapper">
             <div className="row page-title-header">
               <div className="col-12">
-                  <h1 className="view-title">Profile</h1>
+                  <h1 className="view-title">Overview</h1>
                    <div className="dashboard-card">
                       <OverviewStat budgetAndBeneficiaries={budgetAndBeneficiaries} programs={programs} calculateSize={calculateSize} />
                       <Row>

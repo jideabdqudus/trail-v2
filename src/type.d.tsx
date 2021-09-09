@@ -79,6 +79,7 @@ export interface IProgram{
   budgetAndBeneficiaries?: IBudgetAndBeneficiaries
   programs?: any,
   sdgsAndIndicators?: [],
+  report?: [],
   indicatorsUnderSdgs?: [],
 }
 
