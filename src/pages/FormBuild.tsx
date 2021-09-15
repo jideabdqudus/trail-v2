@@ -49,7 +49,6 @@ export const FormBuild = () => {
     buttonValue: 'Submit',
     builderType: 'text',
     components: []
-
   })
   const [componentBuild, setComponentBuild] = useState<any>([]);
   const addBuilderTypes = (value: string )=> {

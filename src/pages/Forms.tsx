@@ -43,7 +43,7 @@ export const Forms = () => {
                   <Button className="new-programme-btn" 
                     style={{backgroundColor: "#d66f0f",color: "white",width: "140px"}}
                   >
-                    <Link to="/app/build_form"> New Form</Link>
+                    <Link to="/app/form-build"> New Form</Link>
                   </Button>
                 </div>
                 <div className="dashboard-card">
