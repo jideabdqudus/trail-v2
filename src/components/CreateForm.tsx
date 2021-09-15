@@ -237,8 +237,8 @@ export const CreateForm = ({
                                             <Select
                                                 placeholder="Select indicator metric"
                                                 
-                                              value={targetType || ""}  
-                                              defaultValue={targetType || ""} 
+                                              value={targetType}  
+                                            //   defaultValue={targetType || ""} 
                                             onChange={(value)=>handleSelect(value, "targetType",idx )} 
                                             >
                                                 <Option value="number">
