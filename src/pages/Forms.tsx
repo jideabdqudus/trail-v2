@@ -4,8 +4,6 @@ import { Button, Layout } from "antd";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-
-//IMPORT
 import { FormTable } from "../components/FormTable";
 import { Header } from "../layouts/header";
 import { SideBar } from "../layouts/sidebar";
@@ -18,27 +16,19 @@ export const Forms = () => {
   const { user } = useSelector((state: IAuthenticate) => state.auth);
   const { loading, forms, pagination, filtered} = useSelector((state: IForms) => state.form);
   const [page, setPage]=useState(1)
-
-  const filterText=useRef<any>('') //Change Type
+  const filterText=useRef<any>('')
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getForms(page));
-    
   }, [dispatch, page]);
-
   const handlePageChange = (_page: number) => setPage(_page)
-
   const inputChange=(e: any)=>{
-    
-    if(filterText.current.value!==""){ // Strict Typing
-      
+    if(filterText.current.value!== ""){
       dispatch(filterForm(e.target.value))
     }else{
       dispatch(clearFilter())
     }
   }
- 
   return (
     <div className="container-scroller">
       <Header user={user} />
@@ -50,11 +40,10 @@ export const Forms = () => {
               <div className="col-12">
                 <div className="top-header">
                   <h1 className="view-title">Forms</h1>
-                  <Button
-                    className="new-programme-btn"
+                  <Button className="new-programme-btn" 
                     style={{backgroundColor: "#d66f0f",color: "white",width: "140px"}}
                   >
-                    <Link to="/app/build_form"> New Form</Link>
+                    <Link to="/app/form-build"> New Form</Link>
                   </Button>
                 </div>
                 <div className="dashboard-card">

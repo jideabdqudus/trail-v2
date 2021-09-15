@@ -3,7 +3,6 @@ import { Form, Input, Row, Col, Divider } from 'antd';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import Dropzone from "react-dropzone";
 
-
 interface Props {
   file: any,
   fileForm: any,
@@ -19,8 +18,16 @@ interface Props {
   onSubmitForm:()=>void
 }
 
-export const ProgramData:React.FC<Props> = ({file, fileForm, addressed, selectedPlace, location, mapCenter, formData, handleDrop, handleSelectPlace, handleChangePlace, onChangeForm, onSubmitForm}) => {  
-  const {name, description, code, totalNumberOfBeneficiaries, budget}=formData
+export const ProgramData:React.FC<Props> = ({
+  fileForm, 
+  addressed, 
+  formData, 
+  handleDrop, 
+  handleSelectPlace, 
+  handleChangePlace, 
+  onChangeForm, 
+  onSubmitForm }) => {  
+  const {name, description, code, totalNumberOfBeneficiaries, budget } =formData
   return (
     <div>
        <Divider orientation="right">Program Data</Divider>
@@ -54,7 +61,7 @@ export const ProgramData:React.FC<Props> = ({file, fileForm, addressed, selected
                        <span>Program Location</span>                
                       <input required  style={{ height:"40px", fontSize:"0.9rem", padding: "15px", width: "100%", border: "1px solid #D7DCE0", }}
                         {...getInputProps({
-                          placeholder: "Programme Location",
+                          placeholder: "Enter program location",
                           className: "location-search-input",
                         })}
                       />
@@ -85,7 +92,7 @@ export const ProgramData:React.FC<Props> = ({file, fileForm, addressed, selected
                 </PlacesAutocomplete>
              </Col>
              <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-                <span>Programme Code</span>
+                <span>Program Code</span>
                 <Form.Item name="code" rules={[{ required: true, message: "Confirm your Input" },]}>
                   <Input className="login__input" placeholder="Enter program code" type="text" name="code" value={code} onChange={onChangeForm}  />
                 </Form.Item>
@@ -93,35 +100,26 @@ export const ProgramData:React.FC<Props> = ({file, fileForm, addressed, selected
               <Col xs={{ span: 24 }} lg={{ span: 8 }}>
                 <Dropzone  onDrop={handleDrop} multiple={false} accept="image/png">
                   {({ getRootProps, getInputProps }) => (<>
-                        <span>Programme Cover</span>
+                        <span>Program Cover</span>
                       <div {...getRootProps({ className:"drop-zone" })}>
                         <input {...getInputProps()} required />
-                        <p style={{textAlign:"center", color:"#1354D3"}}>Upload Image</p>
+                        <p style={{textAlign:"center", color:"#1354D3", paddingTop:"8px"}}>Upload program image</p>
                         {fileForm.name === undefined ? <span>PNG or JPEG format only. Maximum size is 600kb</span> :<span>{fileForm.name}</span> }
                       </div>
                     </>
                   )}
                 </Dropzone>
-                <br/>
+                <br/><br/>
                </Col>
            </Row>
            <Row>
              <Col xs={{ span: 24 }} lg={{ span: 8 }}>
               <Form.Item name="description" rules={[{ required: true, message: "Confirm your Input" },]}>
-                <span>Programme Description</span>
+                <span>Program Description</span>
                 <Input.TextArea className="login__input" placeholder="Enter program description" name="description" rows={4} value={description} onChange={onChangeForm}  />
               </Form.Item>
              </Col>
            </Row>
-           {/* <Row>
-            <Col xs={{ span: 12 }} lg={{ span: 24 }}>
-              <Form.Item>
-                <Button type="primary" htmlType="submit" className="login__btn" >
-                  Sign Up
-                </Button>
-              </Form.Item>
-            </Col>
-          </Row> */}
         </Form>
     </div>
   )

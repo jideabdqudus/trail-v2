@@ -3,184 +3,140 @@ import { useSelector, useDispatch } from "react-redux";
 import { Layout, Menu } from "antd";
 import { useHistory } from "react-router-dom";
 
-// import 
 import { Header } from "../layouts/header";
 import { SideBar } from '../layouts/sidebar';
-import {CreateForm} from '../components/CreateForm'
+import {CreateForm } from '../components/CreateForm'
 import { IAuthenticate, IForms, IBuildType, IInputsFields} from '../type.d'
 import { COMPONENT_TYPES } from "../constants/environment";
 import {getPrograms, getIndicatorQuestions, createForm} from '../actions/form';
 import { toastify } from "../helpers";
 
-
-
 export const FormBuild = () => {
   const history=useHistory()
-    const {Footer}= Layout;
-    const dispatch =useDispatch();
-    const { user } = useSelector((state: IAuthenticate) => state.auth);
-    const {programs, indicatorQuestions}= useSelector((state: IForms) => state.form)
-
-    useEffect(()=>{
-      dispatch(getPrograms())
-      // eslint-disable-next-line 
+  const {Footer}= Layout;
+  const dispatch =useDispatch();
+  const { user } = useSelector((state: IAuthenticate) => state.auth);
+  const {programs, indicatorQuestions}= useSelector((state: IForms) => state.form)
+  useEffect(()=>{
+    dispatch(getPrograms())
+    // eslint-disable-next-line 
   },[])
-
-    //defining all states found in component
-    const [LinkedIndicator, setLinkedIndicator]=useState<string[]>()
-    const [builderTypes, ]=useState <IBuildType[]>([
-        {
-            name: 'Text Input',
-            value: COMPONENT_TYPES.text,
-        },
-        {
-            name: 'Radio Input',
-            value: COMPONENT_TYPES.radio,
-        },
-        {
-            name: 'Number Input',
-            value: COMPONENT_TYPES.number,
-        },
-    ])
-
-    const [inputs, setInputs]=useState<IInputsFields>({
-      title: 'form',
-      display: 'form',
-      type: 'number',
-      name: '',
-      program: '',
-      organisationId: 0,
-      instructions: '',
-      buttonType: 'submit',
-      buttonValue: 'Submit',
-      
-      builderType: 'text',
-      components: []
-
+  //Defining all states found in component
+  const [LinkedIndicator, setLinkedIndicator]=useState<string[]>()
+  const [builderTypes, ]=useState <IBuildType[]>([
+      {
+          name: 'Text Input',
+          value: COMPONENT_TYPES.text,
+      },
+      {
+          name: 'Radio Input',
+          value: COMPONENT_TYPES.radio,
+      },
+      {
+          name: 'Number Input',
+          value: COMPONENT_TYPES.number,
+      },
+  ])
+  const [inputs, setInputs]=useState<IInputsFields>({
+    title: 'form',
+    display: 'form',
+    type: 'number',
+    name: '',
+    program: '',
+    organisationId: 0,
+    instructions: '',
+    buttonType: 'submit',
+    buttonValue: 'Submit',
+    builderType: 'text',
+    components: []
   })
-    const [componentBuild, setComponentBuild] = useState<any>([]);
-
-    const addBuilderTypes = (value: string )=> {
-      setComponentBuild([
-    ...componentBuild,
-          {
-            question: '',
-            targetValue: null,
-            targetType: 'Percentage',
-            inputType: value,
-            input: true,
-            placeholder: '',
-            linkedIndicator: null,
-            indicatorquestion: '',
-            value: 'number',
-          },
-    ]);
-    
+  const [componentBuild, setComponentBuild] = useState<any>([]);
+  const addBuilderTypes = (value: string )=> {
+    setComponentBuild([
+      ...componentBuild,
+        {
+          question: '',
+          targetValue: null,
+          targetType: 'Percentage',
+          inputType: value,
+          input: true,
+          placeholder: '',
+          linkedIndicator: null,
+          indicatorquestion: '',
+          value: 'number',
+        },
+      ]);   
     }
-
- 
- 
+  const buildType = (builderType: IBuildType)=>{
+    if(inputs.program === "" ){
+      toastify.alertWarning('Kindly choose a program', 3000)
+    } else {
+      addBuilderTypes(builderType.value)
+      setInputs({...inputs, builderType: builderType.value})
+    }
+  } 
   const menu=(
       <Menu>
-          {builderTypes.map((builderType: IBuildType, idx)=>{
-             return  <Menu.Item
-              key={idx}
-              onClick={()=>{if(inputs.program ===""){
-                toastify.alertWarning('Kindly choose a program', 3000)
-              }else{
-                addBuilderTypes(builderType.value)
-                setInputs({...inputs, builderType: builderType.value})
-              }
-              }}
-              >
-                  {builderType.name}
-              </Menu.Item>
-          })}
-          
+        {builderTypes.map((builderType: IBuildType, id)=>{
+          return  (
+            <Menu.Item key={id} onClick={()=>buildType(builderType)}>
+              {builderType.name}
+            </Menu.Item>
+            )
+        })}
       </Menu>
   )
-
-
-  //get linkedindicator 
-    const handleLinkedIndicator=(value: string)=>{
-      let ind: string[]=[]
-      // eslint-disable-next-line
-     programs.filter((program: any)=>{
-        if(value===program.id){
-         return program.sdgs.map((sdg: any)=>{
-           return sdg.indicators.map((indicator: any)=>{
-              
-           return ind.push(indicator)
-            
-            })
+  // Get linkedindicator 
+  const handleLinkedIndicator=(value: string)=>{
+    let ind: string[] = []
+    // eslint-disable-next-line
+    programs.filter((program: any)=>{
+      if(value===program.id){
+        return program.sdgs.map((sdg: any)=>{
+          sdg.indicators.map((indicator: any)=>{
+          ind.push(indicator)
+          return null
           })
-        }
-        
-      })
-     
-      setLinkedIndicator(ind)
-      
+          return null
+        })
+      }    
+    })
+    setLinkedIndicator(ind)
   }
-
-  
   const handleIndicatorQuestion=(value: string)=>{
    dispatch(getIndicatorQuestions(value))
   }
- 
-
-  // update state on change of inputs
-  const OnchangeOfInputs= (e: any)=>{
-    const value=e.target.value;
-
-    setInputs({
-        ...inputs,
-        [e.target.name]: value
-    })
-    
-}
-
-//update state on change of select fields
-  const onChangeSelectDropdown=(value: string)=>{
-    setInputs({
-      ...inputs,
-      program : value.toString(),
-    })
-}
-
-  //delete object in component array
-  const removeComponents = (index: number) => {
-  const component_build = componentBuild.filter((e: any, idx: number) => 
-  idx !== index
-  );
-  setComponentBuild( component_build );
-  
+  // Update state on change of inputs
+  const onChangeofInputs= (e: any)=>{
+    setInputs({...inputs, [e.target.name]: e.target.value})
   }
-
-  //handle input type change for component
+  //Update state on change of select fields
+  const onChangeSelectDropdown=(value: string)=>{
+    setInputs({ ...inputs,program : value.toString()})
+  }
+  // Delete object in component array
+  const removeComponents = (index: number) => {
+    const component_build = componentBuild.filter((e: any, idx: number) => idx !== index);
+    setComponentBuild( component_build );
+  }
+  // Handle input type change for component
   const handleChangeQuestion= (e: any, name: string, index: number) => {
     componentBuild[index][name] = e.target.value;
     setComponentBuild(componentBuild);
-    setInputs({ ...inputs,
-                components: componentBuild})
-    };
-    
-  //handle select dropdown change for component
+    setInputs({ ...inputs,  components: componentBuild})
+  };
+  // Handle select dropdown change for component
   const handleSelect = (value: any, name: string, index: number) => {
     if(index !==-1){
       const tempComp=[...componentBuild]
       tempComp[index][name] = value;
       setComponentBuild(tempComp);
-      setInputs({ ...inputs,
-                components: componentBuild})
+      setInputs({ ...inputs, components: componentBuild})
     }
-    
-    };
- 
-
+  };
   const onFinish=()=>{
     console.log(inputs)
-        dispatch(createForm(inputs, history))
-      
+    dispatch(createForm(inputs, history))  
   }
     return (
         <div className="container-scroller">
@@ -191,25 +147,22 @@ export const FormBuild = () => {
             <div className="content-wrapper">
               <div className="row page-title-header">
                 <div className="col-12">
-                  
                   <Fragment>
                     <CreateForm 
-                    programs={programs}
-                    menu={menu}
-                    handleLinkedIndicator={handleLinkedIndicator}
-                    LinkedIndicator={LinkedIndicator}
-                    handleIndicatorQuestion={handleIndicatorQuestion}
-                    indicatorQuestions={indicatorQuestions}
-                    OnchangeOfInputs={OnchangeOfInputs}
-                    inputs={inputs}
-                    onChangeSelectDropdown={onChangeSelectDropdown}
-
-                    componentBuild={componentBuild}
-                    removeComponents={removeComponents}
-                    handleChangeQuestion={handleChangeQuestion}
-                    handleSelect={handleSelect}
-                    onFinish={onFinish}
-                    
+                      programs={programs}
+                      menu={menu}
+                      handleLinkedIndicator={handleLinkedIndicator}
+                      LinkedIndicator={LinkedIndicator}
+                      handleIndicatorQuestion={handleIndicatorQuestion}
+                      indicatorQuestions={indicatorQuestions}
+                      onChangeofInputs={onChangeofInputs}
+                      inputs={inputs}
+                      onChangeSelectDropdown={onChangeSelectDropdown}
+                      componentBuild={componentBuild}
+                      removeComponents={removeComponents}
+                      handleChangeQuestion={handleChangeQuestion}
+                      handleSelect={handleSelect}
+                      onFinish={onFinish}
                     />
                   </Fragment>
                 </div>

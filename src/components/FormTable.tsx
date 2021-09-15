@@ -3,13 +3,10 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Fragment } from "react";
 
-//IMPORTS
 import { FormFilter } from "./FormFilter";
 import {IPagination} from "../type.d"
 import {assets} from "../assets/assets"
 import {deleteForm} from "../actions/form"
-
-
 
 interface Props{
   loading: boolean;
@@ -21,25 +18,20 @@ interface Props{
   filterText:any
 }
 
-//Change Types Across
-
 export const FormTable = ({loading, forms, pagination, handleChange, filtered, inputChange, filterText}: Props) => {  
  const dispatch=useDispatch();
   const content = (id:number)=>{
   return  <Fragment>
-      <Link to={`/app/form/preview/${id}`} className="content-p">View</Link>
-      
-      <Popconfirm
-      title="Are you sure you want to delete this?"
-      okText="Yes"
-      cancelText="No"
-      onConfirm={()=>dispatch(deleteForm(id))}
+      <Link to={`/app/form/preview/${id}`} className="content-p">View</Link>      
+      <Popconfirm title="Are you sure you want to delete this?"
+        okText="Yes"
+        cancelText="No"
+        onConfirm={()=>dispatch(deleteForm(id))}
       >
-      <p style={{ cursor: 'pointer' }}>Delete</p>
+        <p style={{ cursor: 'pointer' }}>Delete</p>
       </Popconfirm>
     </Fragment>
   };
-  console.log(filtered)
   const pageSizeOption: string[]=["10", "20", "50" ,"100"];
   return (
     <Layout>
@@ -100,17 +92,11 @@ export const FormTable = ({loading, forms, pagination, handleChange, filtered, i
                         </tr>
                       )
                     }) :
-                  
                     forms.map((form: any) => {
                       return (
                         <tr key={form.id}>
                           <td>{form.name}</td>
                           <td>
-                            {/* <a href={form.formlink} target="_blank" rel="noreferrer">
-                              {form.formlink.length > 20
-                                ? form.formlink.substring(0, 50) + "..."
-                                : form.formlink}{" "}
-                            </a> */}
                             <Link to={`/form/${form.name.split(' ').join('')}-${form.formid}`} target="_blank" rel="noreferrer">
                               {form.formlink.length > 20
                                 ? form.formlink.substring(0, 50) + "..."

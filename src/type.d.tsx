@@ -1,5 +1,3 @@
-import { Interface } from "readline";
-
 export interface ISignUp {
   firstName: string;
   lastName: string;
@@ -72,6 +70,7 @@ export interface IProgramEach {
   activeMarker: any;
   sdgs: ISdg[];
   created?: string;
+  organisationId: number;
 }
 
 export interface IProgram {
@@ -107,11 +106,27 @@ export interface IProgramForm{
   name: string,
   description: string,
   code: string,
-  sdgs:[]
+  image?: any, 
+  budget: number, 
+  totalNumberOfBeneficiaries: number,
+  form?: any,
+  locations: any,
+  activeMarker: any,
+  sdgs: ISdg[],
+  organisationId: number
+  created?: string
 }
 export interface IUserForm{
   name: string,
+}
 
+export interface IProgram{
+  loading?: boolean;
+  budgetAndBeneficiaries?: IBudgetAndBeneficiaries
+  programs?: [],
+  sdgsAndIndicators?: [],
+  report?: [],
+  indicatorsUnderSdgs?: [],
   program: string,
   organisationId: number,
   instructions: string,

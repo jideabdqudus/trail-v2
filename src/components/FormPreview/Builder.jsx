@@ -7,7 +7,7 @@ const Components = {
     text: ShortFreeText,
     radio: RadioInput,
     number: NumberInput,
-  };
+};
 
 const Builder = ({ content, id, isPreview }) => {
     if (typeof Components[content?.inputType] !== "undefined") {
