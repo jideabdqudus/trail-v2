@@ -18,17 +18,17 @@ interface Props{
   handleChange: (_page:number)=>void;
   inputChange: (e: any)=>void
   filtered: [] | null
-  inputtext: string
+  filterText:any
 }
 
 //Change Types Across
 
-export const FormTable = ({loading, forms, pagination, handleChange, filtered, inputChange, inputtext}: Props) => {  
+export const FormTable = ({loading, forms, pagination, handleChange, filtered, inputChange, filterText}: Props) => {  
  const dispatch=useDispatch();
   const content = (id:number)=>{
   return  <Fragment>
       <Link to={`/app/form/preview/${id}`} className="content-p">View</Link>
-      {/* <Link to="/">Delete</Link> */}
+      
       <Popconfirm
       title="Are you sure you want to delete this?"
       okText="Yes"
@@ -58,7 +58,7 @@ export const FormTable = ({loading, forms, pagination, handleChange, filtered, i
               <Col span={6}>
                 <FormFilter 
                 inputChange={inputChange}
-                inputtext={inputtext}
+                filterText={filterText}
                 />
               </Col>
               <Col span={1}></Col>
@@ -106,11 +106,16 @@ export const FormTable = ({loading, forms, pagination, handleChange, filtered, i
                         <tr key={form.id}>
                           <td>{form.name}</td>
                           <td>
-                            <a href={form.formlink} target="_blank" rel="noreferrer">
+                            {/* <a href={form.formlink} target="_blank" rel="noreferrer">
                               {form.formlink.length > 20
                                 ? form.formlink.substring(0, 50) + "..."
                                 : form.formlink}{" "}
-                            </a>
+                            </a> */}
+                            <Link to={`/form/${form.name.split(' ').join('')}-${form.formid}`} target="_blank" rel="noreferrer">
+                              {form.formlink.length > 20
+                                ? form.formlink.substring(0, 50) + "..."
+                                : form.formlink}{" "}
+                            </Link>
                           </td>
                           <td>
                             <Popover content={content(form.id)}>

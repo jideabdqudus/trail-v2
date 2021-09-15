@@ -8,7 +8,7 @@ import 'antd/dist/antd.css'
 import 'react-toastify/dist/ReactToastify.css';
 import "./styles/index.scss"
 import store from './store'
-import {Login, SignUp, PrivacyPolicy, ForgotPassword, Overview, Programs, NewProgram, Forms, FormBuild, FormPreview} from "./pages"
+import {Login, SignUp, PrivacyPolicy, ForgotPassword, Overview, Programs, NewProgram, Forms, FormBuild, FormPreview, PublishedForm} from "./pages"
 import PrivateRoute from "./routes/PrivateRoute"
 import { loadUser } from './actions/authActions';
 
@@ -34,6 +34,7 @@ const App:React.FC=()=> {
           <PrivateRoute exact path="/app/forms" component={Forms} /> 
           <PrivateRoute exact path="/app/build_form" component={FormBuild} /> 
           <PrivateRoute exact path="/app/form/preview/:id" component={FormPreview} /> 
+          <Route exact path="/form/:id" component={PublishedForm} />
         </Switch>
       </Router>
     </Provider>

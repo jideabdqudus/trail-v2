@@ -5,6 +5,15 @@ interface Props{
  form: any
 }
 export const ProgrammeSummary = ({form}: Props) => {
+  const capitalize=(word: string)=>{
+    if(word){
+      const word2=word.charAt(0).toUpperCase()+ word.slice(1);
+      return word2
+    }
+  
+  
+  }
+  
     return (
         <div className="programme-summary">
       <Row>
@@ -19,7 +28,7 @@ export const ProgrammeSummary = ({form}: Props) => {
                   Form Name
                 </Typography.Text>
                 <Typography.Paragraph className="programme-summary-description">
-                  {form.name}
+                  {capitalize(form.name)}
                 </Typography.Paragraph>
               </Col>
             </Row>

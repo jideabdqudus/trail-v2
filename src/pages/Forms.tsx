@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { useState} from "react";
+import { useState, useRef} from "react";
 import { Button, Layout } from "antd";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,8 +18,8 @@ export const Forms = () => {
   const { user } = useSelector((state: IAuthenticate) => state.auth);
   const { loading, forms, pagination, filtered} = useSelector((state: IForms) => state.form);
   const [page, setPage]=useState(1)
-  const [inputtext, setInputText]=useState('')
-  // const filterText=useRef<string>('') //Change Type
+
+  const filterText=useRef<any>('') //Change Type
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,11 +30,10 @@ export const Forms = () => {
   const handlePageChange = (_page: number) => setPage(_page)
 
   const inputChange=(e: any)=>{
-    setInputText(e.target.value)
-    console.log(inputtext)
-    if(inputtext!==""){ // Strict Typing
+    
+    if(filterText.current.value!==""){ // Strict Typing
       
-      dispatch(filterForm(inputtext))
+      dispatch(filterForm(e.target.value))
     }else{
       dispatch(clearFilter())
     }
@@ -66,7 +65,7 @@ export const Forms = () => {
                     handleChange={handlePageChange} 
                     inputChange={inputChange} 
                     filtered={filtered}
-                    inputtext={inputtext}
+                    filterText={filterText}
                   />
                 </div>
               </div>

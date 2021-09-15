@@ -231,6 +231,18 @@ input[type="text"].search_input::-webkit-input-placeholder {
 .content-p :hover {
   background: #f4f5f6 !important;
 }
+
+.programme-summary {
+  .programme-summary {
+      &-title {
+          font-size: 18px;
+      }
+      &-description {
+          font-size: 15px;
+      }
+  }
+}
+
 .form-preview-section {
   .form-preview-section {
       &-title {
@@ -242,5 +254,21 @@ input[type="text"].search_input::-webkit-input-placeholder {
               cursor: pointer;
           }
       }
+  }
+}
+
+.preview-question-card {
+  margin-bottom: 20px !important;
+}
+.published-section-container {
+  max-width: 960rem;
+  margin: 40px auto;
+  padding: 0 10px;
+  width: 80%;
+}
+
+@media (max-width: 425px) {
+  .published-section-container {
+      width: 100%;
   }
 }

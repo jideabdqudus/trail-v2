@@ -89,10 +89,11 @@ export interface IPrograms {
 //forms
 export interface IFormData{
   id: number,
-  formid: number,
+  formid: string,
   formlink: string,
   createdBy: number,
   name: string,
+  components:[]
 }
 
 export interface IPagination{
@@ -114,8 +115,6 @@ export interface IUserForm{
   program: string,
   organisationId: number,
   instructions: string,
-  // buttonType: 'submit',
-  // buttonValue: 'Submit',
   components: []
 }
 export interface IForm {
@@ -125,7 +124,8 @@ export interface IForm {
   filtered: [] | null;
   pagination: IPagination;
   programs: [],
-  indicatorQuestions: []
+  indicatorQuestions: [],
+  answers:{}
 }
 
 export interface IForms {

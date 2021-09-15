@@ -1,15 +1,15 @@
 interface Props{
   
   inputChange:(e: any)=>void
-  inputtext: string
+  filterText:any
 }
 
-export const FormFilter = ({ inputChange, inputtext} : Props) => {
+export const FormFilter = ({ inputChange, filterText} : Props) => {
 
   return (
     
     <form> 
-      <input type="text" className="search_input" placeholder="Search By Name" value={inputtext} onChange={inputChange}/>
+      <input type="text" className="search_input" placeholder="Search By Name" ref={filterText} onChange={inputChange}/>
     </form>
   );
 };

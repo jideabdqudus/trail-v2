@@ -8,7 +8,8 @@ import {
   PROGRAMS_SUCCESS,
   INDICATOR_QUESTIONS_SUCCESS,
   CREATE_FORM_SUCCESS,
-  FORM_SUCCESS
+  FORM_SUCCESS,
+  FORM_BUILD_ANSWER
 } from "../constants/types";
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
   filtered: null,
   pagination: {},
   programs: [],
-  indicatorQuestions: []
+  indicatorQuestions: [],
+  answers: {}
 };
 
 const form = (state = initialState, action) => {
@@ -42,7 +44,7 @@ const form = (state = initialState, action) => {
       ...state,
       loading:false,
       filtered: state.forms.filter((form)=>{
-        return  form.name.match()
+        return  form.name.toLowerCase().includes(action.payload.toLowerCase())
       })
     }
     case CLEAR_FILTER: return{
@@ -84,6 +86,11 @@ const form = (state = initialState, action) => {
         loading: false,
         form: action.payload.data
       }
+
+      case FORM_BUILD_ANSWER:return {
+        ...state,
+        answers: { ...state.answers, [action.payload.questionId]: action.payload },
+    }
     default:
       return state;
   }

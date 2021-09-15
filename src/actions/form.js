@@ -4,7 +4,19 @@ import axios from "axios";
 import { appConstants } from "../constants/environment.js";
 import { tokenConfig } from "../helpers";
 import { setError, setAlert } from "./alert";
-import { FORMS_SUCCESS, FORM_ERROR, FORM_LOADING, FILTER_FORM, CLEAR_FILTER,DELETE_FORM , PROGRAMS_SUCCESS, INDICATOR_QUESTIONS_SUCCESS, CREATE_FORM_SUCCESS, FORM_SUCCESS} from "../constants/types";
+import { FORMS_SUCCESS,
+   FORM_ERROR, 
+   FORM_LOADING, 
+   FILTER_FORM, 
+   CLEAR_FILTER,
+   DELETE_FORM , 
+   PROGRAMS_SUCCESS, 
+   INDICATOR_QUESTIONS_SUCCESS, 
+   CREATE_FORM_SUCCESS, 
+   FORM_SUCCESS,
+   FORM_BUILD_ANSWER,
+   CREATE_SUBMISSION_SUCCESS
+  } from "../constants/types";
 
 export const getForms = (page) => (dispatch, getState) => {
   dispatch({ type: FORM_LOADING, });
@@ -23,8 +35,8 @@ export const getForms = (page) => (dispatch, getState) => {
       }
     });
 };
-export const filterForm=(forms)=>(dispatch)=>{
-  dispatch({ type: FILTER_FORM, payload: forms})
+export const filterForm=(query)=>(dispatch)=>{
+  dispatch({ type: FILTER_FORM, payload: query})
 }
 export const clearFilter=()=>(dispatch)=>{
   dispatch({ type: CLEAR_FILTER })
@@ -126,4 +138,43 @@ export const getForm=(id)=>(dispatch, getState)=>{
       dispatch({ type: FORM_ERROR, payload: error.response.data.message, });
     }
   })
+}
+
+export const formBuildAnswer=(payload)=>{
+  return{
+    payload,
+    type:FORM_BUILD_ANSWER
+  }
+}
+
+export const createSubmission=(id, answers,history)=>(dispatch, getState)=>{
+ dispatch({
+   type: FORM_LOADING
+ })
+ axios.post(`${appConstants.REACT_APP_BASE_URL}/form/${id}/`, answers, tokenConfig(getState)).then((response)=>{
+  //  console.log(response.data.data)
+  dispatch({
+    type: CREATE_SUBMISSION_SUCCESS,
+    payload: response.data
+  })
+  dispatch(setAlert(response.data))
+  if(typeof history !=='undefined'){
+    history.push(`/app/forms`)
+  }else{
+      window.setTimeout(() => {
+    window.close()
+}, 2000)
+  }
+
+}).catch((error)=>{
+  if (error.message && error.response === undefined) {
+    dispatch(setError(error.message, "ERR"));
+    dispatch({type: FORM_ERROR, payload: error.message,});
+  } else {
+    dispatch(setError(error.response.data.message, error.response.status));
+    dispatch({ type: FORM_ERROR, payload: error.response.data.message, });
+  }
+ 
+})
+
 }

@@ -103,7 +103,7 @@ export const CreateForm = ({
                                         
                                         onSelect={handleLinkedIndicator}
                                         onChange={onChangeSelectDropdown}
-                                        value={inputs.program }
+                                        // value={inputs.program }
                                         >
                                             
                                             {programs.map((program: IProgramForm)=>{
@@ -176,7 +176,7 @@ export const CreateForm = ({
                                              >
                                                
                                                 {LinkedIndicator && LinkedIndicator.map((ind: any, index: number)=>{
-                                                  return  <Option key={index} value={ind.indicatorId}>{ind.description}</Option>
+                                                  return  <Option key={index} value={ind.programIndicatorId}>{ind.description}</Option>
                                                 })}
                                                 
                                             </Select>
@@ -207,7 +207,7 @@ export const CreateForm = ({
                                             </Select>
                                         </Form.Item>
                                     </Col>
-                                     {isEmpty(indicatorquestion) && <Col span={6}>
+                                     {(indicatorquestion ===0) && <Col span={6}>
                                         <Form.Item
                                            style={{marginBottom: 0}}
                                            name="question"
