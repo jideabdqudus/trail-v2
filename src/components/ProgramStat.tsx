@@ -1,7 +1,6 @@
 import React from 'react'
 import { Row, Col, Card } from "antd";
 
-
 interface Props{
   program: any
   indicatorNumber: number

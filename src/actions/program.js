@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-//Imports
 import {
   CREATED_PROGRAM, 
   BUDGET_AND_BENEFICIARIES, 
@@ -15,7 +14,6 @@ import {
 import {appConstants} from "../constants/environment.js"
 import {tokenConfig, toastify} from "../helpers"
 import {setError} from "./alert.js"
-
 
 
 export const getBudgetAndBeneficiaries = () => async (dispatch, getState) => {
@@ -58,7 +56,6 @@ export const getPrograms = () => async (dispatch, getState) => {
     }
 }
 )}
-
 
 export const getAllSdgsAndIndicators = () => async (dispatch, getState) => {
   //#TODO: Add Preloader here
@@ -103,8 +100,6 @@ export const getIndicatorsUnderSdgs = (id) => async (dispatch, getState) => {
   }
 }
 )}
-
-
 
 export const createProgram = (submissionPayload, history) => async (dispatch, getState) => {
     //#TODO: Add Preloader here

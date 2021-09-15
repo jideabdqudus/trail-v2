@@ -4,13 +4,11 @@ import {useSelector} from 'react-redux';
 import { useParams } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
-
-//Imports
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
-import { ProgramFormReport, ProgramForms, ProgramStat } from "../components";
 import {clearReport} from "../actions/program.js"
 import { IAuthenticate, IPrograms } from '../type.d'
+import { ProgramFormReport, ProgramForms, ProgramStat } from "../components";
 
 export const ProgramReport = () => {
   const { Footer } = Layout;
@@ -39,8 +37,6 @@ export const ProgramReport = () => {
     })
     return null
   }
-  console.log(program, "program")
-  console.log(report, "reporttttt")
   return (
     <div className="container-scroller">
       {

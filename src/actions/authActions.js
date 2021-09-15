@@ -1,7 +1,16 @@
 import axios from 'axios';
 
-//Imports
-import { LOGIN_SUCCESS, USER_LOADING, USER_LOADED, REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_FAIL, AUTH_ERROR, VALIDATION_SUCCESS, VALIDATION_ERROR } from '../constants/types.js';
+import { 
+  LOGIN_SUCCESS, 
+  USER_LOADING, 
+  USER_LOADED, 
+  REGISTER_SUCCESS, 
+  REGISTER_FAIL, 
+  LOGIN_FAIL, 
+  AUTH_ERROR, 
+  VALIDATION_SUCCESS, 
+  VALIDATION_ERROR 
+} from '../constants/types.js';
 import {appConstants} from "../constants/environment.js"
 import {tokenConfig} from "../helpers"
 import {setError} from "./alert.js"
