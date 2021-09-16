@@ -13,6 +13,15 @@ export const validateString = (string)=>{
   return format.test(firstChar)
 }
 
+export const verifyString = (string) => {
+  //Check for Special Character in first letter of the string
+  const stringify = String(string)
+  const firstChar = stringify.charAt(0)
+  
+  const format = /(?!-.&%$#)^[A-zA-Z]*((-|\s)*[_A-zA-Z])*$/g
+  return format.test(firstChar)
+}
+
 export const validateNumbers = (value)=>{
   //Check for Special Character in first letter of the string
  	const stringify = String(value)

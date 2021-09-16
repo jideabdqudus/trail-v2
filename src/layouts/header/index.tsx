@@ -1,19 +1,23 @@
 import React, { useState } from "react";
-import { Drawer, Menu, Dropdown } from "antd";
-import { MenuFoldOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
+import { Drawer, Menu, Dropdown, Avatar } from "antd";
+import { MenuFoldOutlined, UserOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
 //Imports
 import { assets } from "../../assets/assets";
-import {IUser} from "../../type.d"
+import {IUser, IProfile} from "../../type.d"
 import {logout} from "../../actions/authActions"
+
+//Imports
 
 interface Props {
   user: IUser
 }
 
 export const Header:React.FC<Props> = ({user}) => {
+  const {profile}=useSelector((state:IProfile)=>state.profile)
+  const { firstName, lastName, image }=profile
   const [visible, setVisible] = useState<boolean>(false);
   const history = useHistory()
   const dispatch = useDispatch()
@@ -73,7 +77,9 @@ export const Header:React.FC<Props> = ({user}) => {
               <Dropdown overlay={menu} className="dropDownHidden">
                 <a className="nav-link dropdown-toggle" id="UserDropdown" href="!#" data-toggle="dropdown"
                   aria-expanded="false">
-                  {`${user && user.firstName} ${user && user.lastName}`}
+                    {image ? <Avatar size={34} src={image} style={{marginRight:"10px"}} /> : 
+                  <Avatar size={"small"} icon={<UserOutlined />} style={{marginRight:"10px"}} /> }
+                  {`${user && firstName} ${user && lastName}`}
                 </a>
               </Dropdown>
               <Drawer title={`${user && user.firstName} ${user && user.lastName}`} placement="right" closable={false} onClose={onClose} visible={visible}

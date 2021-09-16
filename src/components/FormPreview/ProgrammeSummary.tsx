@@ -3,6 +3,9 @@ interface Props{
  form: any
 }
 export const ProgrammeSummary = ({form}: Props) => {
+  // const history = useHistory();
+  // const handleEdit = () =>
+  //   history.push(`/app/build_form/${form.id}`);
   const capitalize=(word: string)=>{
     if(word){
       const word2=word.charAt(0).toUpperCase()+ word.slice(1);

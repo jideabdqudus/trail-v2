@@ -184,3 +184,23 @@ export interface ILinkedIndicator{
   id: number
   description: string
 }
+export interface IUserDetails{
+  id: number,
+  firstName: string,
+  lastName: string,
+  // isActive: boolean,
+  email: string,
+  organizationName: string,
+  organizationType: string,
+  image: string,
+  // created: string,
+}
+export interface IGetProfile{
+  profile:IUserDetails,
+  loading: boolean,
+  error: string
+}
+export interface IProfile{
+  profile:IGetProfile,
+  
+}

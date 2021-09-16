@@ -10,7 +10,7 @@ import store from './store'
 import PrivateRoute from "./routes/PrivateRoute"
 import { loadUser } from './actions/authActions';
 import { Login, SignUp, PrivacyPolicy, ForgotPassword, ProgramReport, Overview, Programs, NewProgram, 
-  Forms, FormBuild, FormPreview, PublishedForm, VerifyToken } from "./pages"
+  Forms, FormBuild, FormPreview, PublishedForm, VerifyToken, Profile, ProfileEdit } from "./pages"
 
 const App:React.FC=()=> {
   useEffect(() => {
@@ -36,7 +36,9 @@ const App:React.FC=()=> {
           <PrivateRoute exact path="/app/program-report/:id" component={ProgramReport}/>
           <PrivateRoute exact path="/app/forms" component={Forms} /> 
           <PrivateRoute exact path="/app/form-build" component={FormBuild} /> 
-          <PrivateRoute exact path="/app/form/preview/:id" component={FormPreview} /> 
+          <PrivateRoute exact path="/app/form/preview/:id" component={FormPreview} />
+          <PrivateRoute exact path="/app/profile" component={Profile} />  
+          <PrivateRoute exact path="/app/profile/edit" component={ProfileEdit} />
         </Switch>
       </Router>
     </Provider>
