@@ -117,6 +117,7 @@ export const CreateForm = ({
                                             {LinkedIndicator && LinkedIndicator.map((ind: any, index: number)=>{
                                               return  <Option key={index} value={ind.programIndicatorId}>{ind.description}</Option>
                                             })}
+                                            
                                         </Select>
                                     </Form.Item>
                                 </Col>
@@ -135,11 +136,11 @@ export const CreateForm = ({
                                         <Select placeholder="select" 
                                         onChange={(value)=>handleSelect(value, "indicatorquestion",idx )} 
                                         value={indicatorquestion || ""}
-                                        defaultValue={indicatorquestion || ""}
+                                        // defaultValue={indicatorquestion || ""}
                                         >
                                             <Option value={0}>Custom Question</Option>
                                             {indicatorQuestions.map((questions: any, index: any)=>{
-                                                return <Option key={index} value={questions.id}>{questions.question}</Option>
+                                                return <Option key={index+1} value={questions.id}>{questions.question}</Option>
                                             })}
                                         </Select>
                                     </Form.Item>

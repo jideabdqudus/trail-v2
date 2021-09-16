@@ -272,3 +272,65 @@ input[type="text"].search_input::-webkit-input-placeholder {
       width: 100%;
   }
 }
+ //profile style
+ .profile_h3 {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0.25px;
+  color: #24292e;
+  display: inline-block;
+}
+
+.profile_btn {
+  float: right;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 16px;
+  width: 85px;
+  font-family: $font-inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.2px;
+  color: #27be63;
+  border: 2px solid #27be63;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background: none;
+}
+
+.profile_sub {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  /* identical to box height, or 114% */
+
+  letter-spacing: 0.002em;
+
+  /* SPN / 800 */
+
+  color: #24292e;
+}
+
+.profile_span {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+
+  color: #24292e;
+}
+
+.profile_div {
+  margin-bottom: 30px;
+}

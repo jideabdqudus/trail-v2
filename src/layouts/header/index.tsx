@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Drawer, Menu, Dropdown } from "antd";
-import { MenuFoldOutlined } from "@ant-design/icons";
+import { Drawer, Menu, Dropdown, Avatar } from "antd";
+import { MenuFoldOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 //Imports
@@ -67,6 +67,8 @@ export const Header:React.FC<Props> = ({user}) => {
               <Dropdown overlay={menu} className="dropDownHidden">
                 <a className="nav-link dropdown-toggle" id="UserDropdown" href="!#" data-toggle="dropdown"
                   aria-expanded="false">
+                    {user.image ? <Avatar size={34} src={user.image} style={{marginRight:"10px"}} /> : 
+                  <Avatar size={"small"} icon={<UserOutlined />} style={{marginRight:"10px"}} /> }
                   {`${user && user.firstName} ${user && user.lastName}`}
                 </a>
               </Dropdown>
