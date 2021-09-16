@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import { Drawer, Menu, Dropdown, Avatar } from "antd";
 import { MenuFoldOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 //Imports
 import { assets } from "../../assets/assets";
-import {IUser} from "../../type.d"
+import {IUser, IProfile} from "../../type.d"
 
 interface Props {
   user: IUser
 }
 
 export const Header:React.FC<Props> = ({user}) => {
+  const {profile}=useSelector((state:IProfile)=>state.profile)
+  const { firstName, lastName, image }=profile
   const [visible, setVisible] = useState<boolean>(false);
   const showDrawer = () => {
     setVisible(true);
@@ -67,9 +70,9 @@ export const Header:React.FC<Props> = ({user}) => {
               <Dropdown overlay={menu} className="dropDownHidden">
                 <a className="nav-link dropdown-toggle" id="UserDropdown" href="!#" data-toggle="dropdown"
                   aria-expanded="false">
-                    {user.image ? <Avatar size={34} src={user.image} style={{marginRight:"10px"}} /> : 
+                    {image ? <Avatar size={34} src={image} style={{marginRight:"10px"}} /> : 
                   <Avatar size={"small"} icon={<UserOutlined />} style={{marginRight:"10px"}} /> }
-                  {`${user && user.firstName} ${user && user.lastName}`}
+                  {`${user && firstName} ${user && lastName}`}
                 </a>
               </Dropdown>
               <Drawer title={`${user && user.firstName} ${user && user.lastName}`} placement="right" closable={false} onClose={onClose} visible={visible}
