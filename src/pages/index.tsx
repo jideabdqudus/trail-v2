@@ -1,5 +1,6 @@
 export * from "./Login"
 export * from "./SignUp"
+export * from "./VerifyToken"
 export * from "./PrivacyPolicy"
 export * from "./ForgotPassword"
 export * from "./Overview"

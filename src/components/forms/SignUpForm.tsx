@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Button, Select, Row, Col, Checkbox, Spin } from "antd";
+import { Form, Input, Button, Select, Row, Col, Checkbox, Spin, Radio } from "antd";
 import { Link } from "react-router-dom";
 
 //Imports
@@ -16,12 +16,13 @@ interface Props{
   onChangeForm: (e: any)=> void,
   onTickTerms: (e: any)=> void,
   onSubmitForm: ()=> void,
+  accountTypeChange: any;
   onOrganizationChange?:(e: any)=>void,
   loading?: boolean
 }
 
 
-export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onPrevStep, stepNumber, formData, onChangeForm, onTickTerms, onSubmitForm, onOrganizationChange, loading}) => {
+export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onPrevStep, stepNumber, formData, onChangeForm, onTickTerms, onSubmitForm, onOrganizationChange, loading, accountTypeChange}) => {
   const { Option } = Select;
   const { firstName, lastName, email, phone, password, password2, terms, organization, organizationType } = formData;
   return (
@@ -96,25 +97,37 @@ export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onP
         }
         {stepTwo && <div>
       <h6> Step {stepNumber} of 2: Organization Details </h6>
-          <span>Organization</span>
-          <Form.Item name="organization" 
-          >
-            <Input
-              className="login__input" autoFocus={true} type="text" name="organization" placeholder="Enter Organization" value={organization} onChange={onChangeForm} />
+          <span>Account Type</span>
+
+          <Form.Item name="accountType">
+            <Radio.Group onChange={accountTypeChange}>
+              <Radio value="personal">Individual</Radio>
+              <Radio value="organization">Organization</Radio>
+            </Radio.Group>
           </Form.Item>
-          <span>Organization Type</span>
-          <Form.Item name="organizationType"
-          >
-        <Select
-            placeholder="Select an organization type"
-            allowClear
-            value={organizationType} onChange={onOrganizationChange}
-          >
-            <Option value="agriculture">Agriculture</Option>
-            <Option value="medicine">Medicine</Option>
-            <Option value="charity">Charity</Option>
-          </Select>
-          </Form.Item>
+          {formData.accountType === "organization" ?
+          <div>          
+            <span>Organization</span>
+            <Form.Item name="organization" 
+            >
+              <Input
+                className="login__input" autoFocus={true} type="text" name="organization" placeholder="Enter Organization" value={organization} onChange={onChangeForm} />
+            </Form.Item>
+            <span>Organization Type</span>
+            <Form.Item name="organizationType"
+            >
+          <Select
+              placeholder="Select an organization type"
+              allowClear
+              value={organizationType} onChange={onOrganizationChange}
+            >
+              <Option value="agriculture">Agriculture</Option>
+              <Option value="medicine">Medicine</Option>
+              <Option value="charity">Charity</Option>
+            </Select>
+            </Form.Item>
+          </div>
+           : null }
           <Checkbox name="terms" value={terms} onChange={onTickTerms}>
                       By clicking , you accept our <Link to="/privacy-policy">Terms & Conditions</Link> and our <Link to="/privacy-policy">Data 
                     Policy</Link></Checkbox>

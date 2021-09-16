@@ -12,8 +12,8 @@ import {getPrograms, getIndicatorQuestions, createForm} from '../actions/form';
 import { toastify } from "../helpers";
 
 export const FormBuild = () => {
-  const history=useHistory()
-  const {Footer}= Layout;
+  const history = useHistory()
+  const {Footer} = Layout;
   const dispatch =useDispatch();
   const { user } = useSelector((state: IAuthenticate) => state.auth);
   const {programs, indicatorQuestions}= useSelector((state: IForms) => state.form)

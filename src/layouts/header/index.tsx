@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Drawer, Menu, Dropdown } from "antd";
 import { MenuFoldOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 
 //Imports
 import { assets } from "../../assets/assets";
 import {IUser} from "../../type.d"
+import {logout} from "../../actions/authActions"
 
 interface Props {
   user: IUser
@@ -13,6 +15,8 @@ interface Props {
 
 export const Header:React.FC<Props> = ({user}) => {
   const [visible, setVisible] = useState<boolean>(false);
+  const history = useHistory()
+  const dispatch = useDispatch()
   const showDrawer = () => {
     setVisible(true);
   };
@@ -20,8 +24,7 @@ export const Header:React.FC<Props> = ({user}) => {
     setVisible(false);
   };
   const onLogout = () => {
-    localStorage.clear();
-    // props.history.push("/login");
+    dispatch(logout(history))
   };
   const onDashboardClick = () => {
     console.log("Clicked")
@@ -47,6 +50,9 @@ export const Header:React.FC<Props> = ({user}) => {
     <Menu>
       <Menu.Item key="setting:4">
         <Link to="/app/profile" onClick={onProfile}>Profile</Link>
+      </Menu.Item>
+      <Menu.Item key="setting:5">
+        <p onClick={onLogout} className="logout_p" style={{fontSize:"13px"}}>Logout</p>
       </Menu.Item>
     </Menu>
   );
@@ -101,11 +107,7 @@ export const Header:React.FC<Props> = ({user}) => {
                   </Link>
                 </div>
                 <div className="drawerMenu">
-                  <p onClick={onLogout}>
-                    <span className="drawerMenu-span" style={{color:"red"}}>
-                      Logout
-                    </span>
-                  </p>
+                  <p onClick={onLogout} className="logout_p">Logout</p>
                 </div>
               </Drawer>
             </li>

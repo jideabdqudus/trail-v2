@@ -3,15 +3,10 @@ import { Link } from "react-router-dom";
 import {
   AppstoreOutlined,
   FileDoneOutlined,
-  LogoutOutlined,
   SolutionOutlined,
 } from "@ant-design/icons";
 
 export const SideBar:React.FC = () => {
-  const onLogout = () => {
-    localStorage.clear();
-    // props.history.push("/login");
-  };
   return (
     <div>
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
@@ -40,14 +35,14 @@ export const SideBar:React.FC = () => {
               </span>
             </Link>
           </li>
-          <li className="nav-item sidebar-logout">
-            <p onClick={onLogout} className="nav-link">
+          {/* <li className="nav-item sidebar-logout">
+            <Link to="#!" onClick={onLogout} className="nav-link">
               <span className="menu-title">
                 <LogoutOutlined className="sidebar-icon" />
                 Logout
               </span>
-            </p>
-          </li>
+            </Link>
+          </li> */}
         </ul>
       </nav>
     </div>
