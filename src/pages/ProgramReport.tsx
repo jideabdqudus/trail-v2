@@ -41,7 +41,7 @@ export const ProgramReport = () => {
     <div className="container-scroller">
       {
         loading ? <div className="loading-overlay">
-          <Spin size="large" />
+          <Spin size="large"/>
         </div> : null 
       }
       <Header user={user} />
