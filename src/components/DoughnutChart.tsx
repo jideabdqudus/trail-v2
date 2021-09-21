@@ -17,7 +17,7 @@ export const DoughnutChart = ({sdgNames,displayOccurence,pairArrays,programs}:Pr
                     <Skeleton active />
                 </div>
           ) : (
-                <div style={{height: "230px",width: "230px",display: "contents",alignItems: "center"}}>
+                <div className="chartDonut">
                     <ChartDonut
                         ariaDesc="Impact Summary"
                         ariaTitle="Impact Summary"

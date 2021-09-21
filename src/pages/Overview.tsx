@@ -56,11 +56,6 @@ export const Overview = () => {
     }
     return res;
   };
- 
-  console.log(sdgNames(programs), 'sdg names')
-  console.log(displayOccurence(programs), 'count')
-  console.log(pairArrays([1,2,3,4],[5,6,9]), 'pair arrray')
-  console.log(programs, 'all programsdd')
   
   return (
     <div className="container-scroller">

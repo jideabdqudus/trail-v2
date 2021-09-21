@@ -25,6 +25,7 @@ export const Header:React.FC<Props> = ({user}) => {
 
   useEffect(()=>{
     dispatch(get_profile(user.id))
+    // eslint-disable-next-line
   },[])
   const showDrawer = () => {
     setVisible(true);
