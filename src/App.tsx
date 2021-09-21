@@ -10,7 +10,7 @@ import store from './store'
 import PrivateRoute from "./routes/PrivateRoute"
 import { loadUser } from './actions/authActions';
 import { Login, SignUp, PrivacyPolicy, ForgotPassword, ProgramReport, Overview, Programs, NewProgram, 
-  Forms, FormBuild, FormPreview, PublishedForm , Profile, ProfileEdit} from "./pages"
+  Forms, FormBuild, FormPreview, PublishedForm, VerifyToken, Profile, ProfileEdit } from "./pages"
 
 const App:React.FC=()=> {
   useEffect(() => {
@@ -24,6 +24,8 @@ const App:React.FC=()=> {
       <ToastContainer />
        <Switch>
           <Route exact path="/" render={(props) => <Login />}/>
+          <Route exact path="/login" render={(props) => <Login />}/>
+          <Route exact path="/verify-token/:accessToken" render={(props) => <VerifyToken />}/>
           <Route exact path="/sign-up" render={(props) => <SignUp/>}/>
           <Route exact path="/privacy-policy" render={(props) => <PrivacyPolicy />}/>
           <Route exact path="/forgot-password" render={(props) => <ForgotPassword />}/>

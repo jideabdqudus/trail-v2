@@ -8,26 +8,30 @@ const initialState={
 
 const profile=(state=initialState, action)=>{
     switch (action.type){
-        case PROFILE_LOADING: return{
+    case PROFILE_LOADING: 
+        return{
             ...state,
             loading: true
         }
-        case PROFILE_ERROR: return{
+    case PROFILE_ERROR: 
+        return{
             ...state,
             loading: false,
             error: action.payload
         }
-        case GET_PROFILE: return{
+    case GET_PROFILE: 
+        return{
             ...state,
             loading: false,
             profile: action.payload.data
         }
-        case PROFILE_UPDATE:return{
+    case PROFILE_UPDATE:
+        return{
             ...state,
             profile: action.payload
         }
-        default: 
-            return state
+    default: 
+        return state
             
     }
 }

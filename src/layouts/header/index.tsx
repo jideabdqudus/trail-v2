@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Drawer, Menu, Dropdown, Avatar } from "antd";
 import { MenuFoldOutlined, UserOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 
 //Imports
 import { assets } from "../../assets/assets";
 import {IUser, IProfile} from "../../type.d"
-import {get_profile} from '../../actions/profile'
+import {logout} from "../../actions/authActions"
+import {get_profile} from "../../actions/profile"
+
+//Imports
 
 interface Props {
   user: IUser
@@ -18,12 +20,12 @@ export const Header:React.FC<Props> = ({user}) => {
   const {profile}=useSelector((state:IProfile)=>state.profile)
   const { firstName, lastName, image }=profile
   const [visible, setVisible] = useState<boolean>(false);
-  const dispatch=useDispatch()
+  const history = useHistory()
+  const dispatch= useDispatch()
+
   useEffect(()=>{
     dispatch(get_profile(user.id))
-    // eslint-disable-next-line
-},[])
-  console.log(user)
+  },[])
   const showDrawer = () => {
     setVisible(true);
   };
@@ -31,8 +33,7 @@ export const Header:React.FC<Props> = ({user}) => {
     setVisible(false);
   };
   const onLogout = () => {
-    localStorage.clear();
-    // props.history.push("/login");
+    dispatch(logout(history))
   };
   const onDashboardClick = () => {
     console.log("Clicked")
@@ -58,6 +59,9 @@ export const Header:React.FC<Props> = ({user}) => {
     <Menu>
       <Menu.Item key="setting:4">
         <Link to="/app/profile" onClick={onProfile}>Profile</Link>
+      </Menu.Item>
+      <Menu.Item key="setting:5">
+        <p onClick={onLogout} className="logout_p" style={{fontSize:"13px"}}>Logout</p>
       </Menu.Item>
     </Menu>
   );
@@ -114,11 +118,7 @@ export const Header:React.FC<Props> = ({user}) => {
                   </Link>
                 </div>
                 <div className="drawerMenu">
-                  <p onClick={onLogout}>
-                    <span className="drawerMenu-span" style={{color:"red"}}>
-                      Logout
-                    </span>
-                  </p>
+                  <p onClick={onLogout} className="logout_p">Logout</p>
                 </div>
               </Drawer>
             </li>

@@ -5,8 +5,9 @@ export interface ISignUp {
   phone: number;
   password: string;
   password2?: string;
+  accountType: string;
   organization?: string;
-  organizationType: string;
+  organizationType?: string;
   terms: boolean;
 }
 
@@ -36,6 +37,7 @@ export interface IAuth {
   loading: boolean;
   isAuthenticated: boolean;
   accessToken?: any;
+  validation?: any
 }
 
 export interface IAuthenticate {

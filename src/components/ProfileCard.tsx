@@ -9,9 +9,8 @@ import { IUserDetails } from '../type.d'
 interface Props{
     profile: IUserDetails
 }
-export const ProfileCard = ({profile}:Props) => {
+export const ProfileCard:React.FC<Props> = ({profile}) => {
     const {firstName, lastName, email,organizationName, organizationType,image} = profile
-    
     return (
     <div className="dashboard-card" style={{ minHeight: "400px" }}>
       <h3 className="profile_h3">Personal Information</h3>

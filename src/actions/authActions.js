@@ -6,13 +6,14 @@ import {
   USER_LOADED, 
   REGISTER_SUCCESS, 
   REGISTER_FAIL, 
-  LOGIN_FAIL, 
+  LOGIN_FAIL,
+  LOGOUT_SUCCESS, 
   AUTH_ERROR, 
   VALIDATION_SUCCESS, 
   VALIDATION_ERROR 
 } from '../constants/types.js';
 import {appConstants} from "../constants/environment.js"
-import {tokenConfig} from "../helpers"
+import {toastify, tokenConfig} from "../helpers"
 import {setError} from "./alert.js"
 
 
@@ -75,11 +76,10 @@ export const loginUser = (profile) => async (dispatch) => {
 };
 
 // REGISTER USER 
-export const register = (formData) => (dispatch) => {
+export const register = (formData, history) => (dispatch) => {
   delete formData.organization
   delete formData.organizationType
   delete formData.password2
-  delete formData.terms
 
   dispatch({ type: USER_LOADING })
   // Headers
@@ -95,6 +95,8 @@ export const register = (formData) => (dispatch) => {
         type: REGISTER_SUCCESS,
         payload: res.data,
       });
+      toastify.alertSuccess("Successfully created user. Please check your email for confirmation.")
+      history.push("/login")
     })
     .catch((error) => {
       if(error.response===""){
@@ -119,34 +121,40 @@ export const register = (formData) => (dispatch) => {
 //VERIFY NEW USER TOKEN
 
 export const verifyUser = (token) => async (dispatch) => {
-  // User Loading
   dispatch({ type: USER_LOADING })
-  const value = {
-      token: token,
-  }
-  // Headers
   const config = {
-      headers: {
-          'Content-Type': 'application/json',
-      },
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const value = {
+    token: token,
   }
   axios
-      .post(
-          `${appConstants.REACT_APP_BASE_URL}/token_validation/`,
-          value,
-          config
-      )
-      .then((res) => {
-          dispatch({
-              type: VALIDATION_SUCCESS,
-              payload: res.data,
-          })
-      })
-      .catch((error) => {
-      dispatch(setError(error.response.data, error.response.status));
-          dispatch({
-              type: VALIDATION_ERROR,
-              payload: error.response.data,
-          })
-      })
+    .post(`${appConstants.REACT_APP_BASE_URL}/token_validation/`, value, config)
+    .then((response) => {
+      dispatch({ type: VALIDATION_SUCCESS, payload: response.data });
+    })
+    .catch((error) => {
+      if(error.response===""){
+        dispatch(setError("Error Found", "ERR"));
+        dispatch({ type: VALIDATION_ERROR, payload: "Error Found" });
+      }else if(error==="Network Error"){
+        dispatch(setError("Network Error", "ERR"));
+        dispatch({ type: VALIDATION_ERROR, payload: "Network Error" });
+      }else if(error.message && error.response === undefined){
+        dispatch(setError(error.message, "ERR"));
+        dispatch({ type: VALIDATION_ERROR, payload: error.message });
+      }else{
+        dispatch(setError(error.response.data.message.message, error.response.status));
+        dispatch({ type: VALIDATION_ERROR, payload: error.response.data.message.message });
+      }
+    });
+}
+
+export const logout =(history)=> async (dispatch)=>{
+  localStorage.clear()
+  setTimeout(history.push(`/login`), 200);
+  toastify.alertSuccess("You have logged out successfully")
+  dispatch({ type: LOGOUT_SUCCESS });
 }

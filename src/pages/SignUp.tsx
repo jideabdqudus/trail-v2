@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Row, Col} from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -13,6 +13,7 @@ import {toastify, validatePassword} from "../helpers/index.js"
 
 export const SignUp: React.FC= () => {
   const dispatch = useDispatch();
+  const history = useHistory()
   const {loading, isAuthenticated} = useSelector((state: IAuthenticate) => state.auth);
   const [stepOne, setStepOne] = useState<boolean>(true)
   const [stepTwo, setStepTwo] = useState<boolean>(false)
@@ -24,11 +25,13 @@ export const SignUp: React.FC= () => {
     phone:0,
     password:"",
     password2:"",
+    accountType:"",
     organization:"",
     organizationType:"",
     terms: false
   })
-  const {firstName, lastName, email, phone, password, password2, terms} = formData
+  const {firstName, lastName, email, phone, password, password2, terms, accountType} = formData
+
   const onChangeForm = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -38,6 +41,9 @@ export const SignUp: React.FC= () => {
   const onOrganizationChange=(value: string)=>{
     setFormData({ ...formData, organizationType: value});
   }
+  const accountTypeChange = (e: any)=>{
+    setFormData({...formData, accountType: e.target.value})
+  }
   const onSubmitForm = ()=>{
     if (
       firstName === "" ||
@@ -46,7 +52,8 @@ export const SignUp: React.FC= () => {
       password === "" ||
       password2 === "" ||
       phone === 0 ||
-      terms === false
+      terms === false ||
+      accountType === ""
     ) {
       toastify.alertError("All fields are compulsory", 5000);
     } else if (password !== password2) {
@@ -59,7 +66,7 @@ export const SignUp: React.FC= () => {
         5000
       );
     } else {
-      dispatch(register(formData));
+      dispatch(register(formData, history));
     }
   }
   const onChangeStep = ()=>{
@@ -95,6 +102,7 @@ export const SignUp: React.FC= () => {
             onTickTerms={onTickTerms} 
             onSubmitForm={onSubmitForm} 
             onOrganizationChange={onOrganizationChange} 
+            accountTypeChange={accountTypeChange}
             loading={loading} 
             />
         </Col>
