@@ -113,7 +113,9 @@ const onSubmitForm = ()=>{
     submissionPayload.append('locations', JSON.stringify(locations))
     submissionPayload.append('activeMarker', JSON.stringify(activeMarker))
     submissionPayload.append('sdgs', JSON.stringify(sdgs))
-    submissionPayload.append('image', image, image.name)
+    if(image!==""){
+      submissionPayload.append('image', image, image.name)
+    }  
     dispatch(createProgram(submissionPayload, history))
   }
 }

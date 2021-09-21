@@ -6,9 +6,9 @@ import { flatten, uniqBy } from "lodash";
 //Imports
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
-import { OverviewStat } from "../components";
+import { OverviewStat, DoughnutChart } from "../components";
 import Map from "../components/Map/index.js";
-import { IAuthenticate, IPrograms } from '../type.d'
+import { IAuthenticate, IPrograms} from '../type.d'
 import {getBudgetAndBeneficiaries, getPrograms} from "../actions/program.js"
 
 export const Overview = () => {
@@ -22,10 +22,46 @@ export const Overview = () => {
     dispatch(getPrograms())
     console.log(watch, "watch")    
   },[watch, dispatch])
-  const calculateSize = (programs: any) => {
+  const calculateSize = (programs: []) => {
     const sdgs = uniqBy(flatten(programs?.map(({ sdgs }: any) => sdgs)), "sdgId");
     return sdgs || [];
   };
+
+  const sdgNames=(programs:[]) =>{
+    const sdgNames=calculateSize(programs).map(({name}: any)=>name)
+    return sdgNames;
+  }
+  const displayOccurence=(programs:any)=>{
+    const sdgs = flatten(programs.map(( {sdgs}:any ) => sdgs));
+    const sdgsNames = sdgs.map(( {name} :any) => name);
+
+    const countOccurence=(arr:any)=>(
+      arr.reduce((prev:any, val:any)=>{
+        if(prev[val]){
+          prev[val]++
+        }else{
+          prev[val]=1
+        }
+        return prev
+      },{})
+    )
+    const counts=countOccurence(sdgsNames);
+    return Object.values(counts);
+  }
+  const pairArrays = (arr1:any, arr2:any) => {
+    const res = [];
+    const size = arr1.length;
+    for (let i = 0; i < size; i++) {
+      res.push({ x: arr2[i], y: arr1[i] });
+    }
+    return res;
+  };
+ 
+  console.log(sdgNames(programs), 'sdg names')
+  console.log(displayOccurence(programs), 'count')
+  console.log(pairArrays([1,2,3,4],[5,6,9]), 'pair arrray')
+  console.log(programs, 'all programsdd')
+  
   return (
     <div className="container-scroller">
       {
@@ -46,6 +82,15 @@ export const Overview = () => {
                       <Row>
                         <Col xs={{ span: 24 }} lg={{ span: 17 }}>
                           <Map/>
+                        </Col>
+                        <Col xs={{ span: 24 }} lg={{ span: 1 }}></Col>
+                        <Col xs={{ span: 24 }} lg={{span:6}}>
+                          <DoughnutChart
+                            sdgNames={sdgNames}
+                            displayOccurence={displayOccurence}
+                            pairArrays={pairArrays}
+                            programs={programs}
+                          />
                         </Col>
                       </Row>
                    </div>

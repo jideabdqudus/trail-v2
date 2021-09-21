@@ -1,5 +1,6 @@
 import { Form, Input, Button, Row, Col } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
+import Dropzone from 'react-dropzone'
 
 import { IUser ,IUserDetails} from '../type.d'
 
@@ -7,12 +8,13 @@ interface Props{
     user: IUser
     formData: IUserDetails
     handleInputChange:(e:any)=>void
-    onChange:(e:any)=>void
     onFinish: ()=>void
     loading: boolean
+    handleDrop:(file:any)=>void
+    fileForm:any
 }
 
-export const ProfileForm = ({formData, handleInputChange, onChange, onFinish, loading}: Props) => {
+export const ProfileForm = ({formData, handleInputChange, onFinish, loading, handleDrop,fileForm}: Props) => {
     
     const {firstName, lastName, email,organizationName, organizationType} =formData
     return (
@@ -46,10 +48,18 @@ export const ProfileForm = ({formData, handleInputChange, onChange, onFinish, lo
                         <Input type="text" style={inputStyle} name="organizationType" value={organizationType} onChange={handleInputChange}/>
                     </Form.Item>
                 </Col>
-                <Col>
-                    <Form.Item style={{marginTop: '34px'}}>
-                        <Input type="file" onChange={onChange}/>
-                    </Form.Item>
+                <Col span={8}>
+                    <Dropzone onDrop={handleDrop} multiple={false} accept={['image/png', 'image/jpeg']} maxSize={600000}>
+                    {({ getRootProps, getInputProps }) => (<>
+                        <span>Profile Image</span>
+                      <div {...getRootProps({ className:"drop-zone" })}>
+                        <input {...getInputProps()}/>
+                        <p style={{textAlign:"center", color:"#1354D3", paddingTop:"8px"}}>Upload program image</p>
+                        {fileForm.name === undefined ? <span>PNG or JPEG format only. Maximum size is 600kb</span> :<span>{fileForm.name}</span> }
+                      </div>
+                    </>
+                  )}
+                    </Dropzone>
                 </Col>
             </Row>
             <Row>

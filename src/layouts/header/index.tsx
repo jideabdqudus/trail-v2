@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Drawer, Menu, Dropdown, Avatar } from "antd";
 import { MenuFoldOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -7,6 +8,7 @@ import { useSelector } from "react-redux";
 //Imports
 import { assets } from "../../assets/assets";
 import {IUser, IProfile} from "../../type.d"
+import {get_profile} from '../../actions/profile'
 
 interface Props {
   user: IUser
@@ -16,6 +18,12 @@ export const Header:React.FC<Props> = ({user}) => {
   const {profile}=useSelector((state:IProfile)=>state.profile)
   const { firstName, lastName, image }=profile
   const [visible, setVisible] = useState<boolean>(false);
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    dispatch(get_profile(user.id))
+    // eslint-disable-next-line
+},[])
+  console.log(user)
   const showDrawer = () => {
     setVisible(true);
   };
