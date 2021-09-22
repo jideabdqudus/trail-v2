@@ -14,12 +14,7 @@ interface Props{
     fileForm:any
 }
 
-<<<<<<< HEAD
-export const ProfileForm = ({formData, handleInputChange, onFinish, loading, handleDrop,fileForm}: Props) => {
-    
-=======
-export const ProfileForm = ({formData, handleInputChange, onChange, onFinish, loading}: Props) => {
->>>>>>> b682a1df40ecd5f7f80a2a713bdb10e12d13ff08
+export const ProfileForm = ({formData, handleInputChange,  onFinish, loading, handleDrop,fileForm}: Props) => {
     const {firstName, lastName, email,organizationName, organizationType} =formData
     return (
         <div className="dashboard-card">
