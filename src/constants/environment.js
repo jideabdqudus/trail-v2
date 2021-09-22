@@ -7,6 +7,6 @@ export const COMPONENT_TYPES = {
 export const appConstants = {
   REACT_APP_BASE_URL:
     process.env.NODE_ENV === "development"
-      ? "https://trailapi1test.azurewebsites.net"
+      ? "https://trail-api.prod.vggdev.com"
       : window.env.REACT_APP_BASE_URL,
 };
