@@ -9,7 +9,7 @@ import {Header} from "../layouts/header"
 import { OverviewStat, DoughnutChart } from "../components";
 import Map from "../components/Map/index.js";
 import { IAuthenticate, IPrograms} from '../type.d'
-import {getBudgetAndBeneficiaries, getPrograms} from "../actions/program.js"
+import {getBudgetAndBeneficiaries, getPrograms} from "../redux/actions/program"
 
 export const Overview = () => {
   const { Footer } = Layout;

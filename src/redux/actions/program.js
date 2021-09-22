@@ -10,9 +10,9 @@ import {
   GET_INDICATORS_UNDER_SDGS ,
   FORM_REPORT_FOR_PROGRAM,
   CLEAR_REPORT
-} from '../constants/types.js';
-import {appConstants} from "../constants/environment.js"
-import {tokenConfig, toastify} from "../helpers"
+} from '../../constants/types.js';
+import {appConstants} from "../../constants/environment.js"
+import {tokenConfig, toastify} from "../../helpers"
 import {setError} from "./alert.js"
 
 

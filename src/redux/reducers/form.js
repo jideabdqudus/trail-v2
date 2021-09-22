@@ -10,7 +10,7 @@ import {
   CREATE_FORM_SUCCESS,
   FORM_SUCCESS,
   FORM_BUILD_ANSWER
-} from "../constants/types";
+} from "../../constants/types";
 
 const initialState = {
   forms: [],

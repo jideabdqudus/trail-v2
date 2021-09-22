@@ -8,7 +8,7 @@ import { FormTable } from "../components/FormTable";
 import { Header } from "../layouts/header";
 import { SideBar } from "../layouts/sidebar";
 import { IAuthenticate } from "../type.d";
-import { getForms, filterForm, clearFilter} from "../actions/form";
+import { getForms, filterForm, clearFilter} from "../redux/actions/form";
 import { IForms } from "../type.d";
 
 export const Forms = () => {

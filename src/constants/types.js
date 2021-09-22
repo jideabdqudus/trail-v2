@@ -54,3 +54,8 @@ export const PROFILE_UPDATE="PROFILE_UPDATE"
 export const PROFILE_ERROR="PROFILE_ERROR"
 
 
+export const COMPONENT_TYPES = {
+  number: 'number',
+  radio: 'radio',
+  text: 'text',
+}

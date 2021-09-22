@@ -9,7 +9,7 @@ import {
   CREATED_PROGRAM,
   FORM_REPORT_FOR_PROGRAM,
   CLEAR_REPORT
-} from "../constants/types";
+} from "../../constants/types";
 
 const initialState = {
   loading: false,

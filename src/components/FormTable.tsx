@@ -6,7 +6,7 @@ import { Fragment } from "react";
 import { FormFilter } from "./FormFilter";
 import {IPagination} from "../type.d"
 import {assets} from "../assets/assets"
-import {deleteForm} from "../actions/form"
+import {deleteForm} from "../redux/actions/form" //Action Shouldnt be defined here 
 
 interface Props{
   loading: boolean;

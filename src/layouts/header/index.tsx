@@ -7,8 +7,8 @@ import { Link, useHistory } from "react-router-dom";
 //Imports
 import { assets } from "../../assets/assets";
 import {IUser, IProfile} from "../../type.d"
-import {logout} from "../../actions/authActions"
-import {get_profile} from "../../actions/profile"
+import {logout} from "../../redux/actions/auth"
+import {get_profile} from "../../redux/actions/profile"
 
 //Imports
 

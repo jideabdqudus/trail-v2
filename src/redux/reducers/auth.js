@@ -9,7 +9,7 @@ import {
   USER_LOADED,
   VALIDATION_ERROR,
   VALIDATION_SUCCESS  
-} from "../constants/types";
+} from "../../constants/types";
 const initialState = {
   user: null,
   loading: false,

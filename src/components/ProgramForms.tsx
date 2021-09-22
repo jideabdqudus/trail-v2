@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 
 import { toastify } from '../helpers';
-import {getFormReportforProgram} from "../actions/program.js"
+import {getFormReportforProgram} from "../redux/actions/program" //Action shouldn't be defined here
 
 interface Props{
   program: any
