@@ -168,9 +168,6 @@ export const forgotPassword=(email)=>dispatch=>{
       "Content-Type": "application/json",
     },
   };
-  // const value = {
-  //   token: token,
-  // }
   axios
     .post(`${appConstants.REACT_APP_BASE_URL}/resettoken/`, email, config)
     .then((response) => {

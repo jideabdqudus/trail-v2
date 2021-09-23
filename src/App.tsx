@@ -9,8 +9,9 @@ import "./styles/index.scss"
 import store from './store'
 import PrivateRoute from "./routes/PrivateRoute"
 import { loadUser } from './redux/actions/auth';
+import { NetworkStatus } from './components';
 import { Login, SignUp, PrivacyPolicy, ForgotPassword, ProgramReport, Overview, Programs, NewProgram, 
-  Forms, FormBuild, FormPreview, PublishedForm, VerifyToken, Profile, ProfileEdit, NetworkStatus } from "./pages"
+  Forms, FormBuild, FormPreview, PublishedForm, VerifyToken, Profile, ProfileEdit } from "./pages"
 
 const App:React.FC=()=> {
   useEffect(() => {
