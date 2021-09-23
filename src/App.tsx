@@ -10,7 +10,7 @@ import store from './store'
 import PrivateRoute from "./routes/PrivateRoute"
 import { loadUser } from './actions/authActions';
 import { Login, SignUp, PrivacyPolicy, ForgotPassword, ProgramReport, Overview, Programs, NewProgram, 
-  Forms, FormBuild, FormPreview, PublishedForm, VerifyToken, Profile, ProfileEdit } from "./pages"
+  Forms, FormBuild, FormPreview, PublishedForm, VerifyToken, Profile, ProfileEdit, NetworkStatus } from "./pages"
 
 const App:React.FC=()=> {
   useEffect(() => {
@@ -22,6 +22,7 @@ const App:React.FC=()=> {
     <Provider store={store}>
       <Router>
       <ToastContainer />
+      <NetworkStatus/>
        <Switch>
           <Route exact path="/" render={(props) => <Login />}/>
           <Route exact path="/login" render={(props) => <Login />}/>

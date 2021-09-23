@@ -10,7 +10,8 @@ import {
   LOGOUT_SUCCESS, 
   AUTH_ERROR, 
   VALIDATION_SUCCESS, 
-  VALIDATION_ERROR 
+  VALIDATION_ERROR ,
+  FORGOT_PASSWORD
 } from '../constants/types.js';
 import {appConstants} from "../constants/environment.js"
 import {toastify, tokenConfig} from "../helpers"
@@ -69,9 +70,10 @@ export const loginUser = (profile) => async (dispatch) => {
         dispatch(setError(error.message, "ERR"));
         dispatch({ type: LOGIN_FAIL, payload: error.message });
       }else{
-        dispatch(setError(error.response.data.message.message, error.response.status));
-        dispatch({ type: LOGIN_FAIL, payload: error.response.data.message.message });
+        dispatch(setError(error.response.data.message, 'ERR'));
+        dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
       }
+      
     });
 };
 
@@ -157,4 +159,38 @@ export const logout =(history)=> async (dispatch)=>{
   setTimeout(history.push(`/login`), 200);
   toastify.alertSuccess("You have logged out successfully")
   dispatch({ type: LOGOUT_SUCCESS });
+}
+
+export const forgotPassword=(email)=>dispatch=>{
+  dispatch({ type: USER_LOADING })
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  // const value = {
+  //   token: token,
+  // }
+  axios
+    .post(`${appConstants.REACT_APP_BASE_URL}/resettoken/`, email, config)
+    .then((response) => {
+      dispatch({ type: FORGOT_PASSWORD, payload: response.data });
+      toastify.alertSuccess("Kindly check your mail")
+    })
+    .catch((error) => {
+      if(error.response===""){
+        dispatch(setError("Error Found", "ERR"));
+        dispatch({ type: VALIDATION_ERROR, payload: "Error Found" });
+      }else if(error==="Network Error"){
+        dispatch(setError("Network Error", "ERR"));
+        dispatch({ type: VALIDATION_ERROR, payload: "Network Error" });
+      }else if(error.message && error.response === undefined){
+        dispatch(setError(error.message, "ERR"));
+        dispatch({ type: VALIDATION_ERROR, payload: error.message });
+      }else{
+        dispatch(setError(error.response.data.message, error.response.status));
+        dispatch({ type: VALIDATION_ERROR, payload: error.response.data.message });
+      }
+    });
+
 }

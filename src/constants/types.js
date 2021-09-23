@@ -21,6 +21,9 @@ export const CLEAR_ERROR = "CLEAR_ERROR";
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";
 
+export const FORGOT_PASSWORD="FORGOT_PASSWORD"
+export const RESET_PASSWORD="RESET_PASSWORD"
+
 //Programmes
 export const LOADING_PROGRAMS = "LOADING_PROGRAMS"
 export const LOADED_PROGRAMS = "LOADED_PROGRAMS"
