@@ -7,8 +7,8 @@ import { Header } from "../layouts/header";
 import { SideBar } from '../layouts/sidebar';
 import {CreateForm } from '../components/CreateForm'
 import { IAuthenticate, IForms, IBuildType, IInputsFields} from '../type.d'
-import { COMPONENT_TYPES } from "../constants/environment";
-import {getPrograms, getIndicatorQuestions, createForm} from '../actions/form';
+import { COMPONENT_TYPES } from "../constants/types";
+import {getPrograms, getIndicatorQuestions, createForm} from '../redux/actions/form';
 import { toastify } from "../helpers";
 
 export const FormBuild = () => {

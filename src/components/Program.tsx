@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 //Imports
 import { assets } from '../assets/assets';
 import {IProgramEach} from "../type.d"
-import {deleteProgram} from "../actions/program.js"
+import {deleteProgram} from "../redux/actions/program"
 
 interface Props {
   programs?: IProgramEach[]

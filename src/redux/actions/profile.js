@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import {GET_PROFILE,PROFILE_LOADING,PROFILE_UPDATE, PROFILE_ERROR} from "../constants/types"
-import { appConstants } from "../constants/environment.js";
-import { tokenConfig } from "../helpers";
+import {GET_PROFILE,PROFILE_LOADING,PROFILE_UPDATE, PROFILE_ERROR} from "../../constants/types"
+import { appConstants } from "../../constants/environment.js";
+import { tokenConfig } from "../../helpers";
 import { setError, setAlert } from "./alert";
 
 export const get_profile=(id)=>(dispatch, getState)=>{

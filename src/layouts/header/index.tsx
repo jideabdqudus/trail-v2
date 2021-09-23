@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Drawer, Menu, Dropdown, Avatar } from "antd";
 import { MenuFoldOutlined, UserOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
 //Imports
 import { assets } from "../../assets/assets";
 import {IUser, IProfile} from "../../type.d"
-import {logout} from "../../actions/authActions"
+import {logout} from "../../redux/actions/auth"
+import {get_profile} from "../../redux/actions/profile"
 
 //Imports
 
@@ -20,7 +21,12 @@ export const Header:React.FC<Props> = ({user}) => {
   const { firstName, lastName, image }=profile
   const [visible, setVisible] = useState<boolean>(false);
   const history = useHistory()
-  const dispatch = useDispatch()
+  const dispatch= useDispatch()
+
+  useEffect(()=>{
+    dispatch(get_profile(user.id))
+    // eslint-disable-next-line
+  },[])
   const showDrawer = () => {
     setVisible(true);
   };

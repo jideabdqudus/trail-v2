@@ -1,4 +1,4 @@
-import { SET_ERROR} from '../constants/types.js';
+import { SET_ERROR} from '../../constants/types.js';
 
 const initialState = {
   msg: {},

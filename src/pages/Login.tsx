@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {assets} from "../assets/assets"
 import {LoginForm} from "../components"
 import { ILogin, IAuthenticate } from '../type.d'
-import {loginUser} from "../actions/authActions.js"
+import {loginUser} from "../redux/actions/auth"
 
 export const Login: React.FC= () => {
   const dispatch = useDispatch();

@@ -11,7 +11,7 @@ import {Header} from "../layouts/header"
 import { ProgramData, SdgGroup } from "../components";
 import { IAuthenticate,IProgramEach, IPrograms  } from '../type.d'
 import { toastify, validateString, validateNumbersAndZero } from "../helpers";
-import { getAllSdgsAndIndicators, createProgram} from "../actions/program";
+import { getAllSdgsAndIndicators, createProgram} from "../redux/actions/program";
 
 export const NewProgram:React.FC = () => {
   const { Footer } = Layout;
@@ -113,7 +113,9 @@ const onSubmitForm = ()=>{
     submissionPayload.append('locations', JSON.stringify(locations))
     submissionPayload.append('activeMarker', JSON.stringify(activeMarker))
     submissionPayload.append('sdgs', JSON.stringify(sdgs))
-    submissionPayload.append('image', image, image.name)
+    if(image!==""){
+      submissionPayload.append('image', image, image.name)
+    }  
     dispatch(createProgram(submissionPayload, history))
   }
 }

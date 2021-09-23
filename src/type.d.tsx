@@ -78,7 +78,7 @@ export interface IProgramEach {
 export interface IProgram {
   loading?: boolean;
   budgetAndBeneficiaries?: IBudgetAndBeneficiaries;
-  programs?: [];
+  programs: [];
   sdgsAndIndicators?: [];
   indicatorsUnderSdgs?: [],
 }
@@ -125,7 +125,7 @@ export interface IUserForm{
 export interface IProgram{
   loading?: boolean;
   budgetAndBeneficiaries?: IBudgetAndBeneficiaries
-  programs?: [],
+  programs: [],
   sdgsAndIndicators?: [],
   report?: [],
   indicatorsUnderSdgs?: [],

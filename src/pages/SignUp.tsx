@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {assets} from "../assets/assets"
 import {SignUpForm} from "../components"
 import { ISignUp, IAuthenticate } from '../type.d'
-import {register} from "../actions/authActions.js"
+import {register} from "../redux/actions/auth"
 import {toastify, validatePassword} from "../helpers/index.js"
 
 export const SignUp: React.FC= () => {

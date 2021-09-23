@@ -6,7 +6,7 @@ import { IAuthenticate, IProfile} from '../type.d'
 import { Header } from '../layouts/header'
 import { SideBar } from '../layouts/sidebar'
 import {ProfileForm} from "../components/ProfileForm"
-import { profile_update } from '../actions/profile'
+import { profile_update } from '../redux/actions/profile'
 import { toastify, verifyString } from '../helpers';
 
 export const ProfileEdit = () => {
@@ -14,6 +14,7 @@ export const ProfileEdit = () => {
     const history=useHistory()
     const {user} = useSelector((state: IAuthenticate) => state.auth)
     const {loading, profile}=useSelector((state:IProfile)=>state.profile)
+    const [fileForm, setFileForm]=useState({})
     const [formData, setFormData]= useState({
         id: profile.id,
         firstName: '',
@@ -31,19 +32,12 @@ export const ProfileEdit = () => {
         setFormData({...formData,[e.target.name]: e.target.value})
     }
 
-    //UPLOAD IMAGE
-    const onChange=(e:any)=>{
-        const file=e.target.files[0]
-        // const fileSize = e.target.files[0].size / 1024 / 1024;
-        const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-        if(!allowedExtensions.exec(formData.image) ){
-            setFormData({...formData, image:''})
-            toastify.alertWarning(`not accepted`)
-           
-        }else{
-            setFormData({...formData, image:file})
-        }
-        
+    const handleDrop=(file:any)=>{
+     file.map((file:any)=>{
+          return  Object.assign(file,{preview: URL.createObjectURL(file)})
+        })
+        setFileForm(file[0])
+        setFormData({...formData, image: file[0]})
     }
 
     const onFinish=()=>{
@@ -71,6 +65,8 @@ export const ProfileEdit = () => {
         
         
     }
+    
+
     return (
         <div className="container-scroller">
             <Header  user={user} />
@@ -88,9 +84,10 @@ export const ProfileEdit = () => {
                                     user={user}
                                     formData={formData}
                                     handleInputChange={handleInputChange}
-                                    onChange={onChange}
                                     onFinish={onFinish}
                                     loading={loading}
+                                    handleDrop={handleDrop}
+                                    fileForm={fileForm}
                                     />
                                 </Fragment>
                             </div>

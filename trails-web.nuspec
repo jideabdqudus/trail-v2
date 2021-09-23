@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>trails-web-app</id>
+    <version>2.0.0</version>
+    <authors>VGG</authors>
+    <owners>VGG</owners>
+    <description>Trails 2.0</description>
+  </metadata>
+  <files>
+    <file src="*" exclude="*.nuspec"/>
+  <file src="build\**" target="" />
+  </files>
+</package>

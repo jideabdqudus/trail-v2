@@ -11,9 +11,9 @@ import {
   AUTH_ERROR, 
   VALIDATION_SUCCESS, 
   VALIDATION_ERROR 
-} from '../constants/types.js';
-import {appConstants} from "../constants/environment.js"
-import {toastify, tokenConfig} from "../helpers"
+} from '../../constants/types';
+import {appConstants} from "../../constants/environment"
+import {toastify, tokenConfig} from "../../helpers"
 import {setError} from "./alert.js"
 
 

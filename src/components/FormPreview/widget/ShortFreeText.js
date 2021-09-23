@@ -2,7 +2,7 @@ import React from 'react'
 import {Form, Input} from 'antd'
 import { useDispatch } from 'react-redux'
 
-import {formBuildAnswer} from '../../../actions/form'
+import {formBuildAnswer} from '../../../redux/actions/form'
 import {Layout} from'./Layout'
 
 const ShortFreeText = ({content}) => {

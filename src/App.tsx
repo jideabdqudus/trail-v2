@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./styles/index.scss"
 import store from './store'
 import PrivateRoute from "./routes/PrivateRoute"
-import { loadUser } from './actions/authActions';
+import { loadUser } from './redux/actions/auth';
 import { Login, SignUp, PrivacyPolicy, ForgotPassword, ProgramReport, Overview, Programs, NewProgram, 
   Forms, FormBuild, FormPreview, PublishedForm, VerifyToken, Profile, ProfileEdit } from "./pages"
 
