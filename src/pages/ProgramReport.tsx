@@ -40,6 +40,50 @@ export const ProgramReport = () => {
   function onChange(value: any) {
     dispatch(getFormReportforProgram(id, value))
   }
+  const generateDataObject = (report: any) => {
+    const data = {
+      labels: [report?.submissions[0]?.date || null],
+      datasets: [
+        {
+          label: "Yes",
+          data: [report?.submissions[0]?.positive || 0],
+          backgroundColor: "#1a1aff",
+          maxBarThickness: 20,
+        },
+        {
+          label: "No",
+          data: [report?.submissions[0]?.negative || 0],
+          backgroundColor: "#b0b0fc",
+          maxBarThickness: 20,
+        },
+      ],
+    };
+    return data;
+  };
+  
+  const options:object = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+          gridLines: {
+            display: true,
+          },
+        },
+      ],
+      xAxes: [
+        {
+          stacked: true,
+          gridLines: {
+            display: false,
+          },
+        },
+      ],
+    },
+  };
+
   return (
     <div className="container-scroller">
       {
@@ -60,7 +104,8 @@ export const ProgramReport = () => {
                       <h2 className="program-report__sub">Performance Indicators</h2>
                       <Divider/>
                       <ProgramForms program={program} onChange={onChange} />
-                      {report && report?.length > 0 ? <ProgramFormReport report={report} />: null}
+                      <br/>
+                      {report && report?.length > 0 ? <ProgramFormReport report={report} generateDataObject={generateDataObject} options={options} />: null}
                    </div>
               </div>
             </div>

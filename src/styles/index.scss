@@ -361,3 +361,21 @@
   color: red;
   font-size: 16px;
 }
+
+//report card
+.reportCard{
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+
+  small{
+    font-size: 15px;
+  }
+}
+
+.reportEmpty{
+  max-width: 960;
+  margin: 10rem auto;
+}

@@ -108,7 +108,7 @@ export const CreateForm = ({
                                         },
                                     ]}
                                         style={{marginBottom: 0}}
-                                        name="linkedIndicator"
+                                        name={`linkedIndicator${idx}`}
                                     >
                                         <Select placeholder="select"
                                             onSelect={handleIndicatorQuestion}
@@ -131,7 +131,7 @@ export const CreateForm = ({
                                             },
                                         ]}
                                         style={{marginBottom: 0}}
-                                        name="indicatorquestion"
+                                        name={`indicatorquestion${idx}`}
                                         >
                                         <Select placeholder="select" 
                                         onChange={(value)=>handleSelect(value, "indicatorquestion",idx )} 
@@ -148,7 +148,7 @@ export const CreateForm = ({
                                  {(indicatorquestion ===0) && <Col span={6}>
                                     <Form.Item
                                        style={{marginBottom: 0}}
-                                       name="question"
+                                       name={`question${idx}`}
                                     >
                                         <Input
                                             type="text"
@@ -169,7 +169,7 @@ export const CreateForm = ({
                                             },
                                         ]}
                                         style={{marginBottom: 0}}
-                                        name="targetType"
+                                        name={`targetType${idx}`}
                                     >
                                         <Select
                                             placeholder="Select indicator metric"
@@ -196,7 +196,7 @@ export const CreateForm = ({
                                             },
                                         ]}
                                         style={{marginBottom: "20px"}}
-                                        name="targetValue"
+                                        name={`targetValue${idx}`}
                                     >
                                         <InputNumber
                                            value={targetValue}
@@ -218,10 +218,7 @@ export const CreateForm = ({
                                     <Button
                                         type={"primary"}
                                         danger
-                                        onClick={() =>
-                                            // delete_a_component(idx)
-                                            removeComponents(idx)
-                                        }
+                                        onClick={() =>removeComponents(idx) }
                                         icon={
                                             <MinusCircleOutlined />
                                         }
@@ -230,21 +227,20 @@ export const CreateForm = ({
                                 </Col>
                             </Row>
                                )})}
-                            {!isEmpty(componentBuild) && <Row>
-                                <Row gutter={[16, 16]}>
-                                    <Col span={3}>
-                                        <Form.Item>
-                                            <Button
-                                                type="primary"
-                                                htmlType="submit"
-                                                className="forgetBtn"
-                                                
-                                            >
-                                                Create Form
-                                            </Button>
-                                        </Form.Item>
-                                    </Col>
-                                </Row>
+                            
+                             {!isEmpty(componentBuild) &&   <Row gutter={[16, 16]}>
+                                <Col span={3}>
+                                    <Form.Item>
+                                        <Button
+                                            type="primary"
+                                            htmlType="submit"
+                                            className="forgetBtn"
+                               
+                                        >
+                                            Create Form
+                                        </Button>
+                                    </Form.Item>
+                                </Col>
                             </Row>}
                         </Card>
                     </Form>

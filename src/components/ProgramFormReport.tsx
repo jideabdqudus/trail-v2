@@ -95,15 +95,50 @@
 // }
 
 import React from 'react'
+<<<<<<< HEAD
+=======
+import { Row, Col, Card, Empty } from "antd";
+import { Bar } from "react-chartjs-2";
+import { isEmpty } from "lodash";
+>>>>>>> 2f8fce27264119e1ead0dbbb8b0c7c90d76f63b1
 
 interface Props {
   report: any
+  generateDataObject: (report: any)=> any
+  options?: object
 }
 
+<<<<<<< HEAD
 export const ProgramFormReport:React.FC<Props> = () => {
   return (
     <div>
       <h1>Form Report</h1>
+=======
+export const ProgramFormReport: React.FC<Props> = ({report, generateDataObject, options}) => {
+  return (
+    <div>
+      <Row gutter={[48, 48]}> 
+          {isEmpty(report) ? (
+            <Empty className="reportEmpty" />
+          ) : (
+            report?.map((rep: any, idx: any) => (
+              <Col key={idx} xs={{ span: 24 }} lg={{ span: 12 }}>
+                <Card className={"indicatorCard"}>
+                  <div className="reportCard" >
+                    <small>
+                      {rep?.question || ""}
+                    </small>
+                    <small>
+                      {`Target: ${rep?.targetValue || ""}`}
+                    </small>
+                  </div>
+                  <Bar data={generateDataObject(rep)} width={100} height={60} options={options}/>
+                </Card>
+              </Col>
+            ))
+          )}
+        </Row>
+>>>>>>> 2f8fce27264119e1ead0dbbb8b0c7c90d76f63b1
     </div>
   )
 }
