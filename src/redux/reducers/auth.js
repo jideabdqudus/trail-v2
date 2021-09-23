@@ -8,14 +8,15 @@ import {
   USER_LOADING, 
   USER_LOADED,
   VALIDATION_ERROR,
-  VALIDATION_SUCCESS  
+  VALIDATION_SUCCESS ,
+  FORGOT_PASSWORD
 } from "../../constants/types";
 const initialState = {
   user: null,
   loading: false,
   accessToken: localStorage.getItem("accessToken"),
   isAuthenticated: false,
-  validation:null
+  validation:null,
 };
 const auth = (state = initialState, action) => {
   switch (action.type) {
@@ -79,6 +80,7 @@ const auth = (state = initialState, action) => {
         isAuthenticated: false,
         loading: false,
       };
+      case FORGOT_PASSWORD:
     default:
       return state;
   }

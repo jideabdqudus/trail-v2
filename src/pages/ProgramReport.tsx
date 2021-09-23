@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
-import {clearReport} from "../redux/actions/program"
+import {clearReport,getFormReportforProgram} from "../redux/actions/program"
 import { IAuthenticate, IPrograms } from '../type.d'
 import { ProgramFormReport, ProgramForms, ProgramStat } from "../components";
 
@@ -37,6 +37,9 @@ export const ProgramReport = () => {
     })
     return null
   }
+  function onChange(value: any) {
+    dispatch(getFormReportforProgram(id, value))
+  }
   return (
     <div className="container-scroller">
       {
@@ -56,7 +59,7 @@ export const ProgramReport = () => {
                       <ProgramStat program = {program} indicatorNumber={indicatorNumber} />
                       <h2 className="program-report__sub">Performance Indicators</h2>
                       <Divider/>
-                      <ProgramForms program={program} id={id} />
+                      <ProgramForms program={program} onChange={onChange} />
                       {report && report?.length > 0 ? <ProgramFormReport report={report} />: null}
                    </div>
               </div>

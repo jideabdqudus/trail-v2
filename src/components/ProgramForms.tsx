@@ -1,23 +1,16 @@
 import React from 'react'
 import { Select } from 'antd';
-import { useDispatch } from 'react-redux';
-
 
 import { toastify } from '../helpers';
-import {getFormReportforProgram} from "../redux/actions/program" //Action shouldn't be defined here
 
 interface Props{
   program: any
-  id: string
+  onChange:(value:any)=>void
 }
 
-export const ProgramForms: React.FC<Props> = ({program, id}) => {
+export const ProgramForms: React.FC<Props> = ({program,  onChange}) => {
   const { Option } = Select;
   const {form} = program
-  const dispatch = useDispatch()
-  function onChange(value: any) {
-    dispatch(getFormReportforProgram(id, value))
-  }
   function onBlur() {
     return null
   }

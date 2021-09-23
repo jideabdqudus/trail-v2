@@ -2,18 +2,19 @@ import React,{useState} from 'react'
 import {Row, Col} from 'antd'
 import { Link } from 'react-router-dom'
 import {Redirect} from 'react-router'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 
 //Imports
 import {assets} from "../assets/assets"
 import {PasswordForm} from "../components"
 import { IForgotPassword, IAuthenticate } from '../type.d'
+import { forgotPassword } from '../redux/actions/auth'
 
 
 export const ForgotPassword: React.FC= () => {
   const { isAuthenticated, loading} = useSelector((state: IAuthenticate) => state.auth);
-
+  const dispatch=useDispatch()
   const [formData, setFormData] = useState<IForgotPassword>({
     email: "",
   })
@@ -21,7 +22,8 @@ export const ForgotPassword: React.FC= () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const onSubmitForm = ()=>{
-    console.log(formData)
+    // console.log(formData)
+    dispatch(forgotPassword(formData))
   }
   if(isAuthenticated){
     return <Redirect to="/app/dashboard" />
