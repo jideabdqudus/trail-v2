@@ -8,7 +8,7 @@ import { FormTable } from "../components/FormTable";
 import { Header } from "../layouts/header";
 import { SideBar } from "../layouts/sidebar";
 import { IAuthenticate } from "../type.d";
-import { getForms, filterForm, clearFilter} from "../redux/actions/form";
+import { getForms, filterForm, clearFilter, deleteForm} from "../redux/actions/form";
 import { IForms } from "../type.d";
 
 export const Forms = () => {
@@ -28,6 +28,9 @@ export const Forms = () => {
     }else{
       dispatch(clearFilter())
     }
+  }
+  const deleteFormRow=(id:number)=>{
+    dispatch(deleteForm(id))
   }
   return (
     <div className="container-scroller">
@@ -55,6 +58,7 @@ export const Forms = () => {
                     inputChange={inputChange} 
                     filtered={filtered}
                     filterText={filterText}
+                    deleteFormRow={deleteFormRow}
                   />
                 </div>
               </div>

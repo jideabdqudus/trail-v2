@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {assets} from "../assets/assets"
 import {PasswordForm} from "../components"
 import { IForgotPassword, IAuthenticate } from '../type.d'
-import { forgotPassword } from '../actions/authActions'
+import { forgotPassword } from '../redux/actions/auth'
 
 
 export const ForgotPassword: React.FC= () => {

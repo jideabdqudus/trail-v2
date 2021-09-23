@@ -1,12 +1,10 @@
 import {Popover,Skeleton,Row,Col,Layout,Pagination, Popconfirm} from "antd";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { Fragment } from "react";
 
 import { FormFilter } from "./FormFilter";
 import {IPagination} from "../type.d"
 import {assets} from "../assets/assets"
-import {deleteForm} from "../redux/actions/form" //Action Shouldnt be defined here 
 
 interface Props{
   loading: boolean;
@@ -16,17 +14,17 @@ interface Props{
   inputChange: (e: any)=>void
   filtered: [] | null
   filterText:any
+  deleteFormRow:(id:any)=>void
 }
 
-export const FormTable = ({loading, forms, pagination, handleChange, filtered, inputChange, filterText}: Props) => {  
- const dispatch=useDispatch();
+export const FormTable = ({loading, forms, pagination, handleChange, filtered, inputChange, filterText, deleteFormRow}: Props) => {  
   const content = (id:number)=>{
   return  <Fragment>
       <Link to={`/app/form/preview/${id}`} className="content-p">View</Link>      
       <Popconfirm title="Are you sure you want to delete this?"
         okText="Yes"
         cancelText="No"
-        onConfirm={()=>dispatch(deleteForm(id))}
+        onConfirm={()=>deleteFormRow(id)}
       >
         <p style={{ cursor: 'pointer' }}>Delete</p>
       </Popconfirm>
