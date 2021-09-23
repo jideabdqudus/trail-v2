@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { Header } from "../layouts/header";
 import { SideBar } from '../layouts/sidebar';
 import { IAuthenticate, IForms} from '../type.d'
-import { getForm } from '../actions/form';
+import { getForm } from '../redux/actions/form';
 import { PreviewSection } from "../components/PreviewSection";
 
 export const FormPreview = () => {

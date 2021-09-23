@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 import { IForms } from '../type.d';
 import { toastify } from '../helpers';
-import { getForm, createSubmission } from '../actions/form';
+import { getForm, createSubmission } from '../redux/actions/form';
 import {PublishedSection} from '../components/PublishedSection'
 
 export const PublishedForm: React.FC = () => {

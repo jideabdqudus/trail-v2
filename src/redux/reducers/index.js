@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import auth from "./authReducer.js";
+import auth from "./auth.js";
 import alert from "./alert.js";
 import program from "./program.js";
 import form from "./form.js";

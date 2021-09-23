@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
-import {clearReport} from "../actions/program.js"
+import {clearReport} from "../redux/actions/program"
 import { IAuthenticate, IPrograms } from '../type.d'
 import { ProgramFormReport, ProgramForms, ProgramStat } from "../components";
 

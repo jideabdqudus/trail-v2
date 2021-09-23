@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { appConstants } from "../constants/environment.js";
-import { tokenConfig } from "../helpers";
+import { appConstants } from "../../constants/environment.js";
+import { tokenConfig } from "../../helpers";
 import { setError, setAlert } from "./alert";
 import { FORMS_SUCCESS,
    FORM_ERROR, 
@@ -15,7 +15,7 @@ import { FORMS_SUCCESS,
    FORM_SUCCESS,
    FORM_BUILD_ANSWER,
    CREATE_SUBMISSION_SUCCESS
-  } from "../constants/types";
+  } from "../../constants/types";
 
 export const getForms = (page) => (dispatch, getState) => {
   dispatch({ type: FORM_LOADING, });

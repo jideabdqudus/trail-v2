@@ -10,11 +10,18 @@ import {
   LOGOUT_SUCCESS, 
   AUTH_ERROR, 
   VALIDATION_SUCCESS, 
+<<<<<<< HEAD:src/actions/authActions.js
   VALIDATION_ERROR ,
   FORGOT_PASSWORD
 } from '../constants/types.js';
 import {appConstants} from "../constants/environment.js"
 import {toastify, tokenConfig} from "../helpers"
+=======
+  VALIDATION_ERROR 
+} from '../../constants/types';
+import {appConstants} from "../../constants/environment"
+import {toastify, tokenConfig} from "../../helpers"
+>>>>>>> 97e540872a8e1195e39bf4e470a7dae60ac7e415:src/redux/actions/auth.js
 import {setError} from "./alert.js"
 
 

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import {urlHelper} from "../helpers"
 import {  IAuthenticate } from '../type.d'
-import { verifyUser } from '../actions/authActions'
+import { verifyUser } from '../redux/actions/auth'
 
 //Imports
 import {assets} from "../assets/assets"

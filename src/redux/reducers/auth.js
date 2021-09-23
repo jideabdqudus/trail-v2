@@ -8,9 +8,14 @@ import {
   USER_LOADING, 
   USER_LOADED,
   VALIDATION_ERROR,
+<<<<<<< HEAD:src/reducers/authReducer.js
   VALIDATION_SUCCESS,
   FORGOT_PASSWORD
 } from "../constants/types";
+=======
+  VALIDATION_SUCCESS  
+} from "../../constants/types";
+>>>>>>> 97e540872a8e1195e39bf4e470a7dae60ac7e415:src/redux/reducers/auth.js
 const initialState = {
   user: null,
   loading: false,

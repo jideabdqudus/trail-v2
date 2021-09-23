@@ -5,7 +5,7 @@ import { IAuthenticate, IProfile} from '../type.d'
 import { Header } from '../layouts/header'
 import { SideBar } from '../layouts/sidebar'
 import {ProfileCard} from "../components/ProfileCard"
-import { get_profile } from '../actions/profile'
+import { get_profile } from '../redux/actions/profile'
 
 export const Profile = () => {
     const dispatch=useDispatch()

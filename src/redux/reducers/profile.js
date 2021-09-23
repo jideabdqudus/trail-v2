@@ -1,4 +1,4 @@
-import {GET_PROFILE,PROFILE_LOADING,PROFILE_UPDATE, PROFILE_ERROR} from "../constants/types"
+import {GET_PROFILE,PROFILE_LOADING,PROFILE_UPDATE, PROFILE_ERROR} from "../../constants/types"
 
 const initialState={
     profile:{},

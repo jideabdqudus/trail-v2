@@ -6,7 +6,7 @@ import { IAuthenticate, IProfile} from '../type.d'
 import { Header } from '../layouts/header'
 import { SideBar } from '../layouts/sidebar'
 import {ProfileForm} from "../components/ProfileForm"
-import { profile_update } from '../actions/profile'
+import { profile_update } from '../redux/actions/profile'
 import { toastify, verifyString } from '../helpers';
 
 export const ProfileEdit = () => {

@@ -2,7 +2,7 @@ import React from 'react'
 import {Form, Radio } from 'antd'
 import { useDispatch } from 'react-redux'
 
-import {formBuildAnswer} from '../../../actions/form'
+import {formBuildAnswer} from '../../../redux/actions/form'
 import {Layout} from'./Layout'
 
 const RadioInput = ({content}) => {
