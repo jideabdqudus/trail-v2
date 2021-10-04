@@ -83,7 +83,7 @@ export const ProgramReport = () => {
       ],
     },
   };
-
+  console.log(program)
   return (
     <div className="container-scroller">
       {
