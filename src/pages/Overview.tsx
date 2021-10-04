@@ -20,7 +20,6 @@ export const Overview = () => {
   useEffect(() => {
     dispatch(getBudgetAndBeneficiaries())
     dispatch(getPrograms())
-    console.log(watch, "watch")    
   },[watch, dispatch])
   const calculateSize = (programs: []) => {
     const sdgs = uniqBy(flatten(programs?.map(({ sdgs }: any) => sdgs)), "sdgId");

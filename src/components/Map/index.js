@@ -9,16 +9,17 @@ const Maps = (props) => {
   const { programs} = useSelector((state) => state.program);
  const displayMarkers = () => {
     return programs?.map((program) => {
-      return (
+    let values = Object.assign({}, program?.activeMarker)
+    return (
         <Marker
-          key={program?.locations[0]?.long}
-          id={program?.locations[0]?.long}
+          key={values[0]?.lng}
+          id={values[0]?.lng}
           position={{
-            lat: program?.locations[0]?.lat,
-            lng: program?.locations[0]?.long,
+            lat: values[0]?.lat,
+            lng: values[0]?.lng,
           }}
           onClick={() => {
-            alert(program?.locations[0]?.name);
+            alert(program?.locations[0]?.description);
           }}
         />
       );
@@ -42,8 +43,8 @@ const Maps = (props) => {
                 style={mapStylesToo}
                 styles={mapStyles.mapStyle}
                 initialCenter={{
-                  lat: programs[0]?.locations[0]?.lat,
-                  lng: programs[0]?.locations[0]?.long,
+                  lat: 35,
+                  lng: 34,
                 }}
               >
                 {displayMarkers()}

@@ -30,7 +30,7 @@ export const SignUp: React.FC= () => {
     organizationType:"",
     terms: false
   })
-  const {firstName, lastName, email, phone, password, password2, terms, accountType} = formData
+  const {firstName, lastName, email, phone, password, terms, accountType} = formData
 
   const onChangeForm = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -50,13 +50,13 @@ export const SignUp: React.FC= () => {
       email === "" ||
       lastName === "" ||
       password === "" ||
-      password2 === "" ||
+      formData.password2 === "" ||
       phone === 0 ||
       terms === false ||
       accountType === ""
     ) {
       toastify.alertError("All fields are compulsory", 5000);
-    } else if (password !== password2) {
+    } else if (password !== formData.password2) {
       toastify.alertWarning("The passwords need to be the same", 5000);
     } else if (password.length < 8) {
       toastify.alertWarning("Password Length must be more than 8", 5000);
@@ -66,7 +66,8 @@ export const SignUp: React.FC= () => {
         5000
       );
     } else {
-      dispatch(register(formData, history));
+      const payload = {accountType,lastName, email, firstName, password, phone, terms}
+      dispatch(register(payload, history));
     }
   }
   const onChangeStep = ()=>{

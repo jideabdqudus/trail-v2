@@ -79,10 +79,6 @@ export const loginUser = (profile) => async (dispatch) => {
 
 // REGISTER USER 
 export const register = (formData, history) => (dispatch) => {
-  delete formData.organization
-  delete formData.organizationType
-  delete formData.password2
-
   dispatch({ type: USER_LOADING })
   // Headers
   const config = {

@@ -27,7 +27,7 @@ const App:React.FC=()=> {
        <Switch>
           <Route exact path="/" render={(props) => <Login />}/>
           <Route exact path="/login" render={(props) => <Login />}/>
-          <Route exact path="/verify-token/:accessToken" render={(props) => <VerifyToken />}/>
+          <Route exact path="/auth/:accessToken" render={(props) => <VerifyToken />}/>
           <Route exact path="/sign-up" render={(props) => <SignUp/>}/>
           <Route exact path="/privacy-policy" render={(props) => <PrivacyPolicy />}/>
           <Route exact path="/forgot-password" render={(props) => <ForgotPassword />}/>
