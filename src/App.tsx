@@ -11,7 +11,7 @@ import PrivateRoute from "./routes/PrivateRoute"
 import { loadUser } from './redux/actions/auth';
 import { NetworkStatus } from './components';
 import { Login, SignUp, PrivacyPolicy, ForgotPassword, ProgramReport, Overview, Programs, NewProgram, 
-  Forms, FormBuild, FormPreview, PublishedForm, VerifyToken, Profile, ProfileEdit } from "./pages"
+  Forms, FormBuild, FormPreview, PublishedForm, VerifyToken, Profile, ProfileEdit, ResetPassword } from "./pages"
 
 const App:React.FC=()=> {
   useEffect(() => {
@@ -31,6 +31,7 @@ const App:React.FC=()=> {
           <Route exact path="/sign-up" render={(props) => <SignUp/>}/>
           <Route exact path="/privacy-policy" render={(props) => <PrivacyPolicy />}/>
           <Route exact path="/forgot-password" render={(props) => <ForgotPassword />}/>
+          <Route exact path="/auth/reset-password?" render={(props) => <ResetPassword />}/>
           <Route exact path="/form/:id" component={PublishedForm} />
           <PrivateRoute exact path="/app/dashboard" component={Overview}/>
           <PrivateRoute exact path="/app/programs" component={Programs}/>

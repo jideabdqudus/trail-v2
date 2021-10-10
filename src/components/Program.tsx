@@ -51,8 +51,8 @@ export const Program:React.FC<Props> = ({programs, renderSdgs}) => {
                <p className="project-headline">{renderSdgs(program.sdgs)}</p>
              </Col>
              <Col span={12}>
-               <p className="program__sub-headline" style={{float:"right"}}>Location</p>
-               <p className="project-headline" style={{float:"right"}}> {program.locations[0].description.length > 20 ? program.locations[0].description.substring(0, 11) + "..." : program.locations[0].description} </p>
+               <p className="program__sub-headline" style={{float:"right", width:"100%", textAlign:"right"}}>Location</p>
+               <p className="project-headline" style={{float:"right", display:"block"}}> {program.locations[0].description.length > 20 ? program.locations[0].description.substring(0, 11) + "..." : program.locations[0].description} </p>
              </Col>
            </Row>
              </div>

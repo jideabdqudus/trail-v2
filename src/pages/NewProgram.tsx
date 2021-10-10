@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from "react";
-import { Layout, Button } from 'antd';
+import { Layout, Button, Popconfirm } from 'antd';
 import {useSelector, useDispatch} from 'react-redux';
 import {geocodeByAddress,getLatLng} from 'react-places-autocomplete';
 import { useHistory } from "react-router-dom";
 import {isEmpty} from "lodash"
-
-
 
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
@@ -24,6 +22,8 @@ export const NewProgram:React.FC = () => {
   const [fileForm, setFileForm] = useState<any>({})
   const [addressed, setAddressed] = useState<any>("")
   const [selectedPlace, setSelectedPlace] = useState<any>("")
+  const [visible, setVisible] = useState<boolean>(false);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [location, setLocation] = useState<any>({})
   const [mapCenter, setMapCenter] = useState<any>("")
   const [sdgId, setSdgId] = useState<any>([])
@@ -70,8 +70,6 @@ export const NewProgram:React.FC = () => {
 const onClickSdg = (e: any)=>{
   setSdgId([...sdgId, e.target.value])
 }
-
-
 const getIndicators = ()=>{
   sdgsAndIndicators?.filter((sdgs : any)=>{
     sdgId.map((ava: any)=>{
@@ -83,7 +81,22 @@ const getIndicators = ()=>{
     return null
   })
 }
+const onCancelForm = ()=>{
+ console.log("object");
+ setConfirmLoading(true);
+  setTimeout(() => {
+    setVisible(false);
+    setConfirmLoading(false);
+    history.push("/app/programs")
+  }, 2000);
+}
+const showPopconfirm = () => {
+  setVisible(true);
+};
 
+const handleCancel = () => {
+  setVisible(false);
+};
 const onSubmitForm = ()=>{
   if (sdgs.length < 1){
     toastify.alertWarning("Please select at least one SDG and Indicator")
@@ -167,7 +180,17 @@ useEffect(() => {
                       />
                       <div>
                       <Button type="primary" onClick={onSubmitForm} className="create__program" disabled={loading} loading={loading}>Create</Button>
-                        <Button type="primary" onClick={onSubmitForm} className="cancel__program">Cancel</Button>
+                      <Popconfirm 
+                        title="Are you sure?"
+                        visible={visible}
+                        okText="Yes" 
+                        cancelText="No"
+                        onConfirm={onCancelForm}
+                        okButtonProps={{ loading: confirmLoading }}
+                        onCancel={handleCancel}
+                      >
+                        <Button type="primary" onClick={showPopconfirm}  className="cancel__program">Cancel</Button>
+                      </Popconfirm>
                       </div>
                    </div>
               </div>

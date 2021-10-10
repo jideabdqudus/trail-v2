@@ -9,7 +9,8 @@ import {
   USER_LOADED,
   VALIDATION_ERROR,
   VALIDATION_SUCCESS ,
-  FORGOT_PASSWORD
+  FORGOT_PASSWORD,
+  RESET_PASSWORD
 } from "../../constants/types";
 const initialState = {
   user: null,
@@ -66,6 +67,12 @@ const auth = (state = initialState, action) => {
         validation: action.payload,
         loading: false,
       }; 
+    case FORGOT_PASSWORD:
+    case RESET_PASSWORD:
+      return{
+        ...state,
+        loading: false
+      }
     case AUTH_ERROR:
     case LOGOUT_SUCCESS:
     case REGISTER_FAIL:
@@ -80,7 +87,6 @@ const auth = (state = initialState, action) => {
         isAuthenticated: false,
         loading: false,
       };
-      case FORGOT_PASSWORD:
     default:
       return state;
   }

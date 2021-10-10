@@ -93,6 +93,5 @@ export const urlHelper = (string) =>{
   let arr = string.split("/")
   let token = arr[arr.length - 1]
   token = token.slice(26)
-  console.log(token)
   return token  
 }
