@@ -51,10 +51,7 @@ export const SignUp: React.FC= () => {
     setFormData({...formData, accountType: e.target.value})
   }
   const onSubmitForm = ()=>{
-    if (
-      terms === false ||
-      accountType === ""
-    ) {
+    if ( terms === false || accountType === "" ) {
       toastify.alertError("All fields are compulsory", 5000);
     } else {
       dispatch(register(formData, history));
@@ -69,8 +66,6 @@ export const SignUp: React.FC= () => {
       password === "" ||
       password2 === "" ||
       phone === 0 
-      // terms === false ||
-      // accountType === ""
     ) {
       toastify.alertError("All fields are compulsory", 5000);
     } else if (password !== formData.password2) {
