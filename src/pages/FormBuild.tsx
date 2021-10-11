@@ -63,7 +63,7 @@ export const FormBuild = () => {
           placeholder: '',
           linkedIndicator: null,
           indicatorquestion: '',
-          value: 'number',
+          value: value==='radio'?'number':value,
         },
       ]);   
     }

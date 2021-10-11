@@ -144,12 +144,35 @@ export const createSubmission=(id, answers)=>(dispatch, getState)=>{
     type: FORM_LOADING
   })
   axios.post(`${appConstants.REACT_APP_BASE_URL}/form/${id}/`, answers, tokenConfig(getState)).then((response)=>{
+    console.log(response.data, 'axios resp')
     dispatch({
       type: CREATE_SUBMISSION_SUCCESS,
       payload: response.data
     })
     dispatch(setAlert(response.data))
-    window.setTimeout(() => {window.close() }, 2000)
+    // window.setTimeout(() => {window.close() }, 2000)
+  }).catch((error)=>{
+    if (error.message && error.response === undefined) {
+      dispatch(setError(error.message, "ERR"));
+      dispatch({type: FORM_ERROR, payload: error.message,});
+    } else {
+      dispatch(setError(error.response.data.message, error.response.status));
+      dispatch({ type: FORM_ERROR, payload: error.response.data.message, });
+    }
+  })
+}
+export const updateForm=(id,Data, history)=>(dispatch, getState)=>{
+  dispatch({
+    type: FORM_LOADING
+  })
+  axios.put(`${appConstants.REACT_APP_BASE_URL}/form/${id}/`, Data, tokenConfig(getState)).then((response)=>{
+    console.log(Data, 'formData')
+    dispatch({
+      type: CREATE_FORM_SUCCESS,
+      payload: response.data
+    })
+    dispatch(setAlert(response.data))
+    setTimeout(history.push(`/app/forms`), 2000)
   }).catch((error)=>{
     if (error.message && error.response === undefined) {
       dispatch(setError(error.message, "ERR"));

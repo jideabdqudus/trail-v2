@@ -14,10 +14,11 @@ interface Props{
   inputChange: (e: any)=>void
   filtered: [] | null
   filterText:any
-  deleteFormRow:(id:any)=>void
+  deleteFormRow:(id:any)=>void,
+  setCurrentForm:(id:any)=>void
 }
 
-export const FormTable = ({loading, forms, pagination, handleChange, filtered, inputChange, filterText, deleteFormRow}: Props) => {  
+export const FormTable = ({loading, forms, pagination, handleChange, filtered, inputChange, filterText, deleteFormRow,setCurrentForm}: Props) => {  
   const content = (id:number)=>{
   return  <Fragment>
       <Link to={`/app/form/preview/${id}`} className="content-p">View</Link>      
@@ -28,6 +29,7 @@ export const FormTable = ({loading, forms, pagination, handleChange, filtered, i
       >
         <p style={{ cursor: 'pointer' }}>Delete</p>
       </Popconfirm>
+      <Link to={`/app/form-edit/${id}`} className="content-p" onClick={()=>setCurrentForm(id)}>Edit</Link>
     </Fragment>
   };
   const pageSizeOption: string[]=["10", "20", "50" ,"100"];
@@ -63,7 +65,7 @@ export const FormTable = ({loading, forms, pagination, handleChange, filtered, i
               </Col>
             </Row>
             <Row>
-              <table className="table table-bordered">
+              <table className="table table-bordered" >
                 <thead>
                   <tr>
                     <th>Form Name</th>

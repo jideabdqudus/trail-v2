@@ -31,7 +31,8 @@ export const PublishedForm: React.FC = () => {
           toastify.alertWarning('Answers cannot be empty',2000)
       }else{
           dispatch(createSubmission(form.formid,{ answers: answerArray }))   
-      }   
+      } 
+      console.log(answerArray, 'answerArray')  
   }
     return (
     <Layout style={{ minHeight: "100vh" }}>

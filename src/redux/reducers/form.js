@@ -84,7 +84,7 @@ const form = (state = initialState, action) => {
         return {
           ...state,
           loading: false,
-          form: action.payload
+          form: action.payload.data
         }
       case FORM_SUCCESS: 
         return{
