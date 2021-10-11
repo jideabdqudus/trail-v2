@@ -15,5 +15,6 @@ export * from "./PublishedForm"
 export * from "../components/PublishedSection"
 export * from "./Profile"
 export * from "./ProfileEdit"
+export * from "./FormEdit"
 export * from "./ResetPassword"
 

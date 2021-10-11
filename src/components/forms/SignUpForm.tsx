@@ -18,11 +18,12 @@ interface Props{
   onSubmitForm: ()=> void,
   accountTypeChange: any;
   onOrganizationChange?:(e: any)=>void,
-  loading?: boolean
+  loading?: boolean,
+  isDisabled:boolean
 }
 
 
-export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onPrevStep, stepNumber, formData, onChangeForm, onTickTerms, onSubmitForm, onOrganizationChange, loading, accountTypeChange}) => {
+export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onPrevStep, stepNumber, formData, onChangeForm, onTickTerms, onSubmitForm, onOrganizationChange, loading, accountTypeChange, isDisabled}) => {
   const { Option } = Select;
   const { firstName, lastName, email, phone, password, password2, terms, organization, organizationType } = formData;
   return (
@@ -107,7 +108,7 @@ export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onP
           </Form.Item>
           {formData.accountType === "organization" ?
           <div>          
-            <span>Organization</span>
+            <span>Organization Name</span>
             <Form.Item name="organization" 
             >
               <Input
@@ -141,7 +142,7 @@ export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onP
           <Row>
             <Col xs={{ span: 12 }} lg={{ span: 24 }}>
               <Form.Item>
-                <Button type="primary" htmlType="submit" className="login__btn" >
+                <Button type="primary" htmlType="submit" className="login__btn" disabled={isDisabled}>
                   Sign Up
                 </Button>
               </Form.Item>

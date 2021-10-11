@@ -157,11 +157,12 @@ element.style {
 .table th,
 .table td {
   padding: 12px 15px;
-  vertical-align: top;
+  text-align: left;
   border-top: 1px solid #dee2e6;
 }
+
 .table thead th {
-  vertical-align: bottom;
+  vertical-align: center;
   border-bottom: 2px solid #dee2e6;
   background-color: #f4f5f6;
 }
@@ -341,3 +342,4 @@ input[type="text"].search_input::-webkit-input-placeholder {
   display: contents;
   align-items: center
 }
+

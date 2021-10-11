@@ -100,7 +100,18 @@ export interface IFormData{
   formlink: string,
   createdBy: number,
   name: string,
-  components:[]
+  // components:[]
+
+    title: string,
+    display: string,
+    type: string,
+    programId: string,
+    organisationId: number
+    instructions: string,
+    buttontype: string,
+    buttonvalue: string,
+    builderType: string
+    components: any
 }
 
 export interface IPagination{
@@ -148,7 +159,8 @@ export interface IForm {
   pagination: IPagination;
   programs: [],
   indicatorQuestions: [],
-  answers:{}
+  answers:{},
+  setCurrent:{}
 }
 
 export interface IForms {
@@ -159,15 +171,21 @@ export interface IBuildType{
   name: string,
   value: string
 }
+export interface Ilinked{
+  SelectedProgramIndicatorId: number,
+  indicatorId: number,
+  indicatorDescription: string
+}
 
 export interface IComponentBuild{
-  question: string,
+  questionId: string,
+  question:string
   targetValue: number,
   targetType: string,
   inputType: string,
   input: boolean,
   placeholder: string,
-  linkedIndicator: number | null,
+  linkedIndicator: Ilinked| number|any
   indicatorquestion: number | null,
   value: string,
 }
@@ -210,3 +228,4 @@ export interface IProfile{
   profile:IGetProfile,
   
 }
+

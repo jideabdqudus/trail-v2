@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col, Card, Empty } from "antd";
-import { Bar } from "react-chartjs-2";
 import { isEmpty } from "lodash";
+import { Bar } from 'react-chartjs-2'
 
 interface Props {
   report: any

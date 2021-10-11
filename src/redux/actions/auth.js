@@ -108,7 +108,7 @@ export const register = (formData, history) => (dispatch) => {
         dispatch(setError(error.message, "ERR"));
         dispatch({ type: REGISTER_FAIL, payload: error.message });
       }else{
-        dispatch(setError(error.response.data, error.response.status));
+        dispatch(setError(error.response.data.message, error.response.status));
         dispatch({
           type: REGISTER_FAIL,
           payload: error.response.data
@@ -145,8 +145,8 @@ export const verifyUser = (token) => async (dispatch) => {
         dispatch(setError(error.message, "ERR"));
         dispatch({ type: VALIDATION_ERROR, payload: error.message });
       }else{
-        dispatch(setError(error.response.data.message.message, error.response.status));
-        dispatch({ type: VALIDATION_ERROR, payload: error.response.data.message.message });
+        dispatch(setError(error.response.data.message, error.response.status));
+        dispatch({ type: VALIDATION_ERROR, payload: error.response.data.message });
       }
     });
 }
