@@ -73,7 +73,7 @@ export const SignUp: React.FC= () => {
       // accountType === ""
     ) {
       toastify.alertError("All fields are compulsory", 5000);
-    } else if (password !== password2) {
+    } else if (password !== formData.password2) {
       toastify.alertWarning("The passwords need to be the same", 5000);
     } else if (password.length < 8) {
       toastify.alertWarning("Password Length must be more than 8", 5000);

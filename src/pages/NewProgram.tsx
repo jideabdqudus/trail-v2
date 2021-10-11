@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from "react";
-import { Layout, Button } from 'antd';
+import { Layout, Button, Popconfirm } from 'antd';
 import {useSelector, useDispatch} from 'react-redux';
 import {geocodeByAddress,getLatLng} from 'react-places-autocomplete';
 import { useHistory } from "react-router-dom";
-
-
+import {isEmpty} from "lodash"
 
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
@@ -23,7 +22,9 @@ export const NewProgram:React.FC = () => {
   const [fileForm, setFileForm] = useState<any>({})
   const [addressed, setAddressed] = useState<any>("")
   const [selectedPlace, setSelectedPlace] = useState<any>("")
-  const [location, setLocation] = useState<any>("")
+  const [visible, setVisible] = useState<boolean>(false);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const [location, setLocation] = useState<any>({})
   const [mapCenter, setMapCenter] = useState<any>("")
   const [sdgId, setSdgId] = useState<any>([])
   // const [confirmSubmission, setConfirmSubmission] = useState<boolean>(false)
@@ -34,12 +35,12 @@ export const NewProgram:React.FC = () => {
     totalNumberOfBeneficiaries: 0,
     budget: 0,
     locations:{},
-    activeMarker:location,
+    activeMarker:mapCenter,
     image:"",
     sdgs:[],
     organisationId: 0
   })
-  const {name, description, code, totalNumberOfBeneficiaries, budget, locations, activeMarker, image, sdgs, organisationId} = formData
+  const {name, description, code, totalNumberOfBeneficiaries, budget, activeMarker, image, sdgs, organisationId} = formData
   let selectedSdgs: any = []
   const handleDrop = (file: any) => {
     setFile(file.map((file: any) =>
@@ -57,9 +58,11 @@ export const NewProgram:React.FC = () => {
     setAddressed(address)
     setSelectedPlace(selectedPlace)
     setLocation(location)
-    setFormData({ ...formData, locations: location, activeMarker: location });
     geocodeByAddress(addressed).then((results) => getLatLng(results[0])).then((latLng) => {
-    setMapCenter(latLng)}).catch((error) => toastify.alertWarning(`Warning: ${error}`, 1500))
+    setMapCenter(latLng)
+    setFormData({ ...formData, activeMarker: latLng? latLng : location });
+    }).catch((error) => toastify.alertWarning(`Warning: ${error}`, 1500))
+    setFormData({ ...formData, locations: location });
   }
   const onChangeForm = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -67,8 +70,6 @@ export const NewProgram:React.FC = () => {
 const onClickSdg = (e: any)=>{
   setSdgId([...sdgId, e.target.value])
 }
-
-
 const getIndicators = ()=>{
   sdgsAndIndicators?.filter((sdgs : any)=>{
     sdgId.map((ava: any)=>{
@@ -80,6 +81,22 @@ const getIndicators = ()=>{
     return null
   })
 }
+const onCancelForm = ()=>{
+ console.log("object");
+ setConfirmLoading(true);
+  setTimeout(() => {
+    setVisible(false);
+    setConfirmLoading(false);
+    history.push("/app/programs")
+  }, 2000);
+}
+const showPopconfirm = () => {
+  setVisible(true);
+};
+
+const handleCancel = () => {
+  setVisible(false);
+};
 const onSubmitForm = ()=>{
   if (sdgs.length < 1){
     toastify.alertWarning("Please select at least one SDG and Indicator")
@@ -91,8 +108,8 @@ const onSubmitForm = ()=>{
     toastify.alertWarning("Number of Beneficiaries is compulsory")
   }else if(budget === null){
     toastify.alertWarning("Program Budget is compulsory")
-  } else if(activeMarker.length < 1){
-    toastify.alertWarning("Program Location is invalid")
+  } else if(isEmpty(location)){
+    toastify.alertWarning("Program Location is invalid, select from dropdown")
   } else if(validateString(name)){
     toastify.alertWarning("Name can't start with number or special character")
   }else if(validateNumbersAndZero(budget)){
@@ -110,7 +127,7 @@ const onSubmitForm = ()=>{
     submissionPayload.append('totalNumberOfBeneficiaries', totalNumberOfBeneficiaries.toString())  
     submissionPayload.append('budget', budget.toString())  
     submissionPayload.append('organisationId', organisationId.toString())
-    submissionPayload.append('locations', JSON.stringify(locations))
+    submissionPayload.append('locations', JSON.stringify(location))
     submissionPayload.append('activeMarker', JSON.stringify(activeMarker))
     submissionPayload.append('sdgs', JSON.stringify(sdgs))
     if(image!==""){
@@ -163,7 +180,17 @@ useEffect(() => {
                       />
                       <div>
                       <Button type="primary" onClick={onSubmitForm} className="create__program" disabled={loading} loading={loading}>Create</Button>
-                        <Button type="primary" onClick={onSubmitForm} className="cancel__program">Cancel</Button>
+                      <Popconfirm 
+                        title="Are you sure?"
+                        visible={visible}
+                        okText="Yes" 
+                        cancelText="No"
+                        onConfirm={onCancelForm}
+                        okButtonProps={{ loading: confirmLoading }}
+                        onCancel={handleCancel}
+                      >
+                        <Button type="primary" onClick={showPopconfirm}  className="cancel__program">Cancel</Button>
+                      </Popconfirm>
                       </div>
                    </div>
               </div>

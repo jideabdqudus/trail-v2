@@ -11,7 +11,8 @@ import {
   AUTH_ERROR, 
   VALIDATION_SUCCESS, 
   VALIDATION_ERROR ,
-  FORGOT_PASSWORD
+  FORGOT_PASSWORD,
+  RESET_PASSWORD
 } from '../../constants/types';
 import {appConstants} from "../../constants/environment"
 import {toastify, tokenConfig} from "../../helpers"
@@ -79,10 +80,6 @@ export const loginUser = (profile) => async (dispatch) => {
 
 // REGISTER USER 
 export const register = (formData, history) => (dispatch) => {
-  delete formData.organization
-  delete formData.organizationType
-  delete formData.password2
-
   dispatch({ type: USER_LOADING })
   // Headers
   const config = {
@@ -173,6 +170,37 @@ export const forgotPassword=(email)=>dispatch=>{
     .then((response) => {
       dispatch({ type: FORGOT_PASSWORD, payload: response.data });
       toastify.alertSuccess("Kindly check your mail")
+    })
+    .catch((error) => {
+      if(error.response===""){
+        dispatch(setError("Error Found", "ERR"));
+        dispatch({ type: VALIDATION_ERROR, payload: "Error Found" });
+      }else if(error==="Network Error"){
+        dispatch(setError("Network Error", "ERR"));
+        dispatch({ type: VALIDATION_ERROR, payload: "Network Error" });
+      }else if(error.message && error.response === undefined){
+        dispatch(setError(error.message, "ERR"));
+        dispatch({ type: VALIDATION_ERROR, payload: error.message });
+      }else{
+        dispatch(setError(error.response.data.message, error.response.status));
+        dispatch({ type: VALIDATION_ERROR, payload: error.response.data.message });
+      }
+    });
+
+}
+
+export const resetPassword=(payload)=>dispatch=>{
+  dispatch({ type: USER_LOADING })
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  axios
+    .post(`${appConstants.REACT_APP_BASE_URL}/auth/passwordreset`, payload, config)
+    .then((response) => {
+      dispatch({ type: RESET_PASSWORD, payload: response.data });
+      // toastify.alertSuccess("Kindly check your mail")
     })
     .catch((error) => {
       if(error.response===""){

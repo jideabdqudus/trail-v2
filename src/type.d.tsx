@@ -19,6 +19,12 @@ export interface ILogin {
 export interface IForgotPassword {
   email: string;
 }
+
+export interface IResetPassword {
+  password: string;
+  password2?:string
+}
+
 export interface IUser {
   id: number;
   firstName: string;

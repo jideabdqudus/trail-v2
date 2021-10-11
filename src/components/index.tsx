@@ -1,6 +1,7 @@
 export * from "./forms/LoginForm"
 export * from "./forms/PasswordForm"
 export * from "./forms/SignUpForm"
+export * from "./forms/ResetPasswordForm"
 export * from "./OverviewStat"
 export * from "./Program"
 export * from "./ProgramForm/ProgramData"

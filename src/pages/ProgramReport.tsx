@@ -83,12 +83,12 @@ export const ProgramReport = () => {
       ],
     },
   };
-
+  console.log(program)
   return (
     <div className="container-scroller">
       {
         loading ? <div className="loading-overlay">
-          <Spin size="large" />
+          <Spin size="large"/>
         </div> : null 
       }
       <Header user={user} />
