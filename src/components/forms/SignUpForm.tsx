@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Input, Button, Select, Row, Col, Checkbox, Spin, Radio } from "antd";
+import { LeftOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 
 //Imports
@@ -40,7 +41,7 @@ export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onP
       <div>
         <Form name="normal_login" onFinish={onSubmitForm}>
           {stepOne && <div>
-            <h6> Step {stepNumber} of 2: Personal Details </h6>
+            <h3 className='stepHeader'> Step {stepNumber} of 2: Personal Details </h3>
              <Row gutter={[30, 10]}>
             <Col xs={{span: 24}} lg={{span: 12}}>
             <span>First Name</span>
@@ -104,7 +105,12 @@ export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onP
           </div>
         }
         {stepTwo && <div>
-      <h6> Step {stepNumber} of 2: Organization Details </h6>
+      <h3 className='stepHeader'> 
+      <span onClick={onPrevStep} >
+        <LeftOutlined className="returnStep"/>
+      </span>
+         Step {stepNumber} of 2: Organization Details 
+      </h3>
           <span>Account Type</span>
 
           <Form.Item name="accountType">
@@ -140,12 +146,8 @@ export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onP
                       By clicking , you accept our <Link to="/privacy-policy">Terms & Conditions</Link> and our <Link to="/privacy-policy">Data 
                     Policy</Link></Checkbox>
           <Row>
-          <Col xs={{ span: 12 }} lg={{ span: 24 }}>
-                <h4 onClick={onPrevStep} >
-                  Previous
-                </h4>
-            </Col>
             </Row>
+            <br/>
           <Row>
             <Col xs={{ span: 12 }} lg={{ span: 24 }}>
               <Form.Item>
