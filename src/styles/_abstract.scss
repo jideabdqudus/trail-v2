@@ -343,3 +343,9 @@ input[type="text"].search_input::-webkit-input-placeholder {
   align-items: center
 }
 
+//remove up and down arrow from type[number]
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

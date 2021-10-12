@@ -32,7 +32,7 @@ export const PublishedForm: React.FC = () => {
       }else{
           dispatch(createSubmission(form.formid,{ answers: answerArray }))   
       } 
-      console.log(answerArray, 'answerArray')  
+      
   }
     return (
     <Layout style={{ minHeight: "100vh" }}>

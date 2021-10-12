@@ -7,9 +7,9 @@ import {Layout} from'./Layout'
 
 const ShortFreeText = ({content}) => {
     const dispatch=useDispatch()
-    const handleChange = (value) => dispatch(formBuildAnswer({
+    const handleChange = (e) => dispatch(formBuildAnswer({
         value: content?.inputType,
-        answer: value?.toString(),
+        answer: e.target.value.toString(),
         questionId: content?.questionId
     }))
     return (

@@ -135,7 +135,6 @@ export const FormBuild = () => {
     }
   };
   const onFinish=()=>{
-    console.log(inputs)
     dispatch(createForm(inputs, history))  
   }
     return (

@@ -89,19 +89,19 @@ export const FormEdit = () => {
         const availableComponents = form?.components?.map(
             ({
                 inputType,
-                Value,
+                value,
                 question,
                 placeholder,
                 questionId,
                 targetValue,
                 targetType,
-                indicatorQuestion,
+                indicatorquestion,
                 linkedIndicator,
             }:any) => ({
                 input: true,
                 tableView: true,
                 inputType,
-                value: Value,
+                value:value,
                 label: question,
                 key: question,
                 placeholder,
@@ -111,7 +111,7 @@ export const FormEdit = () => {
                 targetType,
                 targetValue,
                 indicatorquestion:
-                    determineIndicatorQuestion(indicatorQuestion),
+                    determineIndicatorQuestion(indicatorquestion),
                 linkedIndicator:
                     linkedIndicator?.SelectedProgramIndicatorId,
             })
@@ -135,16 +135,21 @@ export const FormEdit = () => {
 }, [form, id])
 
   const getIndicatorQuestionOnUpdate=()=>{
-    let s=0
+    let linked_ind=0
     for(const comp of componentBuild){
-      s =comp.linkedIndicator
+      linked_ind =comp.linkedIndicator
     }
-    dispatch(getIndicatorQuestions(s))
+    dispatch(getIndicatorQuestions(linked_ind))
   
   }
 
   useEffect(() => {
-      getIndicatorQuestionOnUpdate()
+    componentBuild.forEach(({linkedIndicator}: any) => {
+      if(linkedIndicator !==null){
+        getIndicatorQuestionOnUpdate()
+      }
+    });
+      
       // eslint-disable-next-line
   }, []) 
     
@@ -179,7 +184,7 @@ useEffect(() => {
       toastify.alertWarning('Kindly choose a program', 3000)
     } else {
       addBuilderTypes(builderType.value)
-      // setInputs({...inputs, value: builderType.value})
+      
     }
   } 
   const menu=(
@@ -227,23 +232,20 @@ useEffect(() => {
       setInputs({ ...inputs, components: componentBuild})
     }
   };
-  // console.log(inputs, 'form inputs')
-  // console.log(form, 'each form')
-  console.log(inputs, 'INPUTS FIELD')
-  console.log(form, 'each form')
   const onFinish=()=>{
-    console.log(inputs, "INPUTS FIELD")
-    // console.log(form, 'each form')
-  inputs.components.forEach(({linkedIndicator, targetType,targetValue, indicatorquestion, question}:IComponentBuild) => {
+  inputs.components.forEach(({linkedIndicator, targetType,targetValue, indicatorquestion, question}:IComponentBuild, index:number) => {
       if(linkedIndicator === "" || targetValue ===null || targetType===""){
         toastify.alertWarning('Kindly fill the appropriate field', 3000)
         return false
       }else if(indicatorquestion !==0 && question !==""){
-        toastify.alertWarning('You cant have both indicatorQuestion and question containing values', 3000)
-        return false
+        //if both indicator and question are present, set question to empty
+        componentBuild[index]["question"]=""
+        setComponentBuild(componentBuild)
+        setInputs({...inputs, components:componentBuild})
       }
     }); 
     dispatch(updateForm(id,inputs, history)) 
+
   }
     return (
         <div className="container-scroller">

@@ -9,7 +9,7 @@ import {assets} from "../assets/assets"
 import {SignUpForm} from "../components"
 import { ISignUp, IAuthenticate } from '../type.d'
 import {register} from "../redux/actions/auth"
-import {toastify, validatePassword} from "../helpers/index.js"
+import {toastify, validatePassword, validateString} from "../helpers/index.js"
 
 export const SignUp: React.FC= () => {
   const dispatch = useDispatch();
@@ -62,6 +62,7 @@ export const SignUp: React.FC= () => {
   }
   const onChangeStep = ()=>{
     //validate
+    let phonePattern=/^\d{11}$/;
     if (
       firstName === "" ||
       email === "" ||
@@ -69,15 +70,20 @@ export const SignUp: React.FC= () => {
       password === "" ||
       password2 === "" ||
       phone === 0 
-      // terms === false ||
-      // accountType === ""
+      
     ) {
       toastify.alertError("All fields are compulsory", 5000);
     } else if (password !== formData.password2) {
       toastify.alertWarning("The passwords need to be the same", 5000);
     } else if (password.length < 8) {
       toastify.alertWarning("Password Length must be more than 8", 5000);
-    } else if (validatePassword(password) === false) {
+    }else if (!phone.toString().match(phonePattern)) {
+      toastify.alertWarning("Invalid phone number", 5000);
+    }else if(!email.includes('@')){
+      toastify.alertWarning("Not a valid email address", 5000);
+    }else if (validateString(firstName) || validateString(lastName)) {
+      toastify.alertWarning("Names can't start with special characters, numbers or spaces",5000)
+  } else if (validatePassword(password) === false) {
       toastify.alertWarning(
         "Passwords must contain at least 1 Capital letter, 1 small letter and a special character",
         5000

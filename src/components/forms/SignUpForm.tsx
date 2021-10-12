@@ -61,7 +61,14 @@ export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onP
           </Row>
           <span>Email</span>
           <Form.Item name="email" rules={[
-              { required: true, message: "Confirm your Input" },
+          {
+            type: 'email',
+            message: 'The input is not valid E-mail!',
+          },
+          {
+            required: true,
+            message: 'Please input your E-mail!',
+          },
             ]}>
             <Input className="login__input" placeholder="Enter email" type="email" name="email" value={email} onChange={onChangeForm} />
           </Form.Item>

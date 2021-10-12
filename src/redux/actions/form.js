@@ -68,7 +68,6 @@ export const getPrograms=()=>(dispatch, getState)=>{
     type: FORM_LOADING
   })
   axios.get(`${appConstants.REACT_APP_BASE_URL}/programs`,tokenConfig(getState)).then((response)=>{
-    console.log(response.data)
     dispatch({
       type: PROGRAMS_SUCCESS,
       payload: response.data
@@ -134,8 +133,8 @@ export const getForm=(id)=>(dispatch, getState)=>{
 
 export const formBuildAnswer=(payload)=>{
   return{
-    payload,
-    type:FORM_BUILD_ANSWER
+    type:FORM_BUILD_ANSWER,
+    payload:payload
   }
 }
 
@@ -144,13 +143,12 @@ export const createSubmission=(id, answers)=>(dispatch, getState)=>{
     type: FORM_LOADING
   })
   axios.post(`${appConstants.REACT_APP_BASE_URL}/form/${id}/`, answers, tokenConfig(getState)).then((response)=>{
-    console.log(response.data, 'axios resp')
     dispatch({
       type: CREATE_SUBMISSION_SUCCESS,
       payload: response.data
     })
     dispatch(setAlert(response.data))
-    // window.setTimeout(() => {window.close() }, 2000)
+    window.setTimeout(() => {window.close() }, 2000)
   }).catch((error)=>{
     if (error.message && error.response === undefined) {
       dispatch(setError(error.message, "ERR"));
@@ -166,7 +164,6 @@ export const updateForm=(id,Data, history)=>(dispatch, getState)=>{
     type: FORM_LOADING
   })
   axios.put(`${appConstants.REACT_APP_BASE_URL}/form/${id}/`, Data, tokenConfig(getState)).then((response)=>{
-    console.log(Data, 'formData')
     dispatch({
       type: CREATE_FORM_SUCCESS,
       payload: response.data
