@@ -2,6 +2,7 @@ import { useState, Fragment, useEffect,useCallback} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Layout, Menu } from "antd";
 import { useHistory, useParams } from "react-router-dom";
+import { isEmpty } from "lodash";
 
 import { Header } from "../layouts/header";
 import { SideBar } from '../layouts/sidebar';
@@ -10,7 +11,6 @@ import { IAuthenticate, IForms, IBuildType, IInputsFields,IComponentBuild} from 
 import { COMPONENT_TYPES } from "../constants/types";
 import {getPrograms, getIndicatorQuestions, updateForm} from '../redux/actions/form';
 import { toastify } from "../helpers";
-import { isEmpty } from "lodash";
 
 export const FormEdit = () => {
   const {id}  = useParams<any>()
