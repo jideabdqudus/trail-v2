@@ -45,7 +45,7 @@ export const FormEdit = () => {
           value:value==='radio'?'number':value,
           question: '',
           targetValue: null,
-          targetType: 'Percentage',
+          targetType: 'percentage',
           inputType: value,
           input: true,
           placeholder: '',
@@ -234,7 +234,7 @@ useEffect(() => {
   };
   const onFinish=()=>{
   inputs.components.forEach(({linkedIndicator, targetType,targetValue, indicatorquestion, question}:IComponentBuild, index:number) => {
-      if(linkedIndicator === "" || targetValue ===null || targetType===""){
+      if(linkedIndicator === "" || targetValue ===null || targetType==="" ||indicatorquestion===null){
         toastify.alertWarning('Kindly fill the appropriate field', 3000)
         return false
       }else if(indicatorquestion !==0 && question !==""){
