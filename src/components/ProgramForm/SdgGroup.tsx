@@ -25,7 +25,11 @@ export const SdgGroup:React.FC<Props> = ({
     if (available.includes(e.target.value)){
       let valueIndex =  available.indexOf(e.target.value)
       available.splice(valueIndex, 1)
+      available.sort(function(a: any, b: any) {
+        return a - b;
+      });
       setAvailable([...available])
+      console.log(available, "in here")
       indicatorValue.splice(valueIndex, 1)
       setIndicatorValue([...indicatorValue])
     }else{
@@ -33,6 +37,9 @@ export const SdgGroup:React.FC<Props> = ({
       setIndicatorValue([...indicatorValue, {id: e.target.value, indicators: []}])
     }
   }
+  // console.log(typeof available[0], "available")
+  // console.log(indicatorValue, "indicatorValue")
+  // console.log(sdgsAndIndicators, "sdgsAndIndicators")
   const setIndicators = ()=>{
     sdgsAndIndicators.filter((sdgs : any)=>{
       available.map((ava: any)=>{

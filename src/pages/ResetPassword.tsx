@@ -10,7 +10,7 @@ import {assets} from "../assets/assets"
 import {ResetPasswordForm} from "../components"
 import { IResetPassword, IAuthenticate } from '../type.d'
 import { resetPassword } from '../redux/actions/auth'
-import {toastify, validatePassword,} from "../helpers/index.js"
+import {toastify, validatePassword, urlHelperResetPassword} from "../helpers/index.js"
 
 
 
@@ -21,6 +21,9 @@ export const ResetPassword: React.FC= () => {
     password: "",
     password2: ""
   })
+  // useEffect(() => {
+  //   token = urlHelperResetPassword(window.location.href)
+  // },[])
   const onChangeForm = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -38,13 +41,11 @@ export const ResetPassword: React.FC= () => {
         5000
       );
     } else {
-      let token = "asas"
+      const token = urlHelperResetPassword(window.location.href)
       const payload = {
-        token,
+        token, 
         password
       }
-      // console.log(payload)
-      // console.log(password, token)
       dispatch(resetPassword(payload))
     }
    
