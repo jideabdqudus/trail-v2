@@ -58,6 +58,10 @@ export const SdgGroup:React.FC<Props> = ({
     })
     setFormData({...formData, sdgs: [...indicatorValue]})
   }
+  setIndicators()
+  console.log(available, 'available')
+  console.log(indicatorValue, 'indicator value')
+  console.log(arr, 'array returned')
   return (
     <div className="sdg-group">
      <Divider orientation="right">Select SDGs for the program</Divider>
@@ -76,12 +80,12 @@ export const SdgGroup:React.FC<Props> = ({
         </ul>
       }
  
-      {setIndicators()} 
+      {/* {setIndicators()}  */}
 
       { arr && arr?.length > 0 ?
         <Divider orientation="right">Select SDG Indicators</Divider> : null }
 
-      { arr && arr?.length > 0 ? arr.map((sdg: any)=>{
+      { arr && arr?.length > 0 ? arr.reverse().map((sdg: any)=>{
         return (
           sdg.indicators.map((indicator: any, i: number)=>{
             return (

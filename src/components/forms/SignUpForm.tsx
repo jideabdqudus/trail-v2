@@ -116,10 +116,10 @@ export const SignUpForm: React.FC<Props> = ({stepOne, stepTwo, onChangeStep, onP
           <Form.Item name="accountType">
             <Radio.Group onChange={accountTypeChange}>
               <Radio value="personal">Individual</Radio>
-              <Radio value="organization">Organization</Radio>
+              <Radio value="organisation">Organization</Radio>
             </Radio.Group>
           </Form.Item>
-          {formData.accountType === "organization" ?
+          {formData.accountType === "organisation" ?
           <div>          
             <span>Organization Name</span>
             <Form.Item name="organization" 

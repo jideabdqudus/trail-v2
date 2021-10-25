@@ -17,7 +17,7 @@ const ShortFreeText = ({content}) => {
             <Form.Item rules={[
                       { required: true, message: "This field is required" },
                     ]}>
-                <Input onChange={handleChange} style={{width:'100%'}} name={(content?.key)} placeholder={content?.placeholder}  />
+                <Input onChange={handleChange} style={{width:'100%'}} name={(content?.key)} placeholder={`Answer should only be in ${content?.inputType}`}  />
             </Form.Item>
         </Layout>
     )
