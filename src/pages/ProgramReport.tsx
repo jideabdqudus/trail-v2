@@ -127,7 +127,7 @@ export const ProgramReport = () => {
                       {report && report?.length > 0 ? <ProgramFormReport report={report} generateDataObject={generateDataObject} options={options} />: null}
                   </div>
                       <Footer style={{ textAlign: 'center' }}>Trail ©2021 by GSV</Footer>
-                   </div>
+                  </div>
             </div>
           </div>
         </div>
