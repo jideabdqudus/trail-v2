@@ -3,6 +3,9 @@ import { Divider, Layout, Spin } from 'antd';
 import {useSelector} from 'react-redux';
 import { useParams } from "react-router-dom";
 import { useDispatch } from 'react-redux';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
 
 import {SideBar} from "../layouts/sidebar"
 import {Header} from "../layouts/header"
@@ -11,6 +14,7 @@ import { IAuthenticate, IPrograms } from '../type.d'
 import { ProgramFormReport, ProgramForms, ProgramStat } from "../components";
 
 export const ProgramReport = () => {
+  let docToPrint:any = React.createRef();
   const { Footer } = Layout;
   const {user} = useSelector((state: IAuthenticate) => state.auth);
   const dispatch = useDispatch()
@@ -83,7 +87,22 @@ export const ProgramReport = () => {
       ],
     },
   };
-  console.log(program)
+
+  const printDocument = () => {
+    const input: any = docToPrint.current;
+    html2canvas(input).then(canvas => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        orientation: "landscape",
+        unit: "px",
+        format: [1000, 1000]
+      });
+      pdf.addImage(imgData, 0, 0, 0, 0) ;
+      pdf.save("program-pdf-details");
+    });
+  };
+
+
   return (
     <div className="container-scroller">
       {
@@ -97,17 +116,17 @@ export const ProgramReport = () => {
         <div className="main-panel">
           <div className="content-wrapper">
             <div className="row page-title-header">
-              <div className="col-12">
+              <div className="col-12" ref={docToPrint}>
                   <h1 className="view-title">{program && program.name}</h1>
                    <div className="dashboard-card">
                       <ProgramStat program = {program} indicatorNumber={indicatorNumber} />
                       <h2 className="program-report__sub">Performance Indicators</h2>
                       <Divider/>
-                      <ProgramForms program={program} onChange={onChange} />
+                      <ProgramForms program={program} printDocument={printDocument} onChange={onChange} reportValue={report?.length} />
                       <br/>
                       {report && report?.length > 0 ? <ProgramFormReport report={report} generateDataObject={generateDataObject} options={options} />: null}
+                  </div>
                    </div>
-              </div>
             </div>
           </div>
            <Footer style={{ textAlign: 'center' }}>Trail ©2021 by GSV</Footer>
