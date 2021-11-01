@@ -49,6 +49,7 @@ export const PROGRAMS_SUCCESS= "PROGRAMS_SUCCESS"
 export const INDICATOR_QUESTIONS_SUCCESS="INDICATOR_QUESTIONS_SUCCESS"
 export const FORM_BUILD_ANSWER="FORM_BUILD_ANSWER"
 export const CREATE_SUBMISSION_SUCCESS='CREATE_SUBMISSION_SUCCESS'
+export const DOWNLOAD_FORM_RAWDATA='DOWNLOAD_FORM_RAWDATA'
 
 
 //profile
@@ -62,4 +63,5 @@ export const COMPONENT_TYPES = {
   number: 'number',
   radio: 'radio',
   text: 'text',
+  mcq:'mcq'
 }

@@ -22,6 +22,8 @@ export const FormBuild = () => {
     // eslint-disable-next-line 
   },[])
   //Defining all states found in component
+  // const [answer, setAnswer]=useState<any>([])
+
   const [LinkedIndicator, setLinkedIndicator]=useState<string[]>()
   const [builderTypes, ]=useState <IBuildType[]>([
       {
@@ -36,6 +38,10 @@ export const FormBuild = () => {
           name: 'Number Input',
           value: COMPONENT_TYPES.number,
       },
+      {
+        name: 'MCQ',
+        value: COMPONENT_TYPES.mcq
+    },
   ])
   const [inputs, setInputs]=useState<IInputsFields>({
     title: 'form',
@@ -56,6 +62,7 @@ export const FormBuild = () => {
       ...componentBuild,
         {
           question: '',
+          // option:[],
           targetValue: null,
           targetType: 'Percentage',
           inputType: value,
