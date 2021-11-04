@@ -22,7 +22,6 @@ export const ForgotPassword: React.FC= () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const onSubmitForm = ()=>{
-    // console.log(formData)
     dispatch(forgotPassword(formData))
   }
   if(isAuthenticated){

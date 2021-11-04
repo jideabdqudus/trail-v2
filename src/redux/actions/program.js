@@ -153,11 +153,9 @@ export const deleteProgram = (id) => async (dispatch, getState) =>{
 
 export const getFormReportforProgram = (id, path) => async (dispatch, getState) => {
   //#TODO: Add Preloader here
-  console.log("ernter")
   dispatch({ type: LOADING_PROGRAMS });
   axios.get(`${appConstants.REACT_APP_BASE_URL}/program_report/${id}/${path}`, tokenConfig(getState)
   ).then((res)=>{
-    console.log(res)
     dispatch({type: FORM_REPORT_FOR_PROGRAM, payload: res.data})
   }).catch((error)=>{
     console.error(error)

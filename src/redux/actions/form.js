@@ -73,7 +73,6 @@ export const getPrograms=()=>(dispatch, getState)=>{
       payload: response.data
     })
   }).catch((error)=>{
-    console.log(error.message)
   })
 }
 
@@ -84,7 +83,7 @@ export const getIndicatorQuestions=(id)=>(dispatch, getState)=>{
       payload: response.data
     })
   }).catch((error)=>{
-    console.log(error.message)
+
   })
 }
 
