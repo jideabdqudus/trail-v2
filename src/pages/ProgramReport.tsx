@@ -60,13 +60,13 @@ export const ProgramReport = () => {
         {
           label: 'Sum Total',
           data: isArrSubmissionSum,
-          backgroundColor: 'rgb(255, 99, 132)',
+          backgroundColor: '#FFD04D',
           stack: 'Stack 0',
         },
         {
           label: 'Average',
           data: isArrSubmissionAverage,
-          backgroundColor: 'rgb(75, 192, 192)',
+          backgroundColor: '#8273D9',
           stack: 'Stack 1',
         },
       ]
@@ -90,13 +90,13 @@ export const ProgramReport = () => {
         {
           label: 'Yes',
           data: isArrSubmissionYes,
-          backgroundColor: 'rgb(255, 99, 132)',
+          backgroundColor: '#FFD04D',
           stack: 'Stack 0',
         },
         {
           label: 'No',
           data: isArrSubmissionNo,
-          backgroundColor: 'rgb(75, 192, 192)',
+          backgroundColor: '#8273D9',
           stack: 'Stack 1',
         },
       ]
