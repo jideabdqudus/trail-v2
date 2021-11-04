@@ -44,49 +44,78 @@ export const ProgramReport = () => {
   function onChange(value: any) {
     dispatch(getFormReportforProgram(id, value))
   }
-  const generateDataObject = (report: any) => {
+  const generateNumberData =(rep: any)=>{
+    let isArr:any = []
+    let isArrSubmissionAverage:any = []
+    let isArrSubmissionSum:any = []
+    rep?.submissions?.map((r: any)=>{
+      isArr.push(r?.date)
+      isArrSubmissionAverage.push(r?.average)
+      isArrSubmissionSum.push(r?.total)
+      return null
+    })
     const data = {
-      labels: [report?.submissions[0]?.date || null],
-      datasets: [
+      labels: isArr,
+      datasets:[
         {
-          label: "Yes",
-          data: [report?.submissions[0]?.positive || 0],
-          backgroundColor: "#1a1aff",
-          maxBarThickness: 20,
+          label: 'Sum Total',
+          data: isArrSubmissionSum,
+          backgroundColor: 'rgb(255, 99, 132)',
+          stack: 'Stack 0',
         },
         {
-          label: "No",
-          data: [report?.submissions[0]?.negative || 0],
-          backgroundColor: "#b0b0fc",
-          maxBarThickness: 20,
+          label: 'Average',
+          data: isArrSubmissionAverage,
+          backgroundColor: 'rgb(75, 192, 192)',
+          stack: 'Stack 1',
         },
-      ],
-    };
-    return data;
-  };
+      ]
+    }
+    return data
+  }
+
+  const generateRadioData =(rep: any)=>{
+    let isArr:any = []
+    let isArrSubmissionNo:any = []
+    let isArrSubmissionYes:any = []
+    rep?.submissions?.map((r: any)=>{
+      isArr.push(r?.date)
+      isArrSubmissionNo.push(r?.negative)
+      isArrSubmissionYes.push(r?.positive)
+      return null
+    })
+    const data = {
+      labels: isArr,
+      datasets:[
+        {
+          label: 'Yes',
+          data: isArrSubmissionYes,
+          backgroundColor: 'rgb(255, 99, 132)',
+          stack: 'Stack 0',
+        },
+        {
+          label: 'No',
+          data: isArrSubmissionNo,
+          backgroundColor: 'rgb(75, 192, 192)',
+          stack: 'Stack 1',
+        },
+      ]
+    }
+    return data
+  }
   
-  const options:object = {
+  const options: any = {
     scales: {
       yAxes: [
         {
           ticks: {
             beginAtZero: true,
           },
-          gridLines: {
-            display: true,
-          },
-        },
-      ],
-      xAxes: [
-        {
-          stacked: true,
-          gridLines: {
-            display: false,
-          },
         },
       ],
     },
   };
+ 
 
   const printDocument = () => {
     const input: any = docToPrint.current;
@@ -124,7 +153,9 @@ export const ProgramReport = () => {
                       <Divider/>
                       <ProgramForms program={program} printDocument={printDocument} onChange={onChange} reportValue={report?.length} />
                       <br/>
-                      {report && report?.length > 0 ? <ProgramFormReport report={report} generateDataObject={generateDataObject} options={options} />: null}
+                      {report && report?.length > 0 ? <ProgramFormReport report={report} generateRadioData={generateRadioData}
+                      generateNumberData={generateNumberData}
+                       options={options} />: null}
                   </div>
                       <Footer style={{ textAlign: 'center' }}>Trail ©2021 by GSV</Footer>
                    </div>

@@ -23,8 +23,8 @@ const RadioInput = ({content}) => {
         <Layout indicatorquestion={content?.indicatorQuestion || ''} formId={content?.programForm} isPreview={content?.isPreview} id={content?.id} question={content?.question} >
             <Form.Item>
                 <Radio.Group onChange={handleChange}>
-                    <Radio style={radioStyle} value={'1'}>Yes</Radio>
-                    <Radio style={radioStyle} value={'2'}>No</Radio>
+                    <Radio style={radioStyle} value={'yes'}>Yes</Radio>
+                    <Radio style={radioStyle} value={'no'}>No</Radio>
                  </Radio.Group>
             </Form.Item>
         </Layout>

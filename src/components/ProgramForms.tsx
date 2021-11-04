@@ -22,7 +22,6 @@ export const ProgramForms: React.FC<Props> = ({program,  onChange, printDocument
     }
   }
   function onSearch(val: any) {
-    console.log('search:', val);
     return null
   }
   return (
