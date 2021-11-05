@@ -5,11 +5,12 @@ import { Bar } from 'react-chartjs-2'
 
 interface Props {
   report: any
-  generateDataObject: (report: any)=> any
+  generateRadioData: (report: any)=> any
+  generateNumberData: (report: any)=> any
   options?: object
 }
 
-export const ProgramFormReport: React.FC<Props> = ({report, generateDataObject, options}) => {
+export const ProgramFormReport: React.FC<Props> = ({report, generateRadioData, generateNumberData, options}) => { 
   return (
     <div>
       <Row gutter={[48, 48]}> 
@@ -27,7 +28,7 @@ export const ProgramFormReport: React.FC<Props> = ({report, generateDataObject, 
                       {`Target: ${rep?.targetValue || ""}`}
                     </small>
                   </div>
-                  <Bar data={generateDataObject(rep)} width={100} height={60} options={options}/>
+                  <Bar data={rep.questionType === "radio" ? generateRadioData(rep) : generateNumberData(rep)} options={options} />
                 </Card>
               </Col>
             ))

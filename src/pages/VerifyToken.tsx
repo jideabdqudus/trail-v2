@@ -28,7 +28,6 @@ export const VerifyToken: React.FC= () => {
         </Col>
         <Col xs={{ span: 20 }} lg={{ span: 14 }}>
           <div className="login">
-            {console.log(loading)}
         { loading ? <h1 className="verify-header">Verifying Account</h1>: <h1 className="verify-header">Verification Complete</h1>}
         { loading ? 
           <div className="loading-overlay">
