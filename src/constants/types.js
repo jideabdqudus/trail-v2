@@ -63,5 +63,5 @@ export const COMPONENT_TYPES = {
   number: 'number',
   radio: 'radio',
   text: 'text',
-  mcq:'mcq'
+  mcq:'mcradio'
 }
