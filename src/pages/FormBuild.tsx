@@ -42,7 +42,7 @@ export const FormBuild = () => {
           value: COMPONENT_TYPES.number,
       },
       {
-        name: 'MCQ',
+        name: 'Multi-choice Question',
         value: COMPONENT_TYPES.mcq
     },
   ])
@@ -105,12 +105,14 @@ export const FormBuild = () => {
   //start of mcq
   const handleOptionAddition = (tag:any, compIndex:any, name:string) => {
     setTags([...tags, tag]);
-    
-    tag2[compIndex].option.push(tag)
-    componentBuild[compIndex].question_answers=tag2[compIndex].option
-
-    setTags(tag2[compIndex].option)
-   
+    if(tags.length <= 3 && tag2.length <= 3){
+      tag2[compIndex].option.push(tag)
+      componentBuild[compIndex].question_answers=tag2[compIndex].option
+  
+      setTags(tag2[compIndex].option)
+    }else{
+      toastify.alertWarning('Cannot have more than 5 options for a multi-choice question')
+    }
   };
   const handleOptionDelete = (i:number,compIndex:any) => {
     const removeTag=tag2[compIndex].option.filter((tag:any,index:number) => index !== i);
@@ -176,15 +178,13 @@ export const FormBuild = () => {
   };
   const onFinish=()=>{
     inputs.components.forEach(({linkedIndicator, targetType,targetValue, indicatorquestion, question,question_answers,inputType}:any)=>{
-      if(question==="" || linkedIndicator === "" || targetValue ===null || targetType==="" ||indicatorquestion===null){
+      if((question==="" && indicatorquestion ===0) || (linkedIndicator === "" || targetValue ===null || targetType==="" )){
         toastify.alertWarning('Kindly fill the appropriate field', 3000)
-        return false
-      }else if(inputType ==='mcradio' && question_answers.length <=0){
-        toastify.alertWarning('Kindly fill the appropriate field', 3000)
-        return false
-      }else{return;}
+      }else if(inputType ==='mcradio' && question_answers.length < 2){
+        toastify.alertWarning('Multi-choice questions requires atleast two options', 3000)
+      }else{dispatch(createForm(inputs, history))  }
     })
-    dispatch(createForm(inputs, history))  
+    // dispatch(createForm(inputs, history))  
     
   }
     return (

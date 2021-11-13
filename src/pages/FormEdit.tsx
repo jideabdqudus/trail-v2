@@ -150,7 +150,7 @@ export const FormEdit = () => {
   }
 
   useEffect(() => {
-    form.components && form.components.forEach(({linkedIndicator, question_answers, inputType}: any) => {
+    inputs.components && inputs.components.forEach(({linkedIndicator, question_answers, inputType}: any) => {
       if(linkedIndicator !==null){
         getIndicatorQuestionOnUpdate()
       }
