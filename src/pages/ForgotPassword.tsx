@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {Row, Col} from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import {Redirect} from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -13,6 +13,7 @@ import { forgotPassword } from '../redux/actions/auth'
 
 
 export const ForgotPassword: React.FC= () => {
+  let history = useHistory()
   const { isAuthenticated, loading} = useSelector((state: IAuthenticate) => state.auth);
   const dispatch=useDispatch()
   const [formData, setFormData] = useState<IForgotPassword>({
@@ -27,6 +28,10 @@ export const ForgotPassword: React.FC= () => {
   if(isAuthenticated){
     return <Redirect to="/app/dashboard" />
    }
+  const goToPreviousPath = () => {
+  history.goBack()
+  }
+
   return (
     <div className="auth">
       <Row className="auth__row">
@@ -36,7 +41,7 @@ export const ForgotPassword: React.FC= () => {
         </Link>
         </Col>
         <Col xs={{ span: 20 }} lg={{ span: 14 }}>
-          <PasswordForm formData={formData} onChangeForm={onChangeForm} onSubmitForm={onSubmitForm} loading={loading} />
+          <PasswordForm formData={formData} onChangeForm={onChangeForm} onSubmitForm={onSubmitForm} loading={loading} goToPreviousPath={goToPreviousPath} />
         </Col>
       </Row>
     </div>

@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { Form, Input, Button, Row, Col } from "antd";
 
 //Imports
@@ -17,6 +16,7 @@ export const ResetPasswordForm:React.FC <Props> = ({formData, onChangeForm, onSu
     return <div className="loader">Loading...</div>
   }
   const {password2, password} = formData
+
   return (
     <div className="login">
       <h3>Reset Password.</h3>
