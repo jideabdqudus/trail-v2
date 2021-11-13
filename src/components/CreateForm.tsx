@@ -118,7 +118,10 @@ export const CreateForm = ({
                             {componentBuild && componentBuild.map((component:any, idx: number)=>{
                                const { targetType, linkedIndicator, question, targetValue, indicatorquestion, inputType} = component
                                return (
-                                <Row gutter={[16,16]} key={idx}>
+                                <Row gutter={[16,16]} key={idx} style={{marginBottom: inputType==='mcradio' ? '5px':''}}>
+                                <Col>
+                                    <span>{`${idx + 1}.`}</span>
+                                </Col>
                                 <Col span={7}>
                                     <Form.Item rules={[
                                         {
@@ -140,7 +143,7 @@ export const CreateForm = ({
                                         </Select>
                                     </Form.Item>
                                 </Col>
-                                <Col span={8}>
+                                <Col span={7}>
                                     <Form.Item
                                         rules={[
                                             {

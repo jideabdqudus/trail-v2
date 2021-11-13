@@ -13,7 +13,7 @@ const ShortFreeText = ({content}) => {
         questionId: content?.questionId
     }))
     return (
-        <Layout indicatorquestion={content?.indicatorQuestion || ''}  formId={content?.programForm} isPreview={content?.isPreview} id={content?.id} question={content?.question} >
+        <Layout indicatorquestion={content?.indicatorquestion || ''}  formId={content?.programForm} isPreview={content?.isPreview} id={content?.id} question={content?.question} >
             <Form.Item rules={[
                       { required: true, message: "This field is required" },
                     ]}>
