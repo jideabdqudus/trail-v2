@@ -47,7 +47,6 @@ export const ProgramFormReport: React.FC<Props> = ({report, generateRadioData, g
 
   }
 
-  console.log(report)
   const data = {
     labels: ['1', '2', '3', '4', '5', '6'],
     datasets: [
