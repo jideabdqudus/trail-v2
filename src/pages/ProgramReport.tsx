@@ -103,6 +103,51 @@ export const ProgramReport = () => {
     }
     return data
   }
+
+  const generateMCQData=(rep: any)=>{
+    let obj: any = []
+    let isArr:any = []
+    let isArrSubmissionAnswer:any = []
+    let isArrSubmissionPercentage:any = []
+    rep?.submissions?.map((r: any)=>{
+      for ( let val in r ) {
+        isArr.push(val)
+      }
+      r[Object.keys(r)[0]].map((v: any)=>{
+        isArrSubmissionAnswer.push(v.answer)
+        isArrSubmissionPercentage.push(v.percentage? v.percentage: v.count)
+        return null
+      })
+      return null
+    })
+    function getRandomRgb() {
+      var num = Math.round(0xffffff * Math.random());
+      var r = num >> 16;
+      // eslint-disable-next-line no-mixed-operators
+      var g = num >> 8 & 255;
+      var b = num & 255;
+      return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    }
+    isArrSubmissionAnswer.map((val: any, id: number)=>{
+      obj.push({label: val, data: [isArrSubmissionPercentage[id]], backgroundColor: getRandomRgb() })
+      return null
+    })
+    const data = {
+      labels: isArr,
+      datasets: obj
+    };
+    return data
+  }
+
+  const determineData =(rep: any)=>{
+    if (rep.questionType === "radio"){
+      return generateRadioData(rep)
+    }else if(rep.questionType === "mcradio"){
+     return generateMCQData(rep)
+    }else{
+      return generateNumberData(rep)
+    }
+  }
   
   const options: any = {
     scales: {
@@ -153,8 +198,7 @@ export const ProgramReport = () => {
                       <Divider/>
                       <ProgramForms program={program} printDocument={printDocument} onChange={onChange} reportValue={report?.length} />
                       <br/>
-                      {report && report?.length > 0 ? <ProgramFormReport report={report} generateRadioData={generateRadioData}
-                      generateNumberData={generateNumberData}
+                      {report && report?.length > 0 ? <ProgramFormReport report={report} determineData={determineData}
                        options={options} />: null}
                   </div>
                       <Footer style={{ textAlign: 'center' }}>Trail ©2021 by GSV</Footer>
