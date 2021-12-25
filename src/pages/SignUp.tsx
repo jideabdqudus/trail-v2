@@ -53,7 +53,9 @@ export const SignUp: React.FC= () => {
   const onSubmitForm = ()=>{
     if ( terms === false || accountType === "" ) {
       toastify.alertError("All fields are compulsory", 5000);
-    } else {
+    }else if(accountType==='personal' && (formData.organization !=="" || formData.organizationType !=="")) {
+      setFormData({...formData, organization:"", organizationType:""})
+    }else {
       dispatch(register(formData, history));
     }
   }

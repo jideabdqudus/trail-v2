@@ -20,6 +20,8 @@ export const FormEdit = () => {
   const { user } = useSelector((state: IAuthenticate) => state.auth);
   const {programs, indicatorQuestions, form}= useSelector((state: IForms) => state.form)
   //define state
+  const [tags, setTags] = useState<any>([])
+  const [tag2, ] = useState<any>([]);
   const [componentBuild, setComponentBuild] = useState<any>([]);
     const [inputs, setInputs]=useState<IInputsFields>({
       title: 'form',
@@ -42,10 +44,11 @@ export const FormEdit = () => {
           label: '',
           prefix: '',
           tableView: true,
-          value:value==='radio'?'number':value,
+          value:value==='radio'?'number':value==='mcradio'?'text':value,
           question: '',
+          question_answers:[],
           targetValue: null,
-          targetType: 'Percentage',
+          targetType: 'percentage',
           inputType: value,
           input: true,
           placeholder: '',
@@ -84,6 +87,7 @@ export const FormEdit = () => {
     if (typeof question === 'object') return question.indicatorquestionid
     return question
 }
+
   useEffect(() => {
     if (id) {
         const availableComponents = form?.components?.map(
@@ -91,6 +95,7 @@ export const FormEdit = () => {
                 inputType,
                 value,
                 question,
+                question_answers,
                 placeholder,
                 questionId,
                 targetValue,
@@ -110,6 +115,7 @@ export const FormEdit = () => {
                 question,
                 targetType,
                 targetValue,
+                question_answers,
                 indicatorquestion:
                     determineIndicatorQuestion(indicatorquestion),
                 linkedIndicator:
@@ -144,10 +150,13 @@ export const FormEdit = () => {
   }
 
   useEffect(() => {
-    componentBuild.forEach(({linkedIndicator}: any) => {
+    inputs.components && inputs.components.forEach(({linkedIndicator, question_answers, inputType}: any) => {
       if(linkedIndicator !==null){
         getIndicatorQuestionOnUpdate()
       }
+        tag2.push({option:question_answers})
+        tags.push({option:question_answers})
+
     });
       
       // eslint-disable-next-line
@@ -198,6 +207,19 @@ useEffect(() => {
         })}
       </Menu>
   )
+  //start of mcq
+  const handleOptionAddition = (tag:any, compIndex:any, name:string) => {
+    setTags({...tags,tag});
+    tag2[compIndex].option.push(tag)
+    componentBuild[compIndex].question_answers=tag2[compIndex].option
+    
+  };
+  const handleOptionDelete = (i:number,compIndex:any) => {
+    const removeTag=tag2[compIndex].option.filter((tag:any,index:number) => index !== i);
+    tag2[compIndex].option=removeTag
+    componentBuild[compIndex].question_answers=tag2[compIndex].option
+    setTags(tag2)
+  };
   
   //get all indicator questions on select of program
   const handleIndicatorQuestion=(value: string)=>{
@@ -234,7 +256,7 @@ useEffect(() => {
   };
   const onFinish=()=>{
   inputs.components.forEach(({linkedIndicator, targetType,targetValue, indicatorquestion, question}:IComponentBuild, index:number) => {
-      if(linkedIndicator === "" || targetValue ===null || targetType===""){
+      if(linkedIndicator === "" || targetValue ===null || targetType==="" ||indicatorquestion===null){
         toastify.alertWarning('Kindly fill the appropriate field', 3000)
         return false
       }else if(indicatorquestion !==0 && question !==""){
@@ -272,6 +294,9 @@ useEffect(() => {
                       handleChangeQuestion={handleChangeQuestion}
                       handleSelect={handleSelect}
                       onFinish={onFinish}
+                      handleOptionAddition={handleOptionAddition}
+                      handleOptionDelete={handleOptionDelete}
+                      tags={tags}
                     />
                   </Fragment>
                 </div>

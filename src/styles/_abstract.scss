@@ -127,6 +127,17 @@ element.style {
   color: #ffffff;
 }
 
+.download-pdf-btn{
+  margin-top: 23px;
+  float: right;
+  background: #2c6eec;
+  border-radius: 4px;
+  font-family: $font-inter;
+  align-items: center;
+  letter-spacing: 0.2px;
+  color: #ffffff;
+}
+
 .top-header{
   margin-bottom: 70px;
   h1{
@@ -354,3 +365,48 @@ input[type=number]::-webkit-outer-spin-button {
   margin-right: 10px;
   cursor: pointer;
 }
+//react tag styling
+.ReactTags__selected span.ReactTags__tag {
+    border: 1px solid #ddd;
+    background: #63bcfd;
+    color: white;
+    font-size: 12px;
+    display: inline-block;
+    padding: 5px;
+    margin: 0 5px;
+    border-radius: 2px;
+  }
+  .ReactTags__selected span.ReactTags__tag:first-child {
+    margin-left: 0px;
+  }
+  .ReactTags__selected .ReactTags__remove {
+    color: #aaa;
+    margin-left: 5px;
+    cursor: pointer;
+    outline: none;
+    border:none
+  }
+
+  .ReactTags__tagInput input.ReactTags__tagInputField,
+  .ReactTags__tagInput input.ReactTags__tagInputField:focus {
+    height: 31px;
+    font-size: 12px;
+    margin: 2px;;
+    min-width: 250px;
+    font-size:14px;
+  }
+  .ReactTags__tagInput input.ReactTags__tagInputField{
+   border:1px solid rgba(189, 195, 199, 1);
+  }
+  .ReactTags__tags {
+    position: relative;
+    font-size: 14px;
+  }
+  .ReactTags__tagInput input.ReactTags__tagInputField:focus{
+    margin: 4px 0px;
+  }
+
+  .go-back-link{
+    color: #1890ff;
+    cursor: pointer;
+  }

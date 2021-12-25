@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import {formBuildAnswer} from '../../../redux/actions/form'
 import {Layout} from'./Layout'
 
-const RadioInput = ({content}) => {
+const Mcq = ({content}) => {
     const dispatch=useDispatch()
 
     const radioStyle = {
@@ -18,17 +18,18 @@ const RadioInput = ({content}) => {
         answer: e.target?.value,
         questionId: content?.questionId
     }))
-    
     return (
         <Layout indicatorquestion={content?.indicatorquestion || ''} formId={content?.programForm} isPreview={content?.isPreview} id={content?.id} question={content?.question} >
             <Form.Item>
                 <Radio.Group onChange={handleChange}>
-                    <Radio style={radioStyle} value={'yes'}>Yes</Radio>
-                    <Radio style={radioStyle} value={'no'}>No</Radio>
+                    {content?.question_answers.map((ans,i)=>{
+                        return <Radio style={radioStyle} value={ans.text} key={i}>{ans.text}</Radio>
+                    })}
                  </Radio.Group>
             </Form.Item>
         </Layout>
     )
+   
 }
 
-export default RadioInput
+export default Mcq

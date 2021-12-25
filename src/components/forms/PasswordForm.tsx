@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { Form, Input, Button, Row, Col } from "antd";
+import { LeftOutlined } from '@ant-design/icons'
 
 //Imports
 import {IForgotPassword} from "../../type.d"
@@ -9,10 +9,11 @@ interface Props {
   formData: IForgotPassword ;
   onChangeForm: (e: any) => void;
   onSubmitForm: ()=> void;
+  goToPreviousPath:()=>void
   loading?: boolean;
 }
 
-export const PasswordForm:React.FC <Props> = ({formData, onChangeForm, onSubmitForm, loading}) => {
+export const PasswordForm:React.FC <Props> = ({formData, onChangeForm, onSubmitForm, goToPreviousPath, loading}) => {
   if (loading){
     return <div className="loader">Loading...</div>
   }
@@ -40,6 +41,9 @@ export const PasswordForm:React.FC <Props> = ({formData, onChangeForm, onSubmitF
             </Col>
           </Row>
         </Form>
+        <p onClick={goToPreviousPath} className='go-back-link'>
+          <LeftOutlined className="icon"/>Back
+        </p>
       </div>
     </div>
 

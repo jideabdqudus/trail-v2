@@ -1,5 +1,6 @@
 import { MinusCircleOutlined } from '@ant-design/icons'
 import {Row,Col,Card,Form,Input,Button,Select,InputNumber,Dropdown} from 'antd'
+import { WithContext as ReactTags } from 'react-tag-input';
 
 import { IProgramForm ,IInputsFields} from '../type.d'
 import { isEmpty } from 'lodash'
@@ -17,7 +18,10 @@ interface Props{
     removeComponents: (index: number)=>void
     handleChangeQuestion: (event: any, attribute: string, index: number)=>void
     handleSelect: (value: any, attribute: string, index: number)=>void
-    onFinish: ()=>void   
+    onFinish: ()=>void 
+    handleOptionAddition:(tag:any,compIndex:any, name:string)=>void,
+    handleOptionDelete:(i:number,compIndex:any)=>void,
+    tags:any  
 }
 export const EditForm = ({
     programs, 
@@ -33,8 +37,20 @@ export const EditForm = ({
     removeComponents,
     handleChangeQuestion, 
     handleSelect,
-    onFinish}: Props) => {
+    onFinish,
+    handleOptionAddition,
+    handleOptionDelete,
+    tags
+    }: Props) => {
     const { Option } = Select
+    
+    //react tags props
+    const KeyCodes = {
+        comma: 188,
+        enter: 13,
+      };
+      
+      const delimiters = [KeyCodes.comma, KeyCodes.enter];
    // Destructure inputs
    const {title, name, program, organisationId,instructions} = inputs
     return (
@@ -100,10 +116,10 @@ export const EditForm = ({
                                 </Button>
                             </Dropdown>
                             {componentBuild && componentBuild.map((component:any, idx: number)=>{
-                               const { targetType, linkedIndicator, question, targetValue, indicatorquestion } = component
+                               const { targetType, linkedIndicator, question, targetValue, indicatorquestion, inputType } = component
 
                                return (
-                                <Row gutter={[16,16]} key={idx}>
+                                <Row gutter={[16,16]} key={idx} style={{marginBottom:"10px"}}>
                                 <Col span={7}>
                                     <Form.Item 
                                         style={{marginBottom: 0}}
@@ -132,9 +148,12 @@ export const EditForm = ({
                                         value={indicatorquestion || ""}
                                         defaultValue={indicatorquestion}
                                         >
-                                            <Option value={0}>Custom Question</Option>
+                                            <Option value={0}>{inputType==='mcradio' ? 'Multiple choice Question': 'Custom Question'}</Option>
                                             {indicatorQuestions.map((questions: any, index: any)=>{
-                                                return <Option key={index+1} value={questions.id}>{questions.question}</Option>
+                                                return inputType==='mcradio'
+                                                ? ''
+                                                :
+                                                <Option key={index+1} value={questions.id}>{questions.question}</Option>
                                             })}
                                         </Select>
                                     </Form.Item>
@@ -154,6 +173,18 @@ export const EditForm = ({
                                         />
                                     </Form.Item>
                                 </Col>}
+                                {(indicatorquestion ===0 && inputType==='mcradio') &&
+                                <ReactTags
+                                delimiters={delimiters}
+                                handleAddition={(tag:any)=>handleOptionAddition(tag,idx, "current")}
+                                handleDelete={(i:number)=>handleOptionDelete(i,idx)}
+                                tags={tags.length <=0? tags:tags[idx].option}
+                                name={`current${idx}`}
+                                placeholder="Press enter for new Options"
+                                
+                                // maxLength={4}
+                                />
+                                }
                                 <Col span={4}>
                                     <Form.Item   
                                     >

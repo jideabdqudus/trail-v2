@@ -1,6 +1,8 @@
 import axios from "axios";
+import fileDownload from "js-file-download";
 
 import { appConstants } from "../../constants/environment.js";
+import { toastify } from "../../helpers";
 import { tokenConfig } from "../../helpers";
 import { setError, setAlert } from "./alert";
 import { FORMS_SUCCESS,
@@ -14,7 +16,8 @@ import { FORMS_SUCCESS,
    CREATE_FORM_SUCCESS, 
    FORM_SUCCESS,
    FORM_BUILD_ANSWER,
-   CREATE_SUBMISSION_SUCCESS
+   CREATE_SUBMISSION_SUCCESS,
+   DOWNLOAD_FORM_RAWDATA
   } from "../../constants/types";
 
 export const getForms = (page) => (dispatch, getState) => {
@@ -73,7 +76,6 @@ export const getPrograms=()=>(dispatch, getState)=>{
       payload: response.data
     })
   }).catch((error)=>{
-    console.log(error.message)
   })
 }
 
@@ -84,7 +86,7 @@ export const getIndicatorQuestions=(id)=>(dispatch, getState)=>{
       payload: response.data
     })
   }).catch((error)=>{
-    console.log(error.message)
+
   })
 }
 
@@ -172,6 +174,29 @@ export const updateForm=(id,Data, history)=>(dispatch, getState)=>{
     setTimeout(history.push(`/app/forms`), 2000)
   }).catch((error)=>{
     if (error.message && error.response === undefined) {
+      dispatch(setError(error.message, "ERR"));
+      dispatch({type: FORM_ERROR, payload: error.message,});
+    } else {
+      dispatch(setError(error.response.data.message, error.response.status));
+      dispatch({ type: FORM_ERROR, payload: error.response.data.message, });
+    }
+  })
+}
+export const downloadRawData=(id, fileType, fileName, history)=>(dispatch, getState)=>{
+  dispatch({
+    type: FORM_LOADING
+  })
+  axios.get(`${appConstants.REACT_APP_BASE_URL}/download_report/${id}/?filetype=${fileType}`, tokenConfig(getState)).then((response)=>{
+    dispatch({
+      type: DOWNLOAD_FORM_RAWDATA,
+      payload: fileDownload(response.data, fileName)
+    })
+    // dispatch(setAlert(response.data))
+    toastify.alertSuccess('succesfully downloaded form', 2000)
+    setTimeout(history.push('/app/dashboard'), 2000)
+    
+  }).catch((error)=>{
+   if(error.message && error.response === undefined) {
       dispatch(setError(error.message, "ERR"));
       dispatch({type: FORM_ERROR, payload: error.message,});
     } else {

@@ -27,8 +27,7 @@ export const NewProgram:React.FC = () => {
   const [location, setLocation] = useState<any>({})
   const [mapCenter, setMapCenter] = useState<any>("")
   const [sdgId, setSdgId] = useState<any>([])
-  // const [confirmSubmission, setConfirmSubmission] = useState<boolean>(false)
-  const [formData, setFormData] = useState<IProgramEach>({
+   const [formData, setFormData] = useState<IProgramEach>({
     name:"",
     description:"",
     code:"",
@@ -82,7 +81,6 @@ const getIndicators = ()=>{
   })
 }
 const onCancelForm = ()=>{
- console.log("object");
  setConfirmLoading(true);
   setTimeout(() => {
     setVisible(false);

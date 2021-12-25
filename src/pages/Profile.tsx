@@ -14,7 +14,6 @@ export const Profile = () => {
     
     useEffect(()=>{
         dispatch(get_profile(user.id))
-        console.log(profile)
         // eslint-disable-next-line
     },[])
     return (

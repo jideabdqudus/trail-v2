@@ -176,7 +176,10 @@ export interface Ilinked{
   indicatorId: number,
   indicatorDescription: string
 }
-
+ export interface ITag{
+   id:string,
+   name:string
+ }
 export interface IComponentBuild{
   questionId: string,
   question:string
@@ -188,6 +191,7 @@ export interface IComponentBuild{
   linkedIndicator: Ilinked| number|any
   indicatorquestion: number | null,
   value: string,
+  question_answer:ITag
 }
 
 export interface IInputsFields{

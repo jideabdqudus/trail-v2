@@ -9,7 +9,8 @@ import {
   INDICATOR_QUESTIONS_SUCCESS,
   CREATE_FORM_SUCCESS,
   FORM_SUCCESS,
-  FORM_BUILD_ANSWER
+  FORM_BUILD_ANSWER,
+  DOWNLOAD_FORM_RAWDATA
 } from "../../constants/types";
 
 const initialState = {
@@ -97,6 +98,7 @@ const form = (state = initialState, action) => {
           ...state,
           answers: { ...state.answers, [action.payload.questionId]: action.payload },
         }
+      case DOWNLOAD_FORM_RAWDATA:
       default:
         return state;
     }

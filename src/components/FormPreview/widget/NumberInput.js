@@ -13,11 +13,11 @@ const NumberInput = ({content}) => {
         questionId: content?.questionId
     }))
     return (
-        <Layout indicatorquestion={content?.indicatorQuestion || ''}  formId={content?.programForm} isPreview={content?.isPreview} id={content?.id} question={content?.question} >
+        <Layout indicatorquestion={content?.indicatorquestion || ''}  formId={content?.programForm} isPreview={content?.isPreview} id={content?.id} question={content?.question} >
             <Form.Item rules={[
                       { required: true, message: "This field is required" },
                     ]}>
-                <InputNumber onChange={handleChange} style={{width:'100%'}} name={(content?.key)} placeholder={content?.placeholder}  />
+                <InputNumber onChange={handleChange} style={{width:'100%'}} name={(content?.key)} placeholder={`Answer should only be in ${content?.inputType}`} type="number" />
             </Form.Item>
         </Layout>
     )

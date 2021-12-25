@@ -1,6 +1,7 @@
-import {Popover,Skeleton,Row,Col,Layout,Pagination, Popconfirm} from "antd";
+import {Popover,Skeleton,Row,Col,Layout,Pagination, Popconfirm, Dropdown} from "antd";
 import { Link } from "react-router-dom";
 import { Fragment } from "react";
+import {DownloadOutlined} from '@ant-design/icons';
 
 import { FormFilter } from "./FormFilter";
 import {IPagination} from "../type.d"
@@ -16,9 +17,10 @@ interface Props{
   filterText:any
   deleteFormRow:(id:any)=>void,
   setCurrentForm:(id:any)=>void
+  menu:any
 }
 
-export const FormTable = ({loading, forms, pagination, handleChange, filtered, inputChange, filterText, deleteFormRow,setCurrentForm}: Props) => {  
+export const FormTable = ({loading, forms, pagination, handleChange, filtered, inputChange, filterText, deleteFormRow,setCurrentForm, menu}: Props) => {  
   const content = (id:number)=>{
   return  <Fragment>
       <Link to={`/app/form/preview/${id}`} className="content-p">View</Link>      
@@ -27,11 +29,19 @@ export const FormTable = ({loading, forms, pagination, handleChange, filtered, i
         cancelText="No"
         onConfirm={()=>deleteFormRow(id)}
       >
-        <p style={{ cursor: 'pointer' }}>Delete</p>
+        <span style={{ cursor: 'pointer' }}>Delete</span>
       </Popconfirm>
       <Link to={`/app/form-edit/${id}`} className="content-p" onClick={()=>setCurrentForm(id)}>Edit</Link>
     </Fragment>
   };
+  //td with download
+  const tableDataDownload=(id:number, formName:string)=>{
+    return <td><Dropdown overlay={menu(id, formName)}>
+    {/* <a className="ant-dropdown-link" href="" onClick={e => e.preventDefault()}> */}
+    <DownloadOutlined style={{color:'#35a1ff'}} onClick={e => e.preventDefault()} />
+    {/* </a> */}
+  </Dropdown></td>
+  }
   const pageSizeOption: string[]=["10", "20", "50" ,"100"];
   return (
     <Layout>
@@ -71,6 +81,7 @@ export const FormTable = ({loading, forms, pagination, handleChange, filtered, i
                     <th>Form Name</th>
                     <th>Form Link</th>
                     <th></th>
+                    <th></th>
                   </tr>
                 </thead>
                 {!loading ? (
@@ -85,6 +96,7 @@ export const FormTable = ({loading, forms, pagination, handleChange, filtered, i
                               </a>
                             </td>
                             <td>
+                            {tableDataDownload(filt.id, filt.name)}
                             <Popover content={content(filt.id)}>
                               <img src={assets.coloredBurger} alt="menu" />
                             </Popover>
@@ -103,6 +115,7 @@ export const FormTable = ({loading, forms, pagination, handleChange, filtered, i
                                 : form.formlink}{" "}
                             </Link>
                           </td>
+                          {tableDataDownload(form.id, form.name)}
                           <td>
                             <Popover content={content(form.id)}>
                               <img src={assets.coloredBurger} alt="menu" />

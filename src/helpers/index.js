@@ -95,3 +95,8 @@ export const urlHelper = (string) =>{
   token = token.slice(26)
   return token  
 }
+
+export const urlHelperResetPassword = (string) =>{
+  let arr = string.split("token=")
+  return arr[arr.length-1]
+}

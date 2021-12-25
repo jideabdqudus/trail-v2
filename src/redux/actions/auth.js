@@ -166,7 +166,7 @@ export const forgotPassword=(email)=>dispatch=>{
     },
   };
   axios
-    .post(`${appConstants.REACT_APP_BASE_URL}/resettoken/`, email, config)
+    .post(`${appConstants.REACT_APP_BASE_URL}/reset_token/`, email, config)
     .then((response) => {
       dispatch({ type: FORGOT_PASSWORD, payload: response.data });
       toastify.alertSuccess("Kindly check your mail")
@@ -197,10 +197,10 @@ export const resetPassword=(payload)=>dispatch=>{
     },
   };
   axios
-    .post(`${appConstants.REACT_APP_BASE_URL}/auth/passwordreset`, payload, config)
+    .post(`${appConstants.REACT_APP_BASE_URL}/reset_password/auth`, payload, config)
     .then((response) => {
       dispatch({ type: RESET_PASSWORD, payload: response.data });
-      // toastify.alertSuccess("Kindly check your mail")
+      toastify.alertSuccess("Password reset successful")
     })
     .catch((error) => {
       if(error.response===""){

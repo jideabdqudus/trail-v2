@@ -22,6 +22,11 @@ export const FormBuild = () => {
     // eslint-disable-next-line 
   },[])
   //Defining all states found in component
+  
+  const [tags, setTags] = useState<any>([]);
+  const [tag2, setTags2]=useState<any>([])
+
+  
   const [LinkedIndicator, setLinkedIndicator]=useState<string[]>()
   const [builderTypes, ]=useState <IBuildType[]>([
       {
@@ -36,6 +41,10 @@ export const FormBuild = () => {
           name: 'Number Input',
           value: COMPONENT_TYPES.number,
       },
+      {
+        name: 'Multi-choice Question',
+        value: COMPONENT_TYPES.mcq
+    },
   ])
   const [inputs, setInputs]=useState<IInputsFields>({
     title: 'form',
@@ -52,10 +61,17 @@ export const FormBuild = () => {
   })
   const [componentBuild, setComponentBuild] = useState<any>([]);
   const addBuilderTypes = (value: string )=> {
+    setTags2([
+      ...tag2,
+      {
+        option:[]
+      }
+    ])
     setComponentBuild([
       ...componentBuild,
         {
           question: '',
+          question_answers:[],
           targetValue: null,
           targetType: 'Percentage',
           inputType: value,
@@ -63,9 +79,9 @@ export const FormBuild = () => {
           placeholder: '',
           linkedIndicator: null,
           indicatorquestion: '',
-          value: value==='radio'?'number':value,
+          value: value==='radio'?'number':value==='mcradio'?'text':value,
         },
-      ]);   
+      ]); 
     }
   const buildType = (builderType: IBuildType)=>{
     if(inputs.program === "" ){
@@ -86,6 +102,32 @@ export const FormBuild = () => {
         })}
       </Menu>
   )
+  //start of mcq
+  const handleOptionAddition = (tag:any, compIndex:any, name:string) => {
+    setTags([...tags, tag]);
+    if(tags.length <= 3 && tag2.length <= 3){
+      tag2[compIndex].option.push(tag)
+      componentBuild[compIndex].question_answers=tag2[compIndex].option
+  
+      setTags(tag2[compIndex].option)
+    }else{
+      toastify.alertWarning('Cannot have more than 5 options for a multi-choice question')
+    }
+  };
+  const handleOptionDelete = (i:number,compIndex:any) => {
+    const removeTag=tag2[compIndex].option.filter((tag:any,index:number) => index !== i);
+    tag2[compIndex].option=removeTag
+    componentBuild[compIndex].question_answers=tag2[compIndex].option
+    setTags(tag2[compIndex].option)
+  };
+  const onOptionUpdate = (i:number, newTag:any) => {
+    const updatedOptions = tags.slice();
+    updatedOptions.splice(i, 1, newTag);
+    setTags(updatedOptions);
+    setComponentBuild([...componentBuild, {question_answers: tags}])
+  };
+  // end of mcq
+
   // Get linkedindicator 
   const handleLinkedIndicator=(value: string)=>{
     let ind: string[] = []
@@ -135,7 +177,15 @@ export const FormBuild = () => {
     }
   };
   const onFinish=()=>{
-    dispatch(createForm(inputs, history))  
+    inputs.components.forEach(({linkedIndicator, targetType,targetValue, indicatorquestion, question,question_answers,inputType}:any)=>{
+      if((question==="" && indicatorquestion ===0) || (linkedIndicator === "" || targetValue ===null || targetType==="" )){
+        toastify.alertWarning('Kindly fill the appropriate field', 3000)
+      }else if(inputType ==='mcradio' && question_answers.length < 2){
+        toastify.alertWarning('Multi-choice questions requires atleast two options', 3000)
+      }else{dispatch(createForm(inputs, history))  }
+    })
+    // dispatch(createForm(inputs, history))  
+    
   }
     return (
         <div className="container-scroller">
@@ -162,6 +212,11 @@ export const FormBuild = () => {
                       handleChangeQuestion={handleChangeQuestion}
                       handleSelect={handleSelect}
                       onFinish={onFinish}
+                      handleOptionAddition={handleOptionAddition}
+                      handleOptionDelete={handleOptionDelete}
+                      onOptionUpdate={onOptionUpdate}
+                      tags={tags}
+                      tag2={tag2}
                     />
                   </Fragment>
                 </div>

@@ -25,6 +25,9 @@ export const SdgGroup:React.FC<Props> = ({
     if (available.includes(e.target.value)){
       let valueIndex =  available.indexOf(e.target.value)
       available.splice(valueIndex, 1)
+      available.sort(function(a: any, b: any) {
+        return a - b;
+      });
       setAvailable([...available])
       indicatorValue.splice(valueIndex, 1)
       setIndicatorValue([...indicatorValue])
@@ -58,6 +61,8 @@ export const SdgGroup:React.FC<Props> = ({
     })
     setFormData({...formData, sdgs: [...indicatorValue]})
   }
+  setIndicators()
+  
   return (
     <div className="sdg-group">
      <Divider orientation="right">Select SDGs for the program</Divider>
@@ -76,7 +81,7 @@ export const SdgGroup:React.FC<Props> = ({
         </ul>
       }
  
-      {setIndicators()} 
+      {/* {setIndicators()}  */}
 
       { arr && arr?.length > 0 ?
         <Divider orientation="right">Select SDG Indicators</Divider> : null }

@@ -13,7 +13,7 @@ export const setAlert = (msg) => {
 // SET ERRORS
 export const setError = (msg, status) => {
   if(msg){
-    toastify.alertError(`Error: ${msg.message? msg.message : msg}, Status: ${status}`, 3000)
+    toastify.alertError(`Error: ${msg.message? msg.message : msg}`, 3000)
   }else{
     toastify.alertError("Error Found", 1500)
   }  
